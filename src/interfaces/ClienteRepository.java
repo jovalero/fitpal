@@ -7,7 +7,7 @@ import modelo.Cliente;
 
 
 
-public interface UserRepository {
+public interface ClienteRepository {
 	
 	LinkedList<Cliente> getAllClientes(); // llama a todos los Clientes de la bdd
     
