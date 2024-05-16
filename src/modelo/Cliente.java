@@ -1,5 +1,6 @@
 package modelo;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
@@ -11,19 +12,23 @@ public class Cliente extends Persona{
 	private int id_entrenador;
 	private int id_dieta;
 	private int id_rutina;
-	private boolean estado_sus;
+	private String estado_sus;
 	private int puntos;
-	private LocalDate Fechavenc;
+	private Date Fechavenc;
+	private double peso;
+	private double altura;
 	
-	public Cliente(String nombre, String apellido, int telefono, int id_sucursal, int dNI, int id_cliente, String email, String contrasena, String Objetivo) {
+	public Cliente(String nombre, String apellido, int telefono, int id_sucursal, int dNI, int id_cliente, String email, String contrasena, String Objetivo, double peso, double altura) {
 		super(nombre, apellido, telefono, id_sucursal, dNI,contrasena,email);
 		this.id_cliente= id_cliente;
 		this.objetivo= Objetivo;
 		this.id_entrenador=0;
 		this.id_dieta=0;
-		this.estado_sus=false;
+		this.estado_sus="Desactivada";
 		this.puntos=0;
 		this.Fechavenc=null;
+		this.altura=altura;
+		this.peso=peso;
 	}
 
 	public Cliente(String email, String contrasena) {
@@ -32,10 +37,29 @@ public class Cliente extends Persona{
 		this.objetivo= "";
 		this.id_entrenador=0;
 		this.id_dieta=0;
-		this.estado_sus=false;
+		this.estado_sus="Desactivada";
 		this.puntos=0;
 		this.Fechavenc=null;
+		this.peso=24.0;
+		this.altura=1.5;
 	}
+	
+	public double getPeso() {
+		return peso;
+	}
+
+	public void setPeso(double peso) {
+		this.peso = peso;
+	}
+
+	public double getAltura() {
+		return altura;
+	}
+
+	public void setAltura(double altura) {
+		this.altura = altura;
+	}
+
 	public int getId_cliente() {
 		return id_cliente;
 	}
@@ -77,27 +101,27 @@ public class Cliente extends Persona{
 		this.id_rutina = id_rutina;
 	}
 
-	public boolean isEstado_sus() {
+	public int getPuntos() {
+		return puntos;
+	}
+
+	public String getEstado_sus() {
 		return estado_sus;
 	}
 
-	public void setEstado_sus(boolean estado_sus) {
+	public void setEstado_sus(String estado_sus) {
 		this.estado_sus = estado_sus;
-	}
-
-	public int getPuntos() {
-		return puntos;
 	}
 
 	public void setPuntos(int puntos) {
 		this.puntos = puntos;
 	}
 
-	public LocalDate getFechavenc() {
+	public Date getFechavenc() {
 		return Fechavenc;
 	}
 
-	public void setFechavenc(LocalDate fechavenc) {
+	public void setFechavenc(Date fechavenc) {
 		Fechavenc = fechavenc;
 	}
 

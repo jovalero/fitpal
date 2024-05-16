@@ -29,7 +29,7 @@ public class AdminControlador implements UserRepository {
             ResultSet resultSet = statement.executeQuery();
        
             while (resultSet.next()) {
-            	Cliente user = new Cliente(resultSet.getString("Nombre"),resultSet.getString("Apellido"),resultSet.getInt("Telefono"),resultSet.getInt("ID_sucursal"),resultSet.getInt("DNI"),resultSet.getInt("ID_cliente"),resultSet.getString("Correo_electronico"),resultSet.getString("Contrasenia"),resultSet.getString("Objetivooo"));
+            	Cliente user = new Cliente(resultSet.getString("Nombre"),resultSet.getString("Apellido"),resultSet.getInt("Telefono"),resultSet.getInt("ID_sucursal"),resultSet.getInt("DNI"),resultSet.getInt("ID_cliente"),resultSet.getString("Correo_electronico"),resultSet.getString("Contrasenia"),resultSet.getString("Objetivo"),resultSet.getDouble("Peso"),resultSet.getDouble("Altura"));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -48,7 +48,7 @@ public class AdminControlador implements UserRepository {
 	            ResultSet resultSet = statement.executeQuery();
 	            
 	            if (resultSet.next()) {
-	            	user = new Cliente(resultSet.getString("Nombre"),resultSet.getString("Apellido"),resultSet.getInt("Telefono"),resultSet.getInt("ID_sucursal"),resultSet.getInt("DNI"),resultSet.getInt("ID_cliente"),resultSet.getString("Correo_electronico"),resultSet.getString("Contrasenia"),resultSet.getString("Objetivooo"));
+	            	user = new Cliente(resultSet.getString("Nombre"),resultSet.getString("Apellido"),resultSet.getInt("Telefono"),resultSet.getInt("ID_sucursal"),resultSet.getInt("DNI"),resultSet.getInt("ID_cliente"),resultSet.getString("Correo_electronico"),resultSet.getString("Contrasenia"),resultSet.getString("Objetivo"),resultSet.getDouble("Peso"),resultSet.getDouble("Altura"));
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
@@ -67,12 +67,11 @@ public class AdminControlador implements UserRepository {
             statement.setInt(5, cliente.getDNI());
             statement.setString(6, cliente.getObjetivo());
             statement.setInt(7, cliente.getPuntos());
-            statement.setString(8, "Desactivada");
-            statement.setInt(9,78);
-            statement.setInt(10,14);
-            statement.setString(11,"PrimerUsuario");
-            Date fechaActual = Date.valueOf(LocalDate.now());
-            statement.setDate(12,fechaActual);
+            statement.setString(8, cliente.getEstado_sus());
+            statement.setDouble(9,cliente.getPeso());
+            statement.setDouble(10,cliente.getAltura());
+            statement.setString(11,cliente.getContrasena());
+            statement.setDate(12,cliente.getFechavenc());
             statement.setInt(13, cliente.getTelefono());
             statement.setString(14,cliente.getUsuario());
             statement.setString(15,cliente.getNombre());
