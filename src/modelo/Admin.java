@@ -1,4 +1,4 @@
-package fitpal;
+package modelo;
 
 import javax.swing.JOptionPane;
 

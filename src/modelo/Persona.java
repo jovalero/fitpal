@@ -1,6 +1,6 @@
-package fitpal;
+package modelo;
 
-abstract class Persona {
+public abstract class Persona {
 	
 	private String Nombre;
 	private String Apellido;

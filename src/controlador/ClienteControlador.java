@@ -1,5 +1,5 @@
 
-package fitpal;
+package controlador;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,8 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Interfaces.UserRepository;
-import Modelo.Usuario;
+import interfaces.UserRepository;
 
 public class ClienteControlador implements UserRepository {
     private final Connection connection;

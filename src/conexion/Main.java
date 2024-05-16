@@ -1,8 +1,9 @@
-package fitpal;
+package conexion;
 
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
+import modelo.*;
 
 public class Main {
 
