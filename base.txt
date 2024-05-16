@@ -1,0 +1,116 @@
+CREATE DATABASE fitpal;
+
+USE fitpal;
+
+CREATE TABLE sucursal (
+  ID_Sucursal INT PRIMARY KEY,
+  Direccion VARCHAR(255) NOT NULL,
+  Telefono VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE areas (
+  ID_Area INT PRIMARY KEY ,
+  Nombre VARCHAR(255) NOT NULL,
+  ID_Sucursal INT NOT NULL,
+  Ubicacion VARCHAR(255),
+  FOREIGN KEY (ID_Sucursal) REFERENCES sucursal(ID_Sucursal)
+);
+CREATE TABLE ejercicio (
+  ID_Ejercicio INT PRIMARY KEY AUTO_INCREMENT,
+  Nombre VARCHAR(255) NOT NULL,
+  Maquina VARCHAR(255),
+  Musculo VARCHAR(255) NOT NULL,
+  Descripcion TEXT NOT NULL,
+  Video VARCHAR(255),
+  ID_Area INT NOT NULL,
+  FOREIGN KEY (ID_Area) REFERENCES areas(ID_Area)
+);
+CREATE TABLE rutina (
+  ID_Rutina INT PRIMARY KEY AUTO_INCREMENT,
+  Estado VARCHAR(255) NOT NULL,
+  Descripcion TEXT NOT NULL,
+  Objetivo VARCHAR(255) NOT NULL
+);
+CREATE TABLE ejercicio_rutina (
+  ID_Ejercicio_Rutina INT PRIMARY KEY AUTO_INCREMENT,
+  ID_Ejercicio INT NOT NULL,
+  ID_Rutina INT NOT NULL,
+  Num_Series INT NOT NULL,
+  Repeticiones INT NOT NULL,
+  FOREIGN KEY (ID_Ejercicio) REFERENCES ejercicio(ID_Ejercicio),
+  FOREIGN KEY (ID_Rutina) REFERENCES rutina(ID_Rutina)
+);
+
+CREATE TABLE dieta (
+  ID_Dieta INT PRIMARY KEY,
+  Nombre_Dieta VARCHAR(255) NOT NULL,
+  Descripcion_Dieta TEXT NOT NULL
+);
+
+CREATE TABLE comida (
+  ID_Comida INT PRIMARY KEY ,
+  Nombre VARCHAR(255) NOT NULL,
+  Descripcion TEXT NOT NULL
+);
+CREATE TABLE dieta_comida (
+  ID_Dieta_Comida INT PRIMARY KEY ,
+  ID_Dieta INT NOT NULL,
+  ID_Comida INT NOT NULL,
+  Cantidad DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (ID_Dieta) REFERENCES dieta(ID_Dieta),
+  FOREIGN KEY (ID_Comida) REFERENCES comida(ID_Comida)
+);
+
+CREATE TABLE administrador (
+  ID_Administrador INT PRIMARY KEY,
+  ID_Sucursal INT NOT NULL,
+  Telefono VARCHAR(255) NOT NULL,
+  Apellido VARCHAR(255) NOT NULL,
+  DNI VARCHAR(255) NOT NULL,
+  Contrasenia VARCHAR(255) NOT NULL,
+  Nombre VARCHAR(255) NOT NULL,
+  FOREIGN KEY (ID_Sucursal) REFERENCES sucursal(ID_Sucursal)  -- Corrected typo here
+);
+CREATE TABLE entrenador (
+  ID_Entrenador INT PRIMARY KEY,
+  Nombre VARCHAR(255) NOT NULL,
+  Apellido VARCHAR(255) NOT NULL,
+  Contrasenia VARCHAR(255) NOT NULL,
+  ID_Sucursal INT NOT NULL,
+  Num_Entrenados INT NOT NULL,
+  FOREIGN KEY (ID_Sucursal) REFERENCES sucursal(ID_Sucursal) -- Corrected typo here
+);
+CREATE TABLE cliente (
+  ID_cliente INT PRIMARY KEY,
+  ID_Entrenador INT NOT NULL,
+  ID_Dieta INT NOT NULL,
+  ID_sucursal INT NOT NULL,
+  Peso double NOT NULL,
+  Altura double NOT NULL,
+  Objetivo VARCHAR(250) NOT NULL,
+  Nombre VARCHAR(255) NOT NULL,
+  Apellido VARCHAR(255) NOT NULL,
+  Correo_electronico VARCHAR(255) UNIQUE NOT NULL,
+  Telefono VARCHAR(255) NOT NULL,
+  Fecha_venc_sus DATE NOT NULL,
+  Contrasenia VARCHAR(255) NOT NULL,
+  Estado_sus VARCHAR(255) NOT NULL,
+  Puntos INT NOT NULL,
+  FOREIGN KEY (ID_Entrenador) REFERENCES entrenador(ID_Entrenador),
+  FOREIGN KEY (ID_Dieta) REFERENCES dieta(ID_Dieta),
+  FOREIGN KEY (ID_sucursal) REFERENCES sucursal(ID_Sucursal)
+);
+CREATE TABLE progreso (
+  ID_Progreso INT PRIMARY KEY,
+  ID_Cliente INT NOT NULL,
+  Fecha DATE NOT NULL,
+  Imagen VARCHAR(255) NOT NULL,
+  Peso DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (ID_Cliente) REFERENCES cliente(ID_cliente)
+);
+CREATE TABLE incentivo (
+    id_incentivo INT PRIMARY KEY,
+    recompensa VARCHAR(100),
+    costo DECIMAL(10, 2),
+    dirigido VARCHAR(50)
+);
