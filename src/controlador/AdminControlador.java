@@ -89,14 +89,22 @@ public class AdminControlador implements UserRepository {
 	@Override
 	public void updateCliente(Cliente cliente) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE cliente SET Nombre = ?, Apellido = ?, Objetivooo= ?, Contrasenia = ?, Telefono = ?, Correo_Electronico = ? WHERE id = ?");
-            statement.setString(6,cliente.getUsuario());
+            PreparedStatement statement = connection.prepareStatement("UPDATE cliente SET Nombre = ?, Apellido = ?, Objetivooo= ?, Contrasenia = ?, Telefono = ?, Correo_Electronico = ?,Fecha_venc_sus = ?, Puntos= ?,Estado_sus= ?,ID_Entrenador= ?,ID_Dieta= ? WHERE id = ?");
+            
             statement.setString(1,cliente.getNombre());
             statement.setString(2,cliente.getApellido());
             statement.setString(3,cliente.getObjetivo());
             statement.setString(4,cliente.getContrasena());
             statement.setInt(5,cliente.getTelefono());
-            statement.setInt(7,cliente.getId_cliente());
+            statement.setString(6,cliente.getUsuario());
+            statement.setDate(7, cliente.getFechavenc());
+            statement.setInt(8,cliente.getPuntos());
+            statement.setString(9,cliente.getEstado_sus());
+            statement.setInt(10,cliente.getId_entrenador());
+            statement.setInt(11,cliente.getId_dieta());
+            
+            
+            statement.setInt(12,cliente.getId_cliente());
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("Usuario actualizado exitosamente");
@@ -108,7 +116,7 @@ public class AdminControlador implements UserRepository {
 	}
 
 	@Override
-	public void deleteCliente(int Cliente) {
+	public void deleteCliente(int id) {
 		// TODO Auto-generated method stub
 		
 	}
