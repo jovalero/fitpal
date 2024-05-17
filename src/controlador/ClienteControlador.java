@@ -17,7 +17,7 @@ import java.sql.Date;
 import interfaces.UserRepository;
 import modelo.Cliente;
 
-public class ClienteControlador implements UserRepository {
+public class ClienteControlador implements ClienteRepository {
     private final Connection connection;
 
     public ClienteControlador() {
