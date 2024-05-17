@@ -8,7 +8,7 @@ public interface DietaRepository {
 	
 	LinkedList<Dieta> getAllDieta(); 
     
-	Dieta getDietaByDNI(int id); 
+	Dieta getDietaById(int id); 
     
     void addDieta(Dieta Dieta); 
     
