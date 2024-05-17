@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 
 import java.sql.Date;
 
+import interfaces.ClienteRepository;
 import interfaces.UserRepository;
 import modelo.Cliente;
 
@@ -124,6 +125,9 @@ public class ClienteControlador implements ClienteRepository {
 			PreparedStatement statement = connection.prepareStatement("DELETE from cliente where ID_Cliente= ? ");
 			statement.setInt(1, id);
 			int rowsDeleted= statement.executeUpdate();
+			if (rowsDeleted>0) {
+				JOptionPane.showMessageDialog(null, "Se elimino el cliente correctamente");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "No  se pudo eliminar el usuario");
