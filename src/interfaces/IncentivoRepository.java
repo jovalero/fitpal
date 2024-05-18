@@ -4,8 +4,7 @@ import java.util.LinkedList;
 
 import modelo.Entrenador;
 
-public interface EntrenadorRepository {
-	
+public interface IncentivoRepository {
 LinkedList<Entrenador> getAllEntrenadores(); // llama a todos los Entrenadores de la bdd
     
     Entrenador getEntrenadorByid(int id); //llama solo a uno, por su id
@@ -16,4 +15,5 @@ LinkedList<Entrenador> getAllEntrenadores(); // llama a todos los Entrenadores d
     
     void deleteEntrenador(int Entrenador); //eliminar usuarios de la bdd
 }
+
 

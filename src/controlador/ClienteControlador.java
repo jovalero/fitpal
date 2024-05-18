@@ -13,6 +13,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import java.sql.Date;
+import interfaces.ClienteRepository;
+
 
 import interfaces.ClienteRepository;
 import interfaces.UserRepository;

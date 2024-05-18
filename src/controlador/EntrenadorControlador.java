@@ -9,12 +9,18 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 import interfaces.EntrenadorRepository;
+
 import modelo.Admin;
 import modelo.Cliente;
 import modelo.Entrenador;
 
 public class EntrenadorControlador implements EntrenadorRepository {
 	private static final Entrenador Entrenador = null;
+
+import modelo.Entrenador;
+
+public class EntrenadorControlador implements EntrenadorRepository {
+	 
 	private final Connection connection;
 
 	  public EntrenadorControlador() {
@@ -60,9 +66,6 @@ public class EntrenadorControlador implements EntrenadorRepository {
 		return entrenador;
 	}
 
-
-
-
 	@Override
 	public void addEntrenador(Entrenador entrenador) {
 		try {
@@ -78,6 +81,9 @@ public class EntrenadorControlador implements EntrenadorRepository {
             statement.setString(6,entrenador.getUsuario());
             statement.setString(7,entrenador.getNombre());
             statement.setString(8,entrenador.getApellido());
+            statement.setString(6,entrenador.getNombre());
+            statement.setString(7,entrenador.getApellido());
+            statement.setString(8,entrenador.getUsuario());
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("Usuario insertado exitosamente");
@@ -92,13 +98,41 @@ public class EntrenadorControlador implements EntrenadorRepository {
 
 	@Override
 	public void updateEntrenador(Entrenador Entrenador) {
-		// TODO Auto-generated method stub
+		try {
+            PreparedStatement statement = connection.prepareStatement("UPDATE Entrenador SET ID_sucursal= ? ID_Entrenador= ?, DNI= ?, Contrasenia= ?, Telefono= ?, Correo_electronico= ?, Apellido= ?, Nombre= ?  WHERE id = ?");
+            
+            statement.setString(1,Entrenador.getNombre());
+            statement.setString(2,Entrenador.getApellido());
+            statement.setString(3,Entrenador.getContrasena());
+            statement.setInt(4,Entrenador.getTelefono());     
+            statement.setInt(5,Entrenador.getId_entrenador());
+            statement.setInt(6, Entrenador.getDNI());
+            statement.setInt(7, Entrenador.getId_sucursal());
+            statement.setString(8,Entrenador.getUsuario());
+            
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Usuario actualizado exitosamente");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 		
 	}
 
 	@Override
 	public void deleteEntrenador(int Entrenador) {
-		// TODO Auto-generated method stub
+			try {
+			PreparedStatement statement = connection.prepareStatement("DELETE from Entrenador where ID_entrenador= ? ");
+			statement.setInt(1, Entrenador);
+			int rowsDeleted= statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "No  se pudo eliminar el Entrenador");
+		}
 		
 	}
+		
+	}
+
 }
