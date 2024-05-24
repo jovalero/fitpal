@@ -1,6 +1,4 @@
 
-package controlador;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,9 +11,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import java.sql.Date;
-
 import interfaces.ClienteRepository;
-import interfaces.UserRepository;
+import controlador.DatabaseConnection;
 import modelo.Cliente;
 
 public class ClienteControlador implements ClienteRepository {
