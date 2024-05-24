@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.LinkedList;
+
 import javax.swing.JOptionPane;
 
 import controlador.ClienteControlador;
@@ -42,9 +44,22 @@ public class Admin extends Persona implements VerificacionesRepository{
 	
 	public void RegistrarCliente() {
 		ClienteControlador controlador= new ClienteControlador();
+		LinkedList<Cliente> clientes = controlador.getAllClientes();
 		
 		String Nombre=VerificacionesRepository.Sololetras("Escribe el nombre del cliente: ");
+		String Apellido=VerificacionesRepository.Sololetras("Escribe el apellido del cliente");
 		
+		String Email=VerificacionesRepository.Mail();
+		
+		
+		int Telefono=VerificacionesRepository.SoloEnteros("Ingresa el telefono del cliente: ");
+		int sucursal= this.getId_sucursal();
+		
+		int DNI=VerificacionesRepository.SoloEnteros("Ingrese DNI del cliente");
+		
+		String Contrasena= "Primeracontrasena!";
+		Double peso=VerificacionesRepository.SoloDoubles("Ingresa peso: ");
+		Double Altura=VerificacionesRepository.SoloDoubles("Ingresa altura: ");
 		
 	}
 
