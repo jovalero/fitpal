@@ -14,8 +14,6 @@ import modelo.Admin;
 import modelo.Cliente;
 import modelo.Entrenador;
 
-public class EntrenadorControlador implements EntrenadorRepository {
-	private static final Entrenador Entrenador = null;
 
 import modelo.Entrenador;
 
@@ -93,8 +91,8 @@ public class EntrenadorControlador implements EntrenadorRepository {
         }
 		
 	}
-		
-	}
+	
+	
 
 	@Override
 	public void updateEntrenador(Entrenador Entrenador) {
@@ -135,4 +133,4 @@ public class EntrenadorControlador implements EntrenadorRepository {
 		
 	}
 
-}
+
