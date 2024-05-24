@@ -2,7 +2,11 @@ package modelo;
 
 import javax.swing.JOptionPane;
 
-public class Admin extends Persona {
+import controlador.ClienteControlador;
+import interfaces.VerificacionesRepository;
+
+
+public class Admin extends Persona implements VerificacionesRepository{
 	
 	private int id_admin;
 	
@@ -34,6 +38,14 @@ public class Admin extends Persona {
 		return "Admin [id_admin=" + id_admin + ", getNombre()=" + getNombre() + ", getApellido()=" + getApellido()
 				+ ", getTelefono()=" + getTelefono() + ", getId_sucursal()=" + getId_sucursal() + ", getDNI()="
 				+ getDNI() + ", getContrasena()=" + getContrasena() + ", getUsuario()=" + getUsuario() + "]";
+	}
+	
+	public void RegistrarCliente() {
+		ClienteControlador controlador= new ClienteControlador();
+		
+		String Nombre=VerificacionesRepository.Sololetras("Escribe el nombre del cliente: ");
+		
+		
 	}
 
 	@Override
