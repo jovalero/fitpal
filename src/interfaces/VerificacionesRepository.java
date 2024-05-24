@@ -3,12 +3,16 @@ package interfaces;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
 import controlador.ClienteControlador;
+import controlador.EntrenadorControlador;
+import modelo.Cliente;
+import modelo.Entrenador;
 
 public interface VerificacionesRepository {
 
@@ -106,7 +110,11 @@ public interface VerificacionesRepository {
                  if (!matcher.matches()) {          
                      emailvalido=false;
                      JOptionPane.showMessageDialog(null, "Email invalido");
-                 } 
+                 }
+                 else if (MailExistente(email)) {
+					emailvalido=false;
+					JOptionPane.showMessageDialog(null, "Ya existe una cuenta con ese correo");
+				}
              } else {
             	 emailvalido=false;
                  JOptionPane.showMessageDialog(null, "No se ingresó ningún email.");
@@ -115,9 +123,34 @@ public interface VerificacionesRepository {
          return email;
   
      }
-     static boolean MailExistente() {
+     static boolean MailExistente(String email) {
     	 ClienteControlador clientecontrolador= new ClienteControlador();
+    	 EntrenadorControlador entrenadorcontrolador= new EntrenadorControlador();
+    	 LinkedList<Cliente> clientes= clientecontrolador.getAllClientes();
+    	 LinkedList<Entrenador> Entrenadores= entrenadorcontrolador.getAllEntrenadores();
     	 
+    	 for (int i = 0; i < clientes.size(); i++) {
+			if (email.equalsIgnoreCase(clientes.get(i).getUsuario())) {
+				return true;
+			}
+		}
+    	 for (int i = 0; i < Entrenadores.size(); i++) {
+			if (email.equalsIgnoreCase(Entrenadores.get(i).getUsuario())) {
+				return true;
+			}
+		}
+    	 
+    	 return false;
+     }
+     static boolean DNIExistente(int DNI) {
+    	 ClienteControlador clientecontrolador= new ClienteControlador();
+    	 LinkedList<Cliente> clientes= clientecontrolador.getAllClientes();
+    	 for (int i = 0; i < clientes.size(); i++) {
+			if (DNI==clientes.get(i).getDNI()) {
+				JOptionPane.showMessageDialog(null, "El DNI Ya existe en otra cuenta");
+				return true;
+			}
+    	 }
     	 return false;
      }
 

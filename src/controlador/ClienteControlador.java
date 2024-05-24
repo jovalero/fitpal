@@ -60,7 +60,7 @@ public class ClienteControlador implements ClienteRepository {
 	@Override
 	public void addCliente(Cliente cliente) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO cliente (ID_Entrenador, ID_Dieta, ID_sucursal, DNI, Objetivooo, Puntos, Estado_sus, Peso, Altura, Contrasenia, Fecha_venc_sus, Telefono, Correo_electronico, Apellido, Nombre ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO cliente (ID_Entrenador, ID_Dieta, ID_sucursal, DNI, Objetivo, Puntos, Estado_sus, Peso, Altura, Contrasenia, Fecha_venc_sus, Telefono, Correo_electronico, Apellido, Nombre ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
             
             statement.setInt(1, cliente.getId_entrenador());
             statement.setInt(2, cliente.getId_sucursal());

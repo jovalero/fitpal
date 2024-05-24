@@ -44,8 +44,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 	
 	public void RegistrarCliente() {
 		ClienteControlador controlador= new ClienteControlador();
-		LinkedList<Cliente> clientes = controlador.getAllClientes();
-		
+		int DNI;
 		String Nombre=VerificacionesRepository.Sololetras("Escribe el nombre del cliente: ");
 		String Apellido=VerificacionesRepository.Sololetras("Escribe el apellido del cliente");
 		
@@ -55,13 +54,21 @@ public class Admin extends Persona implements VerificacionesRepository{
 		int Telefono=VerificacionesRepository.SoloEnteros("Ingresa el telefono del cliente: ");
 		int sucursal= this.getId_sucursal();
 		
-		int DNI=VerificacionesRepository.SoloEnteros("Ingrese DNI del cliente");
+		do {
+			DNI=VerificacionesRepository.SoloEnteros("Ingrese DNI del cliente");
+		} while (VerificacionesRepository.DNIExistente(DNI));
+		
 		
 		String Contrasena= "Primeracontrasena!";
-		Double peso=VerificacionesRepository.SoloDoubles("Ingresa peso: ");
+		Double Peso=VerificacionesRepository.SoloDoubles("Ingresa peso: ");
 		Double Altura=VerificacionesRepository.SoloDoubles("Ingresa altura: ");
 		
+		
+		Cliente nuevocliente= new Cliente(Nombre,Apellido,Telefono,sucursal,DNI,Email,Contrasena,"Nuevo",Peso,Altura);
+		controlador.addCliente(nuevocliente);
 	}
+	
+	
 
 	@Override
 	public void Menu() {
@@ -79,6 +86,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 
                 switch (Elegida) {
                     case "Crear":
+                    	RegistrarCliente();
                         break;
 
                     case "Modificar":
