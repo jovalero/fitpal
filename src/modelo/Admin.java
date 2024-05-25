@@ -46,26 +46,36 @@ public class Admin extends Persona implements VerificacionesRepository{
 		ClienteControlador controlador= new ClienteControlador();
 		int DNI;
 		String Nombre=VerificacionesRepository.Sololetras("Escribe el nombre del cliente: ");
-		String Apellido=VerificacionesRepository.Sololetras("Escribe el apellido del cliente");
-		
-		String Email=VerificacionesRepository.Mail();
-		
-		
-		int Telefono=VerificacionesRepository.SoloEnteros("Ingresa el telefono del cliente: ");
-		int sucursal= this.getId_sucursal();
-		
-		do {
-			DNI=VerificacionesRepository.SoloEnteros("Ingrese DNI del cliente");
-		} while (VerificacionesRepository.DNIExistente(DNI));
-		
-		
-		String Contrasena= "Primeracontrasena!";
-		Double Peso=VerificacionesRepository.SoloDoubles("Ingresa peso: ");
-		Double Altura=VerificacionesRepository.SoloDoubles("Ingresa altura: ");
-		
-		
-		Cliente nuevocliente= new Cliente(Nombre,Apellido,Telefono,sucursal,DNI,Email,Contrasena,"Nuevo",Peso,Altura);
-		controlador.addCliente(nuevocliente);
+		if (Nombre != null) {
+			String Apellido=VerificacionesRepository.Sololetras("Escribe el apellido del cliente");
+			if (Apellido !=null) {
+				String Email=VerificacionesRepository.Mail();
+				if (Email!=null) {
+					int Telefono=VerificacionesRepository.SoloEnteros("Ingresa el telefono del cliente: ");
+					if (Telefono!=-1) {
+						int sucursal= this.getId_sucursal();
+						do {
+							DNI=VerificacionesRepository.SoloEnteros("Ingrese DNI del cliente");
+						} while (VerificacionesRepository.DNIExistente(DNI));
+						if (DNI!=-1) {
+							String Contrasena= "Primeracontrasena!";
+							Double Peso=VerificacionesRepository.SoloDoubles("Ingresa peso: ");
+							if (Peso!=-1) {
+								Double Altura=VerificacionesRepository.SoloDoubles("Ingresa altura: ");
+								if (Altura!=-1) {
+									Cliente nuevocliente= new Cliente(Nombre,Apellido,Telefono,sucursal,DNI,Email,Contrasena,"Nuevo",Peso,Altura);
+									controlador.addCliente(nuevocliente);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Has cancelado la operacion");
+		}
+
 	}
 	
 	
