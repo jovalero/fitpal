@@ -78,6 +78,83 @@ public class Admin extends Persona implements VerificacionesRepository{
 
 	}
 	
+	public void ModificarCliente() {
+		ClienteControlador controlador = new ClienteControlador();
+		LinkedList<Cliente> Clientes = controlador.getAllClientes();
+		Cliente [] ArrayClientes= Clientes.toArray(new Cliente[0]);
+		String[] Opciones= {"Nombre","Apellido","Email","Contraseña","DNI","Suscripcion","Puntos","Salir"};
+		
+		Cliente opcion=(Cliente)JOptionPane.showInputDialog(null,"Que cliente quieres modificar: ","Seleccionador cliente",JOptionPane.DEFAULT_OPTION,null,ArrayClientes,ArrayClientes[0]);
+		Cliente nuevocliente= opcion;
+		int accion= JOptionPane.showOptionDialog(null, "Que deseas hacer?", "accion", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, Opciones, Opciones[0]);
+		
+		switch (accion) {
+		case 0:
+			String Nombre=VerificacionesRepository.Sololetras("Tu antiguo nombre es: " + nuevocliente.getNombre() +" Coloca el nuevo: ");
+			if (Nombre!=null) {
+				nuevocliente.setNombre(Nombre);
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Se cancelo la operacion");
+			}
+			
+			break;
+		case 1:
+			String Apellido=VerificacionesRepository.Sololetras("Tu antiguo Apellido es: " + nuevocliente.getApellido() +" Coloca el nuevo: ");
+			if (Apellido!=null) {
+				nuevocliente.setApellido(Apellido);
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Se cancelo la operacion");
+			}
+			break;
+		case 2:
+			String Email=VerificacionesRepository.Mail();
+			if (Email!=null) {
+				nuevocliente.setUsuario(Email);
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Se cancelo la operacion");
+			}
+			break;
+		case 3:
+			String Contrasena="Nuevacontra!";
+			nuevocliente.setContrasena(Contrasena);
+			break;
+		case 4:
+			int DNI=VerificacionesRepository.SoloEnteros("El antiguo dni es: " + nuevocliente.getDNI()+ " Coloca el nuevo:");
+			if (DNI!=-1) {
+				nuevocliente.setDNI(DNI);
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Se cancelo la operacion");
+			}
+			break;
+		case 5:
+			String [] opcionesnuevas= {"Estado de suscripcion","Fecha de vencimiento","Salir"};
+			int elegida=JOptionPane.showOptionDialog(null, "Que deseas modificar de la suscripcion: ", "Menu suscripcion", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesnuevas, opcionesnuevas[0]);
+			switch (elegida) {
+			case 0:
+				
+				break;
+			case 1:
+				
+				break;
+
+			default:
+				break;
+			}
+			break;
+		case 6:
+			
+			break;
+
+		default:
+			break;
+		}
+		
+	}
+	
 	
 
 	@Override

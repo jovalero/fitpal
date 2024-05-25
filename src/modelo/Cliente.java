@@ -140,12 +140,7 @@ public class Cliente extends Persona{
 
 	@Override
 	public String toString() {
-		return "Cliente [id_cliente=" + id_cliente + ", objetivo=" + objetivo + ", id_entrenador=" + id_entrenador
-				+ ", id_dieta=" + id_dieta + ", id_rutina=" + id_rutina + ", estado_sus=" + estado_sus + ", puntos="
-				+ puntos + ", Fechavenc=" + Fechavenc + ", getNombre()=" + getNombre() + ", getApellido()="
-				+ getApellido() + ", getTelefono()=" + getTelefono() + ", getId_sucursal()=" + getId_sucursal()
-				+ ", getDNI()=" + getDNI() + ", getContrasena()=" + getContrasena() + ", getUsuario()=" + getUsuario()
-				+ "]";
+		return "Cliente: " + this.getNombre() + " "+ this.getApellido() +"DNI: " + this.getDNI();
 	}
 
 	@Override
