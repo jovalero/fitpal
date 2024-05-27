@@ -14,7 +14,7 @@ public class Cliente extends Persona{
 	private int id_rutina;
 	private String estado_sus;
 	private int puntos;
-	private Date Fechavenc;
+	private LocalDate Fechavenc;
 	private double peso;
 	private double altura;
 	
@@ -129,11 +129,11 @@ public class Cliente extends Persona{
 		this.puntos = puntos;
 	}
 
-	public Date getFechavenc() {
+	public LocalDate getFechavenc() {
 		return Fechavenc;
 	}
 
-	public void setFechavenc(Date fechavenc) {
+	public void setFechavenc(LocalDate fechavenc) {
 		Fechavenc = fechavenc;
 	}
 

@@ -1,5 +1,6 @@
 package modelo;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
@@ -79,6 +80,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 	}
 	
 	public void ModificarCliente() {
+		String otramodificacion;
 		ClienteControlador controlador = new ClienteControlador();
 		LinkedList<Cliente> Clientes = controlador.getAllClientes();
 		Cliente [] ArrayClientes= Clientes.toArray(new Cliente[0]);
@@ -86,71 +88,156 @@ public class Admin extends Persona implements VerificacionesRepository{
 		
 		Cliente opcion=(Cliente)JOptionPane.showInputDialog(null,"Que cliente quieres modificar: ","Seleccionador cliente",JOptionPane.DEFAULT_OPTION,null,ArrayClientes,ArrayClientes[0]);
 		Cliente nuevocliente= opcion;
-		int accion= JOptionPane.showOptionDialog(null, "Que deseas hacer?", "accion", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, Opciones, Opciones[0]);
-		
-		switch (accion) {
-		case 0:
-			String Nombre=VerificacionesRepository.Sololetras("Tu antiguo nombre es: " + nuevocliente.getNombre() +" Coloca el nuevo: ");
-			if (Nombre!=null) {
-				nuevocliente.setNombre(Nombre);
-			}
-			else {
-				JOptionPane.showMessageDialog(null, "Se cancelo la operacion");
-			}
+		do {
+			int accion= JOptionPane.showOptionDialog(null, "Que deseas hacer?", "accion", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, Opciones, Opciones[0]);
 			
-			break;
-		case 1:
-			String Apellido=VerificacionesRepository.Sololetras("Tu antiguo Apellido es: " + nuevocliente.getApellido() +" Coloca el nuevo: ");
-			if (Apellido!=null) {
-				nuevocliente.setApellido(Apellido);
-			}
-			else {
-				JOptionPane.showMessageDialog(null, "Se cancelo la operacion");
-			}
-			break;
-		case 2:
-			String Email=VerificacionesRepository.Mail();
-			if (Email!=null) {
-				nuevocliente.setUsuario(Email);
-			}
-			else {
-				JOptionPane.showMessageDialog(null, "Se cancelo la operacion");
-			}
-			break;
-		case 3:
-			String Contrasena="Nuevacontra!";
-			nuevocliente.setContrasena(Contrasena);
-			break;
-		case 4:
-			int DNI=VerificacionesRepository.SoloEnteros("El antiguo dni es: " + nuevocliente.getDNI()+ " Coloca el nuevo:");
-			if (DNI!=-1) {
-				nuevocliente.setDNI(DNI);
-			}
-			else {
-				JOptionPane.showMessageDialog(null, "Se cancelo la operacion");
-			}
-			break;
-		case 5:
-			String [] opcionesnuevas= {"Estado de suscripcion","Fecha de vencimiento","Salir"};
-			int elegida=JOptionPane.showOptionDialog(null, "Que deseas modificar de la suscripcion: ", "Menu suscripcion", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesnuevas, opcionesnuevas[0]);
-			switch (elegida) {
+			switch (accion) {
 			case 0:
+				String Nombre=VerificacionesRepository.Sololetras("Tu antiguo nombre es: " + nuevocliente.getNombre() +" Coloca el nuevo: ");
+				if (Nombre!=null) {
+					nuevocliente.setNombre(Nombre);
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Se cancelo la operacion");
+				}
 				
 				break;
 			case 1:
-				
+				String Apellido=VerificacionesRepository.Sololetras("Tu antiguo Apellido es: " + nuevocliente.getApellido() +" Coloca el nuevo: ");
+				if (Apellido!=null) {
+					nuevocliente.setApellido(Apellido);
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Se cancelo la operacion");
+				}
 				break;
+			case 2:
+				String Email=VerificacionesRepository.Mail();
+				if (Email!=null) {
+					nuevocliente.setUsuario(Email);
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Se cancelo la operacion");
+				}
+				break;
+			case 3:
+				String Contrasena="Nuevacontra!";
+				nuevocliente.setContrasena(Contrasena);
+				break;
+			case 4:
+				int DNI=VerificacionesRepository.SoloEnteros("El antiguo dni es: " + nuevocliente.getDNI()+ " Coloca el nuevo:");
+				if (DNI!=-1) {
+					nuevocliente.setDNI(DNI);
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Se cancelo la operacion");
+				}
+				break;
+			case 5:
+				String [] opcionesnuevas= {"Estado de suscripcion","Fecha de vencimiento","Salir"};
+				int elegida=JOptionPane.showOptionDialog(null, "Que deseas modificar de la suscripcion: ", "Menu suscripcion", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesnuevas, opcionesnuevas[0]);
+				switch (elegida) {
+				case 0:
+					String [] opcionesestado= {"Desactivada","Activada","Suspendida"};
+					do {
+						elegida=JOptionPane.showOptionDialog(null, "Que estado deseas que este: ", "Menu suscripcion", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesestado, opcionesestado[0]);
+						if ((elegida==0 && !nuevocliente.getEstado_sus().equalsIgnoreCase("Desactivada")) || (elegida==1 && !nuevocliente.getEstado_sus().equalsIgnoreCase("Activada")) || (elegida==2 && !nuevocliente.getEstado_sus().equalsIgnoreCase("Suspendida"))) {
+							switch (elegida) {
+							case 0:
+								nuevocliente.setEstado_sus("Desactivada");
+								break;
+							case 1:
+								LocalDate fechanueva=null;
+								nuevocliente.setEstado_sus("Activada");
+								do {
+									fechanueva=VerificacionesRepository.pedirFecha("Coloca la fecha de vencimiento");
+									if (fechanueva!=null) {
+										nuevocliente.setFechavenc(fechanueva);
+									}
+									else {
+										JOptionPane.showMessageDialog(null, "Coloca la fecha porfavor");
+									}
+								} while (fechanueva!=null);
 
+								
+								break;
+							case 2:
+								nuevocliente.setEstado_sus("Suspendida");
+								break;
+
+							default:
+								break;
+							}
+							break;
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Ya esta en ese estado");
+						}
+						otramodificacion=VerificacionesRepository.solicitarConfirmacion("Desea realizar otra modificacion al cliente?");
+					} while (otramodificacion.equalsIgnoreCase("Si"));
+					
+
+				case 1:
+					LocalDate fechanueva=null;
+					do {
+						fechanueva=VerificacionesRepository.pedirFecha("Coloca la nueva fecha de vencimiento");
+						if (fechanueva!=null) {
+							nuevocliente.setFechavenc(fechanueva);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Coloca la fecha porfavor");
+						}
+					} while (fechanueva!=null);
+					break;
+				default:
+					break;
+				}
+				break;
+			case 6:
+				String[] opcionesnuevas2= {"Restar","Sumar"};
+				do {
+					elegida=JOptionPane.showOptionDialog(null, "Que Operaciond desea hacer?: ", "Menu puntos", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, opcionesnuevas2, opcionesnuevas2[0]);
+					 int puntosaoperar=VerificacionesRepository.SoloEnteros("Ingresa los puntos que quieres operar los puntos del cliente son: " + nuevocliente.getPuntos());
+					 int puntostotales;
+					 if (elegida==0) {
+						puntostotales=nuevocliente.getPuntos()-puntosaoperar;
+						if (puntostotales<0) {
+							JOptionPane.showMessageDialog(null, "No se puede tener puntos negativos");
+							puntostotales=0;
+						}
+						nuevocliente.setPuntos(puntostotales);
+						JOptionPane.showMessageDialog(null, "Los puntos del cliente ahora son: " + puntostotales);
+						
+						
+					}
+					 else if (elegida==1) {
+						puntostotales=nuevocliente.getPuntos()+puntosaoperar;
+						nuevocliente.setPuntos(puntostotales);
+						JOptionPane.showMessageDialog(null, "Los puntos del cliente ahora son: " + puntostotales);
+
+					}
+					 else {
+						JOptionPane.showMessageDialog(null, "Operacion cancelada");
+					}
+					otramodificacion=VerificacionesRepository.solicitarConfirmacion("Desea sumar/restar mas puntos?");
+				} while (otramodificacion.equalsIgnoreCase("Si"));
+				 
+				 break;
+				
 			default:
 				break;
 			}
-			break;
-		case 6:
 			
-			break;
-
-		default:
-			break;
+				otramodificacion=VerificacionesRepository.solicitarConfirmacion("Desea realizar otra modificacion al cliente?");
+			
+		} while (otramodificacion.equalsIgnoreCase("Si"));
+		
+		if (opcion==nuevocliente) {
+			JOptionPane.showMessageDialog(null, "No se modifico nada");
+		}
+		else {
+			controlador.updateCliente(nuevocliente);
+			JOptionPane.showMessageDialog(null, "Se actualizo el cliente");
 		}
 		
 	}
@@ -177,32 +264,7 @@ public class Admin extends Persona implements VerificacionesRepository{
                         break;
 
                     case "Modificar":
-                    	Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_beneficios, op_beneficios[0]);
-
-                        switch (Elegida) {
-                            case "agregar suscripcion":
-                                Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, entrenadores, entrenadores[0]);
-                                break;
-
-                            case "suspender suscripcion":
-                                String clienteSuspender = JOptionPane.showInputDialog(null, "Ingrese el nombre del cliente que desea suspender:");
-                                int confirmacionSuspender = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea suspender al cliente " + clienteSuspender + "?", "Confirmar suspensión", JOptionPane.YES_NO_OPTION);
-                                if (confirmacionSuspender == JOptionPane.YES_OPTION) {
-                                    JOptionPane.showMessageDialog(null, "Cliente suspendido exitosamente.");
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "Operación cancelada.");
-                                }
-                                break;
-
-                            case "quitar suscripcion":
-                                String clienteQuitar = JOptionPane.showInputDialog(null, "Ingrese el nombre del cliente al que desea quitar la suscripción:");
-                                int confirmacionQuitar = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea quitar la suscripción al cliente " + clienteQuitar + "?", "Confirmar quitar suscripción", JOptionPane.YES_NO_OPTION);
-                                if (confirmacionQuitar == JOptionPane.YES_OPTION) {
-                                    JOptionPane.showMessageDialog(null, "Suscripción del cliente quitada exitosamente.");
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "Operación cancelada.");
-                                }
-                                break;
+                    	ModificarCliente();
                         }
                         break;
 

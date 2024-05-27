@@ -95,16 +95,15 @@ public interface VerificacionesRepository {
              try {
                  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                  fecha = LocalDate.parse(input, formatter);
-                 if (fecha.isBefore(LocalDate.now())) {
+                 if (fecha.isAfter(LocalDate.now())) {
                      fechaValida = true;
                  } else {
-                     JOptionPane.showMessageDialog(null, "La fecha de nacimiento no puede estar en el futuro.");
+                     JOptionPane.showMessageDialog(null, "La fecha de vencimiento no puede ser en el pasado");
                  }
              } catch (DateTimeParseException e) {
                  JOptionPane.showMessageDialog(null, "Formato de fecha incorrecto. Por favor, ingresa la fecha en el formato yyyy-MM-dd.");
              }
          } while (!fechaValida);
-
          return fecha;
      }
     
@@ -189,5 +188,24 @@ public interface VerificacionesRepository {
 
          return password;
      }
-    
+    static String solicitarConfirmacion(String mensaje) {
+         
+         Object[] opciones = {"Sí", "No"};
+         int seleccion = JOptionPane.showOptionDialog(null, 
+                                                      mensaje, 
+                                                      "Confirmación", 
+                                                      JOptionPane.YES_NO_OPTION, 
+                                                      JOptionPane.QUESTION_MESSAGE, 
+                                                      null, 
+                                                      opciones, 
+                                                      opciones[0]);
+
+         if (seleccion == JOptionPane.YES_OPTION) {
+             return "Sí";
+         } else if (seleccion == JOptionPane.NO_OPTION) {
+             return "No";
+         } else {
+             return null; 
+         }
+     }
 }
