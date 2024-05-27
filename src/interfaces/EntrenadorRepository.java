@@ -6,7 +6,7 @@ import modelo.Entrenador;
 
 public interface EntrenadorRepository {
 	
-LinkedList<Entrenador> getAllEntrenadores(); // llama a todos los Entrenadores de la bdd
+LinkedList<Entrenador> getAllEntrenadores(int sucursal); // llama a todos los Entrenadores de la bdd
     
     Entrenador getEntrenadorByid(int id); //llama solo a uno, por su id
     

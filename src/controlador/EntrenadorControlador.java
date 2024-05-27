@@ -27,10 +27,11 @@ public class EntrenadorControlador implements EntrenadorRepository {
 	  }
 
 	@Override
-	public LinkedList<Entrenador> getAllEntrenadores() {
+	public LinkedList<Entrenador> getAllEntrenadores(int sucursal) {
 		LinkedList<Entrenador> entrenadores= new LinkedList<Entrenador>();
 		try {
-			PreparedStatement statement= connection.prepareStatement("SELECT * FROM entrenador");
+			PreparedStatement statement= connection.prepareStatement("SELECT * FROM entrenador WHERE ID_sucursal= ?");
+			statement.setInt(1, sucursal);
 			ResultSet resultSet= statement.executeQuery();
 			
 		while (resultSet.next()) {
@@ -68,20 +69,18 @@ public class EntrenadorControlador implements EntrenadorRepository {
 	public void addEntrenador(Entrenador entrenador) {
 		try {
             PreparedStatement statement = connection.prepareStatement
-            		("INSERT INTO entrenador (ID_Entrenador, ID_sucursal, DNI, Contrasenia, Telefono, Correo_electronico, Apellido, Nombre ) "
-            				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            		("INSERT INTO entrenador ( ID_sucursal, DNI, Contrasenia, Telefono, Correo_electronico, Apellido, Nombre ) "
+            				+ "VALUES (?, ?, ?, ?, ?, ?, ?)");
           
-            statement.setInt(1, entrenador.getId_entrenador());
-            statement.setInt(2, entrenador.getId_sucursal());
-            statement.setInt(3, entrenador.getDNI());
-            statement.setString(4,entrenador.getContrasena());
-            statement.setInt(5, entrenador.getTelefono());
-            statement.setString(6,entrenador.getUsuario());
+            
+            statement.setInt(1, entrenador.getId_sucursal());
+            statement.setInt(2, entrenador.getDNI());
+            statement.setString(3,entrenador.getContrasena());
+            statement.setInt(4, entrenador.getTelefono());
+            statement.setString(5,entrenador.getUsuario());
             statement.setString(7,entrenador.getNombre());
-            statement.setString(8,entrenador.getApellido());
-            statement.setString(6,entrenador.getNombre());
-            statement.setString(7,entrenador.getApellido());
-            statement.setString(8,entrenador.getUsuario());
+            statement.setString(6,entrenador.getApellido());
+ 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("Usuario insertado exitosamente");

@@ -32,7 +32,7 @@ public class Cliente extends Persona{
 	}
 	public Cliente(String nombre, String apellido, int telefono, int id_sucursal, int dNI, String email, String contrasena, String Objetivo, double peso, double altura) {
 		super(nombre, apellido, telefono, id_sucursal, dNI,contrasena,email);
-		this.id_cliente= (Integer) null;
+		this.id_cliente= -1;
 		this.objetivo= Objetivo;
 		this.id_entrenador=0;
 		this.id_dieta=0;
@@ -140,7 +140,7 @@ public class Cliente extends Persona{
 
 	@Override
 	public String toString() {
-		return "Cliente: " + this.getNombre() + " "+ this.getApellido() +"DNI: " + this.getDNI();
+		return "Cliente: " + this.getNombre() + " "+ this.getApellido() +" DNI: " + this.getDNI() + " Suscripcion: " + this.getEstado_sus() + " ID: " + this.getId_cliente();
 	}
 
 	@Override

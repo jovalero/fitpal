@@ -3,7 +3,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,10 +26,11 @@ public class ClienteControlador implements ClienteRepository {
     }
 
 	@Override
-	public LinkedList<Cliente> getAllClientes() {
+	public LinkedList<Cliente> getAllClientes(int sucursal) {
 		LinkedList<Cliente> users = new LinkedList<Cliente>();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM cliente ");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM cliente WHERE ID_sucursal = ?");
+            statement.setInt(1, sucursal);
             ResultSet resultSet = statement.executeQuery();
        
             while (resultSet.next()) {
@@ -72,7 +76,9 @@ public class ClienteControlador implements ClienteRepository {
             statement.setDouble(8,cliente.getPeso());
             statement.setDouble(9,cliente.getAltura());
             statement.setString(10,cliente.getContrasena());
-            statement.setDate(11,cliente.getFechavenc());
+            ZonedDateTime zonedDateTime = cliente.getFechavenc().atStartOfDay(ZoneId.systemDefault());
+            Instant instant = zonedDateTime.toInstant();
+            statement.setDate(11,(Date) Date.from(instant));
             statement.setInt(12, cliente.getTelefono());
             statement.setString(13,cliente.getUsuario());
             statement.setString(14,cliente.getNombre());
@@ -98,7 +104,9 @@ public class ClienteControlador implements ClienteRepository {
             statement.setString(4,cliente.getContrasena());
             statement.setInt(5,cliente.getTelefono());
             statement.setString(6,cliente.getUsuario());
-            statement.setDate(7, cliente.getFechavenc());
+            ZonedDateTime zonedDateTime = cliente.getFechavenc().atStartOfDay(ZoneId.systemDefault());
+            Instant instant = zonedDateTime.toInstant();
+            statement.setDate(11,(Date) Date.from(instant));
             statement.setInt(8,cliente.getPuntos());
             statement.setString(9,cliente.getEstado_sus());
             statement.setInt(10,cliente.getId_entrenador());
