@@ -265,7 +265,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 
                     case "Modificar":
                     	ModificarCliente();
-                        }
+                        
                         break;
 
 
@@ -284,7 +284,7 @@ public class Admin extends Persona implements VerificacionesRepository{
                 }
                 break;
 
-            case "Entrenadores":
+            case "Entrenadores" :
                 Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
 
                 switch (Elegida) {
