@@ -20,7 +20,7 @@ public class IncentivoControlador implements IncentivoRepository{
 	  }
 
 	@Override
-	public LinkedList<Incentivo> getAllIncentivoes() {
+	public LinkedList<Incentivo> getAllIncentivos() {
 		LinkedList<Incentivo> incentivos= new LinkedList<Incentivo>();
 		try {
 			PreparedStatement statement= connection.prepareStatement("SELECT * FROM incentivos");
