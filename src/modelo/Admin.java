@@ -620,8 +620,40 @@ public class Admin extends Persona implements VerificacionesRepository{
 			}else {
 				JOptionPane.showMessageDialog(null,"Comida no encontrada :(");
 			}
-		 
-	}
+			public void MostrarDietas() {
+			    DietaControlador controlador = new DietaControlador();
+			    LinkedList<Dieta> dietas = controlador.getAllDietas();
+			    String nota = "Lista de dietas: \n";
+
+			    for (Dieta dieta : dietas) {
+			        nota += dieta.toString() + "\n";
+			    }
+			    JOptionPane.showMessageDialog(null, nota);
+			}
+
+			public void BorrarDietas() {
+			    DietaControlador controlador = new DietaControlador();
+			    String otraModificacion;
+
+			    do {
+			        String mensaje = "";
+			        int id = VerificacionesRepository.SoloEnteros("Ingrese el ID de la dieta a borrar: ");
+			        if (id == -1) {
+			            JOptionPane.showMessageDialog(null, "Operación cancelada");
+			            break;
+			        }
+			        
+			        Dieta dieta = controlador.getDietaById(id);
+			        if (dieta != null) {
+			            controlador.deleteDieta(id);
+			            mensaje = "Se eliminó la dieta " + dieta.toString();
+			            JOptionPane.showMessageDialog(null, mensaje);
+			        } else {
+			            JOptionPane.showMessageDialog(null, "No se encontró ninguna dieta con ese ID");
+			        }
+			        otraModificacion = VerificacionesRepository.solicitarConfirmacion("Desea borrar alguna otra dieta?");
+			    } while (otraModificacion.equalsIgnoreCase("Si"));
+			}
 
 	@Override
 	public void Menu() {
@@ -743,9 +775,11 @@ public class Admin extends Persona implements VerificacionesRepository{
 
                 switch (Elegida) {
                     case "Mostrar":
+                    	MostrarDietas();
                         break;
 
                     case "Borrar":
+                    	BorrarDietas();
                         break;
                 }   
                 break;
