@@ -548,9 +548,11 @@ public class Admin extends Persona implements VerificacionesRepository{
 
                 switch (Elegida) {
                     case "Mostrar":
+                    	MostrarRutinas();
                         break;
 
                     case "Borrar":
+                    	BorrarRutinas();
                         break;
                 }
                 break;
