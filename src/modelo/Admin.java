@@ -643,6 +643,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 			}else {
 				JOptionPane.showMessageDialog(null,"Comida no encontrada :(");
 			}
+		}
 			public void MostrarDietas() {
 			    DietaControlador controlador = new DietaControlador();
 			    LinkedList<Dieta> dietas = controlador.getAllDietas();
