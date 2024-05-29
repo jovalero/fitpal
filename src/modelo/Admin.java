@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 import controlador.ClienteControlador;
+import controlador.ComidaControlador;
+import controlador.EjercicioControlador;
 import controlador.EntrenadorControlador;
 import interfaces.VerificacionesRepository;
 
@@ -483,8 +485,11 @@ public class Admin extends Persona implements VerificacionesRepository{
 	}
 	
 	
-	private static LinkedList<Ejercicio> listaEjercicios = new LinkedList<>();
+	
 		public static void crearEjercicio() {
+			LinkedList<Ejercicio> listaEjercicios = new LinkedList<>();
+			EjercicioControlador controlador = new EjercicioControlador();
+			
 			int ID_Ejercicio = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del ejercicio:"));
 			String Nombre = JOptionPane.showInputDialog("Ingrese el nombre del ejercicio:");
 			String Maquina = JOptionPane.showInputDialog("Ingrese la máquina del ejercicio:");
@@ -499,6 +504,8 @@ public class Admin extends Persona implements VerificacionesRepository{
 		}
 		
 		public static void modificarEjercicio() {
+			LinkedList<Ejercicio> listaEjercicios = new LinkedList<>();
+			EjercicioControlador controlador = new EjercicioControlador();
 			int ID_Ejercicio = Integer.parseInt(JOptionPane.showInputDialog("Ingrese ID del ejercicio que desee modificar "));
 			Ejercicio ejercicioAModificar = null;
 			
@@ -531,6 +538,8 @@ public class Admin extends Persona implements VerificacionesRepository{
 		
 		
 			public static void mostrarEjercicios() {
+				LinkedList<Ejercicio> listaEjercicios = new LinkedList<>();
+				EjercicioControlador controlador = new EjercicioControlador();
 				
 				StringBuilder nota = new StringBuilder("Lista de ejercicios:\n");
 				
@@ -542,6 +551,8 @@ public class Admin extends Persona implements VerificacionesRepository{
 			}
 		
 		public static void borrarEjercicio() {
+			LinkedList<Ejercicio> listaEjercicios = new LinkedList<>();
+			EjercicioControlador controlador = new EjercicioControlador();
 				int ID_Ejercicio = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del ejercicio que desee borrar:"));
 				Ejercicio ejercicioABorrar = null;
 				for (Ejercicio ejercicio : listaEjercicios) {
@@ -559,6 +570,9 @@ public class Admin extends Persona implements VerificacionesRepository{
 		}
 		
 		public static void crearComida() {
+			LinkedList<Comida> listacomidas = new LinkedList<>();
+			ComidaControlador controlador = new ComidaControlador ();
+			
 			String Nombre = JOptionPane.showInputDialog("Ingrese el nombre de la comida :");
 			String Descripcion = JOptionPane.showInputDialog("Ingrese la descripcion de la comida:");
 			int ID_Comida = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Comida:"));
@@ -570,6 +584,9 @@ public class Admin extends Persona implements VerificacionesRepository{
 		
 		
 		public static void modificarComida() {
+			LinkedList<Comida> listacomidas = new LinkedList<>();
+			ComidaControlador controlador = new ComidaControlador ();
+			
 			int ID_Comida = Integer.parseInt(JOptionPane.showInputDialog("ingrese el ID de la comida a modificar"));
 			Comida comidaAModificar = null;
 			
@@ -592,8 +609,11 @@ public class Admin extends Persona implements VerificacionesRepository{
 			}
 		}
 		
-		private static LinkedList<Comida> listacomidas = new LinkedList<>();
+		
 		 public static void mostrarComidas() {
+			 LinkedList<Comida> listacomidas = new LinkedList<>();
+				ComidaControlador controlador = new ComidaControlador ();
+				
 		        StringBuilder nota = new StringBuilder("Lista de comidas:\n");
 		        
 		        for (Comida comida : listacomidas) {
@@ -604,6 +624,9 @@ public class Admin extends Persona implements VerificacionesRepository{
 		    }
 		 
 		public static void borrarComida() {
+			LinkedList<Comida> listacomidas = new LinkedList<>();
+			ComidaControlador controlador = new ComidaControlador ();
+			
 			int ID_Comida = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la comida que desee borrar"));
 			Comida comidaABorrar = null;
 			
