@@ -1,6 +1,4 @@
 
-package controlador;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,11 +11,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import java.sql.Date;
-
-import interfaces.UserRepository;
+import interfaces.ClienteRepository;
+import controlador.DatabaseConnection;
 import modelo.Cliente;
 
-public class ClienteControlador implements UserRepository {
+public class ClienteControlador implements ClienteRepository {
     private final Connection connection;
 
     public ClienteControlador() {
@@ -124,6 +122,9 @@ public class ClienteControlador implements UserRepository {
 			PreparedStatement statement = connection.prepareStatement("DELETE from cliente where ID_Cliente= ? ");
 			statement.setInt(1, id);
 			int rowsDeleted= statement.executeUpdate();
+			if (rowsDeleted>0) {
+				JOptionPane.showMessageDialog(null, "Se elimino el cliente correctamente");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "No  se pudo eliminar el usuario");
