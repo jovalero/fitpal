@@ -1,9 +1,12 @@
 package modelo;
 
 public class Rutina {
- String nombre;
+ int ID_Rutina;
+ String Estado;
  String Descripcion;
- int Lejercicio;
- String objetivo;
+ String Objetivo;
+ 
+ 
+ 	
  
 }
