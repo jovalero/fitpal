@@ -545,62 +545,16 @@ public class Admin extends Persona implements VerificacionesRepository{
              }
                 break;
                 
-            case "Comida":
-            	Elegida = (String) JOptionPane.showInputDialog(null,"Que accion desea hacer: ","Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
-        	
-            	switch (Elegida) {
-                case "Crear":
-                    Comida.crearComida();
-                    break;
-
-                case "Modificar":
-                    Comida.modificarComida();
-                    break;
-
-                case "Mostrar":
-                    Comida.mostrarComidas();
-                    break;
-
-                case "Borrar":
-                    Comida.borrarComida();
-                    break;
-            }
-            break;
-        
-            case "Ejercicio":
-            	 Elegida = (String) JOptionPane.showInputDialog(null, "Que accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
-
-                 switch (Elegida) {
-                     case "Crear":
-                         Ejercicio.crearEjercicio();
-                         break;
-
-                     case "Modificar":
-                         Ejercicio.modificarEjercicio();
-                         break;
-
-                     case "Mostrar":
-                         Ejercicio.mostrarEjercicios();
-                         break;
-
-                     case "Borrar":
-                         Ejercicio.borrarEjercicio();
-                         break;
-                 }
-                 break;
-
-             default:
-                 JOptionPane.showMessageDialog(null, "Opción no válida");
-                 break;
+            
         
         
         
         
         
-        }
+        
         
         
 	}
-	
+	}
 
 }

@@ -131,7 +131,7 @@ public class Ejercicio {
 		} else {
 			JOptionPane.showMessageDialog(null, "Ejercicio no encontrado :(");
 		}
-	
+	}
 	
 	// Mostrar ejercicios
 		public static void mostrarEjercicios() {
