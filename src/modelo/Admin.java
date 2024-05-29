@@ -35,8 +35,8 @@ public class Admin extends Persona implements VerificacionesRepository{
 		this.id_admin = id_admin;
 	}
 	
-
-
+	
+	
 	@Override
 	public String toString() {
 		return "Admin [id_admin=" + id_admin + ", getNombre()=" + getNombre() + ", getApellido()=" + getApellido()
@@ -481,6 +481,147 @@ public class Admin extends Persona implements VerificacionesRepository{
 	        }
 	    }
 	}
+	
+	
+	private static LinkedList<Ejercicio> listaEjercicios = new LinkedList<>();
+		public static void crearEjercicio() {
+			int ID_Ejercicio = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del ejercicio:"));
+			String Nombre = JOptionPane.showInputDialog("Ingrese el nombre del ejercicio:");
+			String Maquina = JOptionPane.showInputDialog("Ingrese la máquina del ejercicio:");
+			String Musculo = JOptionPane.showInputDialog("Ingrese el músculo trabajado en el ejercicio:");
+			String Descripcion = JOptionPane.showInputDialog("Ingrese la descripción del ejercicio:");
+			String Video = JOptionPane.showInputDialog("Ingrese el enlace del video del ejercicio:");
+			int ID_Area = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del área del ejercicio:"));
+			
+			Ejercicio nuevoEjercicio = new Ejercicio (ID_Ejercicio, Nombre, Maquina, Musculo, Descripcion, Video, ID_Area);
+			listaEjercicios.add(nuevoEjercicio);
+			JOptionPane.showMessageDialog(null," Ejercicio creado exitosamente! :)");
+		}
+		
+		public static void modificarEjercicio() {
+			int ID_Ejercicio = Integer.parseInt(JOptionPane.showInputDialog("Ingrese ID del ejercicio que desee modificar "));
+			Ejercicio ejercicioAModificar = null;
+			
+			for(Ejercicio ejercicio:listaEjercicios) {
+				if(ejercicio.getID_Ejercicio() == ID_Ejercicio) {
+					ejercicioAModificar = ejercicio;
+					break;
+				}
+			}
+			if (ejercicioAModificar != null) {
+				String nuevoNombre = JOptionPane.showInputDialog("Ingrese el nuevo nombre del ejercicio:", ejercicioAModificar.getNombre());
+				String nuevaMaquina = JOptionPane.showInputDialog("Ingrese la nueva máquina del ejercicio:", ejercicioAModificar.getMaquina());
+				String nuevoMusculo = JOptionPane.showInputDialog("Ingrese el nuevo músculo trabajado en el ejercicio:", ejercicioAModificar.getMusculo());
+				String nuevaDescripcion = JOptionPane.showInputDialog("Ingrese la nueva descripción del ejercicio:", ejercicioAModificar.getDescripcion());
+				String nuevoVideo = JOptionPane.showInputDialog("Ingrese el nuevo enlace del video del ejercicio:", ejercicioAModificar.getVideo());
+				int nuevoID_Area = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el nuevo ID del área del ejercicio:", ejercicioAModificar.getID_Area()));
+				
+				ejercicioAModificar.setNombre(nuevoNombre);
+				ejercicioAModificar.setMaquina(nuevaMaquina);
+				ejercicioAModificar.setMusculo(nuevoMusculo);
+				ejercicioAModificar.setDescripcion(nuevaDescripcion);
+				ejercicioAModificar.setVideo(nuevoVideo);
+				ejercicioAModificar.setID_Area(nuevoID_Area);
+				
+				JOptionPane.showMessageDialog(null, "Ejercicio modificado exitosamente! :)");
+			} else {
+				JOptionPane.showMessageDialog(null, "Ejercicio no encontrado :(");
+			}
+		}
+		
+		
+			public static void mostrarEjercicios() {
+				
+				StringBuilder nota = new StringBuilder("Lista de ejercicios:\n");
+				
+				for (Ejercicio ejercicio : listaEjercicios) {
+					nota.append(ejercicio.toString()).append("\n");
+				}
+				JOptionPane.showMessageDialog(null, nota.toString());
+				
+			}
+		
+		public static void borrarEjercicio() {
+				int ID_Ejercicio = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del ejercicio que desee borrar:"));
+				Ejercicio ejercicioABorrar = null;
+				for (Ejercicio ejercicio : listaEjercicios) {
+					if(ejercicio.getID_Ejercicio()== ID_Ejercicio) {
+						ejercicioABorrar = ejercicio;
+						break;
+					}
+				}
+				if (ejercicioABorrar != null) {
+					listaEjercicios.remove(ejercicioABorrar);
+					JOptionPane.showMessageDialog(null,"Ejercicio borrado exitosamente!");
+				} else {
+					JOptionPane.showMessageDialog(null,"Ejercicio no encontrado :(");
+				}
+		}
+		
+		public static void crearComida() {
+			String Nombre = JOptionPane.showInputDialog("Ingrese el nombre de la comida :");
+			String Descripcion = JOptionPane.showInputDialog("Ingrese la descripcion de la comida:");
+			int ID_Comida = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Comida:"));
+			
+			Comida nuevaComida = new Comida(Nombre,Descripcion,ID_Comida);
+			listacomidas.add(nuevaComida);
+			JOptionPane.showMessageDialog(null,"Comida creada exitosamente!");
+		}
+		
+		
+		public static void modificarComida() {
+			int ID_Comida = Integer.parseInt(JOptionPane.showInputDialog("ingrese el ID de la comida a modificar"));
+			Comida comidaAModificar = null;
+			
+			for (Comida comida : listacomidas) {
+				if (comida.getID_Comida() == ID_Comida) {
+					comidaAModificar = comida;
+					break;
+				}
+			}
+			if (comidaAModificar != null) {
+				String nuevoNombre = JOptionPane.showInputDialog("Ingrese el nuevo nombre de la comida:",comidaAModificar.getNombre());
+				String nuevaDescripcion = JOptionPane.showInputDialog("Ingrese la nueva descripcion de la comida:",comidaAModificar.getDescripcion());
+				
+				comidaAModificar.setNombre(nuevoNombre);
+				comidaAModificar.setDescripcion(nuevaDescripcion);
+				
+				JOptionPane.showMessageDialog(null,"Comida modificada exitosamente! :)");
+			} else {
+				JOptionPane.showMessageDialog(null,"Comida no encontrada :(");
+			}
+		}
+		
+		private static LinkedList<Comida> listacomidas = new LinkedList<>();
+		 public static void mostrarComidas() {
+		        StringBuilder nota = new StringBuilder("Lista de comidas:\n");
+		        
+		        for (Comida comida : listacomidas) {
+		            nota.append(comida.toString()).append("\n");
+		        }
+		        
+		        JOptionPane.showMessageDialog(null, nota.toString());
+		    }
+		 
+		public static void borrarComida() {
+			int ID_Comida = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la comida que desee borrar"));
+			Comida comidaABorrar = null;
+			
+			for (Comida comida : listacomidas) {
+				if (comida.getID_Comida() == ID_Comida) {
+				comidaABorrar = comida;
+				break;
+			  }
+			}
+
+			if (comidaABorrar != null) {
+				listacomidas.remove(comidaABorrar);
+				JOptionPane.showMessageDialog(null,"Comida borrada exitosamente! :)");
+			}else {
+				JOptionPane.showMessageDialog(null,"Comida no encontrada :(");
+			}
+		 
+	}
 
 	@Override
 	public void Menu() {
@@ -562,15 +703,19 @@ public class Admin extends Persona implements VerificacionesRepository{
 
             	 switch (Elegida) {
                  case "Crear":
+                	 crearComida();
                      break;
 
                  case "Modificar":
+                	 modificarComida();
                      break;
 
                  case "Mostrar":
+                	 mostrarComidas();
                      break;
 
                  case "Borrar":
+                	 borrarComida();
                      break;
              }
                 break;
@@ -627,15 +772,19 @@ public class Admin extends Persona implements VerificacionesRepository{
 
             	 switch (Elegida) {
                  case "Crear":
+                	 crearEjercicio();
                      break;
-
+                     
                  case "Modificar":
+                	 modificarEjercicio();
                      break;
-
+                     
                  case "Mostrar":
+                	 mostrarEjercicios();
                      break;
-
+                     
                  case "Borrar":
+                	 borrarEjercicio();
                      break;
              }
                 break;
