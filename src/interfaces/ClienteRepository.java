@@ -9,7 +9,7 @@ import modelo.Cliente;
 
 public interface ClienteRepository {
 	
-	LinkedList<Cliente> getAllClientes(); // llama a todos los Clientes de la bdd
+	LinkedList<Cliente> getAllClientes(int sucursal); // llama a todos los Clientes de la bdd
     
     Cliente getClienteByDNI(int DNI); //llama solo a uno, por su id
     

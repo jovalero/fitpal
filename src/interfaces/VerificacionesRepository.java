@@ -23,13 +23,20 @@ public interface VerificacionesRepository {
     	do {
     		seguro=true;
 			Texto=JOptionPane.showInputDialog(texto);
-		    for (int i = 0; i < Texto.length(); i++) {
-	            char caracter = Texto.charAt(i);
-	            if (!Character.isLetter(caracter)) {
-	                seguro=false;
-	                i=Texto.length();
-	            }
-	        }
+			if (!Texto.isEmpty()) {
+			    for (int i = 0; i < Texto.length(); i++) {
+		            char caracter = Texto.charAt(i);
+		            if (!Character.isLetter(caracter)) {
+		                seguro=false;
+		                i=Texto.length();
+		            }
+		        }
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Dejaste vacio el recuadro!");
+				seguro=false;
+			}
+
 		} while (!seguro);	
     
         return Texto;
@@ -41,37 +48,42 @@ public interface VerificacionesRepository {
 
          do {
              try {
-                 String input = JOptionPane.showInputDialog(texto);
-                 numero = Integer.parseInt(input);
-                 valido = true;
+                 String input =JOptionPane.showInputDialog(texto) ;
+                 if (input!=null && !input.isEmpty() ) {
+                     numero=Integer.parseInt(input);
+                     valido = true;
+         		}
+                 else {
+					JOptionPane.showMessageDialog(null, "No se ingreso ningun numero");
+					return  -1;
+				}
+             
              } catch (NumberFormatException e) {
                  JOptionPane.showMessageDialog(null, "Error: Ingresa solo números enteros.");
              }
          } while (!valido);
-
          return numero;
      }
-      static double SoloDoubles(String texto) {
+     static double SoloDoubles(String texto) {
          double numero = 0;
          boolean valido = false;
 
          do {
              try {
                  String input = JOptionPane.showInputDialog(texto);
-                 if (input != null) {
+                 if (input != null && !input.isEmpty()) {
                      numero = Double.parseDouble(input);
                      valido = true;
                  } else {
                      JOptionPane.showMessageDialog(null, "No se ingresó ningún número.");
+                     return -1;
                  }
              } catch (NumberFormatException e) {
                  JOptionPane.showMessageDialog(null, "Error: Ingresa solo números decimales.");
              }
          } while (!valido);
-
          return numero;
      }
-     
      
      static LocalDate pedirFecha(String texto) {
          LocalDate fecha = null;
@@ -79,20 +91,19 @@ public interface VerificacionesRepository {
 
          do {
              String input = JOptionPane.showInputDialog(texto);
-
+             fechaValida=false;
              try {
                  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                  fecha = LocalDate.parse(input, formatter);
-                 if (fecha.isBefore(LocalDate.now())) {
+                 if (fecha.isAfter(LocalDate.now())) {
                      fechaValida = true;
                  } else {
-                     JOptionPane.showMessageDialog(null, "La fecha de nacimiento no puede estar en el futuro.");
+                     JOptionPane.showMessageDialog(null, "La fecha de vencimiento no puede ser en el pasado");
                  }
              } catch (DateTimeParseException e) {
                  JOptionPane.showMessageDialog(null, "Formato de fecha incorrecto. Por favor, ingresa la fecha en el formato yyyy-MM-dd.");
              }
          } while (!fechaValida);
-
          return fecha;
      }
     
@@ -116,8 +127,8 @@ public interface VerificacionesRepository {
 					JOptionPane.showMessageDialog(null, "Ya existe una cuenta con ese correo");
 				}
              } else {
-            	 emailvalido=false;
                  JOptionPane.showMessageDialog(null, "No se ingresó ningún email.");
+                 return null;
              }
 		} while (!emailvalido);
          return email;
@@ -177,5 +188,24 @@ public interface VerificacionesRepository {
 
          return password;
      }
-    
+    static String solicitarConfirmacion(String mensaje) {
+         
+         Object[] opciones = {"Sí", "No"};
+         int seleccion = JOptionPane.showOptionDialog(null, 
+                                                      mensaje, 
+                                                      "Confirmación", 
+                                                      JOptionPane.YES_NO_OPTION, 
+                                                      JOptionPane.QUESTION_MESSAGE, 
+                                                      null, 
+                                                      opciones, 
+                                                      opciones[0]);
+
+         if (seleccion == JOptionPane.YES_OPTION) {
+             return "Sí";
+         } else if (seleccion == JOptionPane.NO_OPTION) {
+             return "No";
+         } else {
+             return null; 
+         }
+     }
 }
