@@ -81,6 +81,9 @@ public class Admin extends Persona implements VerificacionesRepository{
 				JOptionPane.showMessageDialog(null, "Has cancelado la operacion");
 			}
 		}
+		else {
+			JOptionPane.showMessageDialog(null, "No hay conexion");
+		}
 		
 
 	}
