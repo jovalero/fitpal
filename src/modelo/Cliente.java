@@ -30,6 +30,18 @@ public class Cliente extends Persona{
 		this.altura=altura;
 		this.peso=peso;
 	}
+	public Cliente(String nombre, String apellido, int telefono, int id_sucursal, int dNI, String email, String contrasena, String Objetivo, double peso, double altura) {
+		super(nombre, apellido, telefono, id_sucursal, dNI,contrasena,email);
+		this.id_cliente= (Integer) null;
+		this.objetivo= Objetivo;
+		this.id_entrenador=0;
+		this.id_dieta=0;
+		this.estado_sus="Desactivada";
+		this.puntos=0;
+		this.Fechavenc=null;
+		this.altura=altura;
+		this.peso=peso;
+	}
 
 	public Cliente(String email, String contrasena) {
 		super("", "", 123, 0, 555,contrasena,email);

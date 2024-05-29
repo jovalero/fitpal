@@ -9,6 +9,12 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 import interfaces.EntrenadorRepository;
+
+import modelo.Admin;
+import modelo.Cliente;
+import modelo.Entrenador;
+
+
 import modelo.Entrenador;
 
 public class EntrenadorControlador implements EntrenadorRepository {
@@ -58,9 +64,6 @@ public class EntrenadorControlador implements EntrenadorRepository {
 		return entrenador;
 	}
 
-
-
-
 	@Override
 	public void addEntrenador(Entrenador entrenador) {
 		try {
@@ -73,6 +76,9 @@ public class EntrenadorControlador implements EntrenadorRepository {
             statement.setInt(3, entrenador.getDNI());
             statement.setString(4,entrenador.getContrasena());
             statement.setInt(5, entrenador.getTelefono());
+            statement.setString(6,entrenador.getUsuario());
+            statement.setString(7,entrenador.getNombre());
+            statement.setString(8,entrenador.getApellido());
             statement.setString(6,entrenador.getNombre());
             statement.setString(7,entrenador.getApellido());
             statement.setString(8,entrenador.getUsuario());
@@ -85,7 +91,9 @@ public class EntrenadorControlador implements EntrenadorRepository {
         }
 		
 	}
-		
+	
+	
+
 	@Override
 	public void updateEntrenador(Entrenador Entrenador) {
 		try {
@@ -112,7 +120,7 @@ public class EntrenadorControlador implements EntrenadorRepository {
 
 	@Override
 	public void deleteEntrenador(int Entrenador) {
-		try {
+			try {
 			PreparedStatement statement = connection.prepareStatement("DELETE from Entrenador where ID_entrenador= ? ");
 			statement.setInt(1, Entrenador);
 			int rowsDeleted= statement.executeUpdate();
@@ -122,5 +130,7 @@ public class EntrenadorControlador implements EntrenadorRepository {
 		}
 		
 	}
+		
+	}
 
-}
+
