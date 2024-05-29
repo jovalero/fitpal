@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
     	LinkedList<Persona> personas= new LinkedList<>();
     	
-    	Admin administrador= new Admin("123");
+    	Admin administrador= new Admin("1234");
     	Cliente cliente=new Cliente("juan", "123");
     	Entrenador entrenador= new Entrenador("Paco", "123");
     	
