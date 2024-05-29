@@ -435,13 +435,59 @@ public class Admin extends Persona implements VerificacionesRepository{
 		Entrenador [] arrayEntrenadores= EntrenadoresDisponibles.toArray(new Entrenador[0]);
 		Entrenador opcion= (Entrenador)JOptionPane.showInputDialog(null,"A que entrenador deseas configurar asignados:  ","Seleccionador Entrenador",JOptionPane.DEFAULT_OPTION,null,arrayEntrenadores,arrayEntrenadores[0]);
 		
-		
 	}
+	public void MostrarRutinas(){
+	    RutinaControlador controlador = new RutinaControlador();
+	    LinkedList<Rutina> Rutinas = controlador.getAllRutinas();
+	    String nota="Lista de rutinas: \n";
+	    
+	    for (Rutina rutina : Rutinas) {
+	        nota+= rutina.toString() + "\n";
+	    }
+	    JOptionPane.showMessageDialog(null, nota);
+	}
+
+	public void BorrarRutinas() {
+	    RutinaControlador controlador = new RutinaControlador();
+	    LinkedList<Rutina> Rutinas = controlador.getAllRutinas();
+	    
+	    if (Rutinas.isEmpty()) {
+	        JOptionPane.showMessageDialog(null, "No hay rutinas para borrar.");
+	        return;
+	    }
+
+	    String[] opciones = new String[Rutinas.size()];
+	    for (int i = 0; i < Rutinas.size(); i++) {
+	        opciones[i] = Rutinas.get(i).toString();
+	    }
+
+	    Object seleccion = JOptionPane.showInputDialog(null, "Seleccione la rutina a borrar:", "Borrar Rutina", JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+
+	    if (seleccion != null) {
+	        String rutinaSeleccionada = seleccion.toString();
+	        Rutina rutinaAEliminar = null;
+	        for (Rutina rutina : Rutinas) {
+	            if (rutina.toString().equals(rutinaSeleccionada)) {
+	                rutinaAEliminar = rutina;
+	                break;
+	            }
+	        }
+	        
+	        if (rutinaAEliminar != null) {
+	            controlador.deleteRutina(rutinaAEliminar.getId());
+	            JOptionPane.showMessageDialog(null, "La rutina ha sido eliminada exitosamente.");
+	        } else {
+	            JOptionPane.showMessageDialog(null, "No se encontró la rutina seleccionada.");
+	        }
+	    }
+	}
+
 	@Override
 	public void Menu() {
         String[] opciones = {"Clientes", "Entrenadores", "Rutinas", "Incentivos", "Dietas", "Areas","Comida","Ejercicios"};
         String[] op_acciones = {"Crear", "Modificar", "Mostrar", "Borrar"};
         String[] op_acciones2 = {"Crear", "Modificar", "Mostrar", "Borrar","Asignar"};
+        String[] op_acciones3 = {"Mostrar", "Borrar"};
 
         String Elegida = "";
 
@@ -498,11 +544,35 @@ public class Admin extends Persona implements VerificacionesRepository{
 
             case "Rutinas":
                
-             //Mostrar y eliminar solo;
-                break;
+            	Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones3, op_acciones3[0]);
 
+                switch (Elegida) {
+                    case "Mostrar":
+                        break;
+
+                    case "Borrar":
+                        break;
+                }
+                break;
                 
-                //Crear el case COMIDA que debe poder CREAR,MODIFICAR,ELIMINAR Y MOSTRAR
+            case "Comida":
+            	 Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
+
+            	 switch (Elegida) {
+                 case "Crear":
+                     break;
+
+                 case "Modificar":
+                     break;
+
+                 case "Mostrar":
+                     break;
+
+                 case "Borrar":
+                     break;
+             }
+                break;
+            	
             case "Incentivos":
                 Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
 
@@ -522,12 +592,35 @@ public class Admin extends Persona implements VerificacionesRepository{
                 break;
 
             case "Dietas":
-            	// Mostrar, y Eliminar dietas
-                break;
+            	Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones3, op_acciones3[0]);
 
-                
-                //Crear case Comida
+                switch (Elegida) {
+                    case "Mostrar":
+                        break;
+
+                    case "Borrar":
+                        break;
+                }   
+                break;
+               
             case "Areas":
+                Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
+
+            	 switch (Elegida) {
+                 case "Crear":
+                     break;
+
+                 case "Modificar":
+                     break;
+
+                 case "Mostrar":
+                     break;
+
+                 case "Borrar":
+                     break;
+             }
+                break;
+            case "Ejercicios":
                 Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
 
             	 switch (Elegida) {
@@ -546,6 +639,4 @@ public class Admin extends Persona implements VerificacionesRepository{
                 break;
         }
 	}
-	
-
 }
