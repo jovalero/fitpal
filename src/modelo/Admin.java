@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import controlador.ClienteControlador;
 import controlador.EntrenadorControlador;
+import controlador.IncentivoControlador;
 import interfaces.VerificacionesRepository;
 
 
@@ -481,6 +482,78 @@ public class Admin extends Persona implements VerificacionesRepository{
 	        }
 	    }
 	}
+	
+	public static void crearIncentivo() {
+		IncentivoControlador controlador = new IncentivoControlador();
+		LinkedList<Incentivo> listaincentivo = controlador.getAllIncentivos();
+		int Costo = Integer.parseInt(JOptionPane.showInputDialog(null, "Precio:"));
+		String Descripcion = JOptionPane.showInputDialog("Ingrese la descripcion:");
+		int ID_Incentivo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID:"));
+		
+		Incentivo nuevoIncentivo = new Incentivo(Costo,Descripcion,ID_Incentivo);
+		listaincentivo.add(nuevoIncentivo);
+		JOptionPane.showMessageDialog(null,"Incentivo creado exitosamente!");
+	}
+	
+	public static void modificarIncentivo() {
+		IncentivoControlador controlador = new IncentivoControlador();
+		LinkedList<Incentivo> listaincentivo = controlador.getAllIncentivos();
+		int ID_Incentivo  = Integer.parseInt(JOptionPane.showInputDialog("ingrese el ID:"));
+		Incentivo incentivoAModificar = null;
+		
+		for (Incentivo incentivo : listaincentivo) {
+			if (incentivo.getID_Incentivo() == ID_Incentivo) {
+				incentivoAModificar = incentivo;
+				break;
+			}
+		}
+		if (incentivoAModificar != null) {
+			int nuevoCosto = Integer.parseInt(JOptionPane.showInputDialog("Precio:",incentivoAModificar.getCosto()));
+			String nuevaDescripcion = JOptionPane.showInputDialog("Ingrese la nueva descripcion:",incentivoAModificar.getDescripcion());
+			
+			incentivoAModificar.setCosto(nuevoCosto);
+			incentivoAModificar.setDescripcion(nuevaDescripcion);
+			
+			JOptionPane.showMessageDialog(null,"Comida modificada exitosamente! :)");
+		} else {
+			JOptionPane.showMessageDialog(null,"Comida no encontrada: ");
+		}
+	}
+
+	 public static void mostrarIncentivo() {
+		 IncentivoControlador controlador = new IncentivoControlador();
+		 LinkedList<Incentivo> listaincentivo = controlador.getAllIncentivos();
+	     StringBuilder nota = new StringBuilder("Lista:\n");
+	        
+	        for (Incentivo incentivo : listaincentivo) {
+	            nota.append(incentivo.toString()).append("\n");
+	        }
+	        
+	        JOptionPane.showMessageDialog(null, nota.toString());
+	    }
+	 
+	public static void borrarComida() {
+		IncentivoControlador controlador = new IncentivoControlador();
+		LinkedList<Incentivo> listaincentivo = controlador.getAllIncentivos();
+		int ID_Incentivo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID que desee borrar: "));
+		Incentivo IncentivoABorrar = null;
+		
+		for (Incentivo incentivo : listaincentivo) {
+			if (incentivo.getID_Incentivo() == ID_Incentivo) {
+			IncentivoABorrar = incentivo;
+			break;
+		  }
+		}
+
+		if (IncentivoABorrar != null) {
+			listaincentivo.remove(IncentivoABorrar);
+			JOptionPane.showMessageDialog(null,"borrado exitosamente! :)");
+		}else {
+			JOptionPane.showMessageDialog(null,"no encontrado :(");
+		}
+	 
+}
+	
 
 	@Override
 	public void Menu() {
@@ -580,15 +653,19 @@ public class Admin extends Persona implements VerificacionesRepository{
 
             	 switch (Elegida) {
                  case "Crear":
+                	 crearIncentivo();
                      break;
 
                  case "Modificar":
+                	 modificarIncentivo();
                      break;
 
                  case "Mostrar":
+                	 mostrarIncentivo();
                      break;
 
                  case "Borrar":
+                	 BorrarRutinas();
                      break;
              }
                 break;
