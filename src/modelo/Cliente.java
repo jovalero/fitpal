@@ -14,13 +14,25 @@ public class Cliente extends Persona{
 	private int id_rutina;
 	private String estado_sus;
 	private int puntos;
-	private Date Fechavenc;
+	private LocalDate Fechavenc;
 	private double peso;
 	private double altura;
 	
 	public Cliente(String nombre, String apellido, int telefono, int id_sucursal, int dNI, int id_cliente, String email, String contrasena, String Objetivo, double peso, double altura) {
 		super(nombre, apellido, telefono, id_sucursal, dNI,contrasena,email);
 		this.id_cliente= id_cliente;
+		this.objetivo= Objetivo;
+		this.id_entrenador=0;
+		this.id_dieta=0;
+		this.estado_sus="Desactivada";
+		this.puntos=0;
+		this.Fechavenc=null;
+		this.altura=altura;
+		this.peso=peso;
+	}
+	public Cliente(String nombre, String apellido, int telefono, int id_sucursal, int dNI, String email, String contrasena, String Objetivo, double peso, double altura) {
+		super(nombre, apellido, telefono, id_sucursal, dNI,contrasena,email);
+		this.id_cliente= -1;
 		this.objetivo= Objetivo;
 		this.id_entrenador=0;
 		this.id_dieta=0;
@@ -117,23 +129,18 @@ public class Cliente extends Persona{
 		this.puntos = puntos;
 	}
 
-	public Date getFechavenc() {
+	public LocalDate getFechavenc() {
 		return Fechavenc;
 	}
 
-	public void setFechavenc(Date fechavenc) {
+	public void setFechavenc(LocalDate fechavenc) {
 		Fechavenc = fechavenc;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Cliente [id_cliente=" + id_cliente + ", objetivo=" + objetivo + ", id_entrenador=" + id_entrenador
-				+ ", id_dieta=" + id_dieta + ", id_rutina=" + id_rutina + ", estado_sus=" + estado_sus + ", puntos="
-				+ puntos + ", Fechavenc=" + Fechavenc + ", getNombre()=" + getNombre() + ", getApellido()="
-				+ getApellido() + ", getTelefono()=" + getTelefono() + ", getId_sucursal()=" + getId_sucursal()
-				+ ", getDNI()=" + getDNI() + ", getContrasena()=" + getContrasena() + ", getUsuario()=" + getUsuario()
-				+ "]";
+		return "Cliente: " + this.getNombre() + " "+ this.getApellido() +" DNI: " + this.getDNI() + " Suscripcion: " + this.getEstado_sus() + " ID: " + this.getId_cliente();
 	}
 
 	@Override

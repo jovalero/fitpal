@@ -14,13 +14,13 @@ import javax.swing.JOptionPane;
 import java.sql.Date;
 
 import interfaces.AdminRepository;
-import interfaces.UserRepository;
 import modelo.Admin;
 import modelo.Cliente;
 
 public class AdminControlador implements AdminRepository {
     private final Connection connection;
 
+    
     public AdminControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
