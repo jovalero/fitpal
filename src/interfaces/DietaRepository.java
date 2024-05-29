@@ -7,7 +7,7 @@ import modelo.Dieta;
 public interface DietaRepository {
 	
 	LinkedList<Dieta> getAllDieta(); 
-    
+	
 	Dieta getDietaById(int id); 
     
     void addDieta(Dieta Dieta); 

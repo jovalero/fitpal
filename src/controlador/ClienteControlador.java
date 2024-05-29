@@ -28,7 +28,7 @@ public class ClienteControlador implements ClienteRepository {
     }
 
 	@Override
-	public LinkedList<Cliente> getAllClientes(int sucursal) {
+	public LinkedList<Cliente> getAllClientesBySucursal(int sucursal) {
 		LinkedList<Cliente> users = new LinkedList<Cliente>();
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM cliente WHERE ID_sucursal = ?");
@@ -142,6 +142,26 @@ public class ClienteControlador implements ClienteRepository {
 
 		
 	}
+
+
+	@Override
+	public LinkedList<Cliente> getAllClientes() {
+		LinkedList<Cliente> users = new LinkedList<Cliente>();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM cliente");
+        
+            ResultSet resultSet = statement.executeQuery();
+       
+            while (resultSet.next()) {
+            	Cliente user = new Cliente(resultSet.getString("Nombre"),resultSet.getString("Apellido"),resultSet.getInt("Telefono"),resultSet.getInt("ID_sucursal"),resultSet.getInt("DNI"),resultSet.getInt("ID_cliente"),resultSet.getString("Correo_electronico"),resultSet.getString("Contrasenia"),resultSet.getString("Objetivo"),resultSet.getDouble("Peso"),resultSet.getDouble("Altura"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+	}
+	
 
   
 }

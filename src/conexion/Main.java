@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
     	LinkedList<Persona> personas= new LinkedList<>();
-    	
+    	JOptionPane.showMessageDialog(null, "HOLA");
     	Admin administrador= new Admin("123");
     	Cliente cliente=new Cliente("juan", "123");
     	Entrenador entrenador= new Entrenador("Paco", "123");

@@ -9,8 +9,10 @@ import modelo.Cliente;
 
 public interface ClienteRepository {
 	
-	LinkedList<Cliente> getAllClientes(int sucursal); // llama a todos los Clientes de la bdd
-    
+	LinkedList<Cliente> getAllClientesBySucursal(int sucursal);
+
+	LinkedList<Cliente> getAllClientes();
+	
     Cliente getClienteByDNI(int DNI); //llama solo a uno, por su id
     
     void addCliente(Cliente cliente); //añade usuarios a la bdd
