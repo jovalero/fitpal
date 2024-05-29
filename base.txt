@@ -3,13 +3,13 @@ CREATE DATABASE fitpal;
 USE fitpal;
 
 CREATE TABLE sucursal (
-  ID_Sucursal INT PRIMARY KEY,
+  ID_Sucursal INT PRIMARY KEY AUTO_INCREMENT,
   Direccion VARCHAR(255) NOT NULL,
   Telefono VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE areas (
-  ID_Area INT PRIMARY KEY ,
+  ID_Area INT PRIMARY KEY AUTO_INCREMENT,
   Nombre VARCHAR(255) NOT NULL,
   ID_Sucursal INT NOT NULL,
   Ubicacion VARCHAR(255),
@@ -42,18 +42,18 @@ CREATE TABLE ejercicio_rutina (
 );
 
 CREATE TABLE dieta (
-  ID_Dieta INT PRIMARY KEY,
+  ID_Dieta INT PRIMARY KEY AUTO_INCREMENT,
   Nombre_Dieta VARCHAR(255) NOT NULL,
   Descripcion_Dieta TEXT NOT NULL
 );
 
 CREATE TABLE comida (
-  ID_Comida INT PRIMARY KEY ,
+  ID_Comida INT PRIMARY KEY AUTO_INCREMENT ,
   Nombre VARCHAR(255) NOT NULL,
   Descripcion TEXT NOT NULL
 );
 CREATE TABLE dieta_comida (
-  ID_Dieta_Comida INT PRIMARY KEY ,
+  ID_Dieta_Comida INT PRIMARY KEY AUTO_INCREMENT,
   ID_Dieta INT NOT NULL,
   ID_Comida INT NOT NULL,
   Cantidad DECIMAL(10,2) NOT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE dieta_comida (
 );
 
 CREATE TABLE administrador (
-  ID_Administrador INT PRIMARY KEY,
+  ID_Administrador INT PRIMARY KEY AUTO_INCREMENT,
   ID_Sucursal INT NOT NULL,
   Telefono VARCHAR(255) NOT NULL,
   Apellido VARCHAR(255) NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE administrador (
   FOREIGN KEY (ID_Sucursal) REFERENCES sucursal(ID_Sucursal)  -- Corrected typo here
 );
 CREATE TABLE entrenador (
-  ID_Entrenador INT PRIMARY KEY,
+  ID_Entrenador INT PRIMARY KEY AUTO_INCREMENT,
   Nombre VARCHAR(255) NOT NULL,
   Apellido VARCHAR(255) NOT NULL,
   Contrasenia VARCHAR(255) NOT NULL,
@@ -81,7 +81,7 @@ CREATE TABLE entrenador (
   FOREIGN KEY (ID_Sucursal) REFERENCES sucursal(ID_Sucursal) -- Corrected typo here
 );
 CREATE TABLE cliente (
-  ID_cliente INT PRIMARY KEY,
+  ID_cliente INT PRIMARY KEY AUTO_INCREMENT,
   ID_Entrenador INT NOT NULL,
   ID_Dieta INT NOT NULL,
   ID_sucursal INT NOT NULL,
@@ -101,7 +101,7 @@ CREATE TABLE cliente (
   FOREIGN KEY (ID_sucursal) REFERENCES sucursal(ID_Sucursal)
 );
 CREATE TABLE progreso (
-  ID_Progreso INT PRIMARY KEY,
+  ID_Progreso INT PRIMARY KEY AUTO_INCREMENT,
   ID_Cliente INT NOT NULL,
   Fecha DATE NOT NULL,
   Imagen VARCHAR(255) NOT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE progreso (
   FOREIGN KEY (ID_Cliente) REFERENCES cliente(ID_cliente)
 );
 CREATE TABLE incentivo (
-    id_incentivo INT PRIMARY KEY,
+    id_incentivo INT PRIMARY KEY AUTO_INCREMENT,
     recompensa VARCHAR(100),
     costo DECIMAL(10, 2),
     dirigido VARCHAR(50)

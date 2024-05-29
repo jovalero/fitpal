@@ -18,6 +18,11 @@ public class Entrenador extends Persona{
 		this.id_entrenador=0;
 		this.numentrenados=0;
 	}
+	public Entrenador(String nombre, String apellido, int telefono, int id_sucursal, int dNI, String email,String contrasena, int numentrenados) {
+		super(nombre, apellido, telefono, id_sucursal, dNI,contrasena,email);
+		this.id_entrenador=-1;
+		this.numentrenados=numentrenados;
+	}
 	public int getId_entrenador() {
 		return id_entrenador;
 	}

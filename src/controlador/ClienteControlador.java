@@ -1,11 +1,14 @@
-
 package controlador;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,9 +16,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import java.sql.Date;
-
 import interfaces.ClienteRepository;
-import interfaces.UserRepository;
+import controlador.DatabaseConnection;
 import modelo.Cliente;
 
 public class ClienteControlador implements ClienteRepository {
@@ -26,10 +28,11 @@ public class ClienteControlador implements ClienteRepository {
     }
 
 	@Override
-	public LinkedList<Cliente> getAllClientes() {
+	public LinkedList<Cliente> getAllClientes(int sucursal) {
 		LinkedList<Cliente> users = new LinkedList<Cliente>();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM cliente ");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM cliente WHERE ID_sucursal = ?");
+            statement.setInt(1, sucursal);
             ResultSet resultSet = statement.executeQuery();
        
             while (resultSet.next()) {
@@ -63,23 +66,25 @@ public class ClienteControlador implements ClienteRepository {
 	@Override
 	public void addCliente(Cliente cliente) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO cliente (ID_cliente, ID_Entrenador, ID_Dieta, ID_sucursal, DNI, Objetivooo, Puntos, Estado_sus, Peso, Altura, Contrasenia, Fecha_venc_sus, Telefono, Correo_electronico, Apellido, Nombre ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
-            statement.setInt(1, cliente.getId_cliente());
-            statement.setInt(2, cliente.getId_entrenador());
-            statement.setInt(3, cliente.getId_sucursal());
-            statement.setInt(4, cliente.getId_dieta());
-            statement.setInt(5, cliente.getDNI());
-            statement.setString(6, cliente.getObjetivo());
-            statement.setInt(7, cliente.getPuntos());
-            statement.setString(8, cliente.getEstado_sus());
-            statement.setDouble(9,cliente.getPeso());
-            statement.setDouble(10,cliente.getAltura());
-            statement.setString(11,cliente.getContrasena());
-            statement.setDate(12,cliente.getFechavenc());
-            statement.setInt(13, cliente.getTelefono());
-            statement.setString(14,cliente.getUsuario());
-            statement.setString(15,cliente.getNombre());
-            statement.setString(16,cliente.getApellido());
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO cliente (ID_Entrenador, ID_Dieta, ID_sucursal, DNI, Objetivo, Puntos, Estado_sus, Peso, Altura, Contrasenia, Fecha_venc_sus, Telefono, Correo_electronico, Apellido, Nombre ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+            
+            statement.setInt(1, cliente.getId_entrenador());
+            statement.setInt(2, cliente.getId_sucursal());
+            statement.setInt(3, cliente.getId_dieta());
+            statement.setInt(4, cliente.getDNI());
+            statement.setString(5, cliente.getObjetivo());
+            statement.setInt(6, cliente.getPuntos());
+            statement.setString(7, cliente.getEstado_sus());
+            statement.setDouble(8,cliente.getPeso());
+            statement.setDouble(9,cliente.getAltura());
+            statement.setString(10,cliente.getContrasena());
+            ZonedDateTime zonedDateTime = cliente.getFechavenc().atStartOfDay(ZoneId.systemDefault());
+            Instant instant = zonedDateTime.toInstant();
+            statement.setDate(11,(Date) Date.from(instant));
+            statement.setInt(12, cliente.getTelefono());
+            statement.setString(13,cliente.getUsuario());
+            statement.setString(14,cliente.getNombre());
+            statement.setString(15,cliente.getApellido());
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("Usuario insertado exitosamente");
@@ -101,7 +106,9 @@ public class ClienteControlador implements ClienteRepository {
             statement.setString(4,cliente.getContrasena());
             statement.setInt(5,cliente.getTelefono());
             statement.setString(6,cliente.getUsuario());
-            statement.setDate(7, cliente.getFechavenc());
+            ZonedDateTime zonedDateTime = cliente.getFechavenc().atStartOfDay(ZoneId.systemDefault());
+            Instant instant = zonedDateTime.toInstant();
+            statement.setDate(11,(Date) Date.from(instant));
             statement.setInt(8,cliente.getPuntos());
             statement.setString(9,cliente.getEstado_sus());
             statement.setInt(10,cliente.getId_entrenador());
