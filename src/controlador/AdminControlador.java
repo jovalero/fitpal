@@ -20,6 +20,7 @@ import modelo.Cliente;
 public class AdminControlador implements AdminRepository {
     private final Connection connection;
 
+    
     public AdminControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
