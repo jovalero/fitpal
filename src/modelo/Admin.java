@@ -498,9 +498,11 @@ public class Admin extends Persona implements VerificacionesRepository{
 
             case "Rutinas":
                
-             
+             //Mostrar y eliminar solo;
                 break;
 
+                
+                //Crear el case COMIDA que debe poder CREAR,MODIFICAR,ELIMINAR Y MOSTRAR
             case "Incentivos":
                 Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
 
@@ -520,23 +522,11 @@ public class Admin extends Persona implements VerificacionesRepository{
                 break;
 
             case "Dietas":
-                Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
-
-            	 switch (Elegida) {
-                 case "Crear":
-                     break;
-
-                 case "Modificar":
-                     break;
-
-                 case "Mostrar":
-                     break;
-
-                 case "Borrar":
-                     break;
-             }
+            	// Mostrar, y Eliminar dietas
                 break;
 
+                
+                //Crear case Comida
             case "Areas":
                 Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
 
