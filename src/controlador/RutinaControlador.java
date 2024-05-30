@@ -27,7 +27,7 @@ public class RutinaControlador implements RutinaRepository {
 		LinkedList<Rutina> rutinas= new LinkedList<Rutina>();
 		
 		try {
-			PreparedStatement statement= connection.prepareStatement("SELECT * FROM rutinaistrador");
+			PreparedStatement statement= connection.prepareStatement("SELECT * FROM Rutina");
 			ResultSet resultset= statement.executeQuery();
 			
 			while (resultset.next()) {
@@ -46,7 +46,7 @@ public class RutinaControlador implements RutinaRepository {
 	public Rutina getRutinaByid(int id) {
 		Rutina rutina= null;
 		try {
-			PreparedStatement statement= connection.prepareStatement("SELECT * FROM admistrador WHERE ID_rutinaistrador=?");
+			PreparedStatement statement= connection.prepareStatement("SELECT * FROM admistrador WHERE ID_Rutina=?");
 			statement.setInt(1, id);
 			
 			ResultSet resultset= statement.executeQuery();
@@ -99,19 +99,18 @@ public class RutinaControlador implements RutinaRepository {
 		
 	}
 
-	@Override
-	public void deleteRutina(int Rutina) {
-		try {
-			PreparedStatement statement = connection.prepareStatement("DELETE from rutinaistrador where ID_rutinaistrador= ? ");
-			statement.setInt(1, (int) rutina);
-			int rowsDeleted= statement.executeUpdate();
-			if (rowsDeleted>0) {
-				System.out.println("Usuario elimiinado");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "No  se pudo eliminar el usuario");
-		}
-		
-	}
+    @Override
+    public void deleteRutina(int id) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM rutina WHERE ID_Rutina = ?");
+            statement.setInt(1, id);
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted > 0) {
+                JOptionPane.showMessageDialog(null, "Rutina eliminada");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar la rutina");
+        }
+    }
 }

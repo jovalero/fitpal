@@ -74,9 +74,9 @@ public class ClienteControlador implements ClienteRepository {
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO cliente (ID_Entrenador, ID_Dieta, ID_sucursal, DNI, Objetivo, Puntos, Estado_sus, Peso, Altura, Contrasenia, Fecha_venc_sus, Telefono, Correo_electronico, Apellido, Nombre ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
             
-            statement.setInt(1, cliente.getId_entrenador());
+            statement.setString(1, null);
             statement.setInt(2, cliente.getId_sucursal());
-            statement.setInt(3, cliente.getId_dieta());
+            statement.setString(3, null);
             statement.setInt(4, cliente.getDNI());
             statement.setString(5, cliente.getObjetivo());
             statement.setInt(6, cliente.getPuntos());
@@ -84,9 +84,7 @@ public class ClienteControlador implements ClienteRepository {
             statement.setDouble(8,cliente.getPeso());
             statement.setDouble(9,cliente.getAltura());
             statement.setString(10,cliente.getContrasena());
-            ZonedDateTime zonedDateTime = cliente.getFechavenc().atStartOfDay(ZoneId.systemDefault());
-            Instant instant = zonedDateTime.toInstant();
-            statement.setDate(11,(Date) Date.from(instant));
+            statement.setDate(11,null);
             statement.setInt(12, cliente.getTelefono());
             statement.setString(13,cliente.getUsuario());
             statement.setString(14,cliente.getNombre());

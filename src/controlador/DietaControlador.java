@@ -22,24 +22,28 @@ public class DietaControlador implements DietaRepository {
 		return connection;
 	}
 
-	@Override
-	public LinkedList<Dieta> getAllDieta() {
-		LinkedList<Dieta> dietas= new LinkedList<Dieta>();
-		try {
-			PreparedStatement statement= connection.prepareStatement("SELECT * FROM Dieta");
-			ResultSet resultset= statement.executeQuery();
-			 
-			while (resultset.next()) {
-				Dieta Dieta=new Dieta(resultset.getInt("ID_Dieta"),resultset.getString("Nombre_Dieta"),resultset.getString("Descripcion_Dieta"));
-				dietas.add(Dieta);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Ocurrio un error al mostrar");
-		}
-		return dietas;
-		
-	}
+    @Override
+    public List<Dieta> getAllDietas() {
+        List<Dieta> dietaList = new LinkedList<>();
+        
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM dieta");
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {
+                Dieta dieta = new Dieta(
+                    resultSet.getInt("ID_Dieta"),
+                    resultSet.getString("Nombre_Dieta"),
+                    resultSet.getString("Descripcion_Dieta")
+                );
+                dietaList.add(dieta);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al mostrar las dietas");
+        }
+        return dietaList;
+    }
 
 	@Override
 	public Dieta getDietaById(int id) {
