@@ -7,14 +7,14 @@ import controlador.ClienteControlador;
 import controlador.EntrenadorControlador;
 
 public abstract class Persona {
-	
-	private String Nombre;
-	private String Apellido;
-	private int Telefono;
-	private int id_sucursal;
-	private int DNI;
-	private String contrasena;
-	private String usuario;
+    
+    private String Nombre;
+    private String Apellido;
+    private int Telefono;
+    private int id_sucursal;
+    private int DNI;
+    private String contrasena;
+    private String usuario;
 
 	public Persona(String nombre, String apellido, int telefono, int id_sucursal, int dNI, String contrasena,
 			String usuario) {
@@ -89,3 +89,4 @@ public abstract class Persona {
 		
 	}
 }
+
