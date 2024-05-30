@@ -22,6 +22,7 @@ public class ComidaControlador implements ComidaRepository{
 	@Override
 	public LinkedList<Comida> getAllComidas() {
 		 LinkedList<Comida> comidas = new LinkedList<>();
+		 
 		 try {
 	            PreparedStatement statement = connection.prepareStatement("SELECT * FROM comida");
 	            ResultSet resultSet = statement.executeQuery();

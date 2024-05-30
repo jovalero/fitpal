@@ -1,6 +1,7 @@
 package modelo;
 
 public class Rutina {
+
     private int idRutina;
     private String estado;
     private String descripcion;
@@ -49,4 +50,5 @@ public class Rutina {
     public String toString() {
         return "Rutina [idRutina=" + idRutina + ", estado=" + estado + ", descripcion=" + descripcion + ", objetivo=" + objetivo + "]";
     }
+ 
 }

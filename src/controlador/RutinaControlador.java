@@ -122,19 +122,55 @@ public class RutinaControlador implements RutinaRepository {
         return rutina;
     }
 
-	@Override
-	public void deleteRutina(int Rutina) {
-		try {
-			PreparedStatement statement = connection.prepareStatement("DELETE from rutinaistrador where ID_rutinaistrador= ? ");
-			statement.setInt(1, (int) rutina);
-			int rowsDeleted= statement.executeUpdate();
-			if (rowsDeleted>0) {
-				System.out.println("Usuario elimiinado");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "No  se pudo eliminar el usuario");
-		}
-		
-	}
+    @Override
+    public void addRutina(Rutina rutina) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO rutina (Estado, Descripcion, Objetivo) VALUES (?, ?, ?)");
+            statement.setString(1, rutina.getEstado());
+            statement.setString(2, rutina.getDescripcion());
+            statement.setString(3, rutina.getObjetivo());
+            
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                JOptionPane.showMessageDialog(null, "Rutina creada");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "No se pudo añadir la rutina");
+        }
+    }
+
+    @Override
+    public void updateRutina(Rutina rutina) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("UPDATE rutina SET Estado = ?, Descripcion = ?, Objetivo = ? WHERE ID_Rutina = ?");
+            statement.setString(1, rutina.getEstado());
+            statement.setString(2, rutina.getDescripcion());
+            statement.setString(3, rutina.getObjetivo());
+            statement.setInt(4, rutina.getIdRutina());
+            
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Rutina actualizada");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "No se pudo actualizar la rutina");
+        }
+    }
+
+    @Override
+    public void deleteRutina(int id) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM rutina WHERE ID_Rutina = ?");
+            statement.setInt(1, id);
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted > 0) {
+                JOptionPane.showMessageDialog(null, "Rutina eliminada");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar la rutina");
+        }
+    }
 }

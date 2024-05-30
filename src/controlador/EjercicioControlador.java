@@ -1,6 +1,7 @@
 package controlador;
 
 import java.sql.Connection;
+<<<<<<< HEAD
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -131,6 +132,6 @@ public class EjercicioControlador implements EjercicioRepository{
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
+		}
+
 	}
-	
-}

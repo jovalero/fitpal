@@ -755,8 +755,64 @@ do {
 		}
 	 
 }
-	
-
+	public static void crearEjercicio() {
+		LinkedList<Ejercicio> listaEjercicios = new LinkedList<>();
+		EjercicioControlador controlador = new EjercicioControlador();
+		
+		int ID_Ejercicio = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del ejercicio:"));
+		String Nombre = JOptionPane.showInputDialog("Ingrese el nombre del ejercicio:");
+		String Maquina = JOptionPane.showInputDialog("Ingrese la máquina del ejercicio:");
+	}
+	public static void modificarEjercicio() {
+		LinkedList<Ejercicio> listaEjercicios = new LinkedList<>();
+		EjercicioControlador controlador = new EjercicioControlador();
+		int ID_Ejercicio = Integer.parseInt(JOptionPane.showInputDialog("Ingrese ID del ejercicio que desee modificar "));
+		Ejercicio ejercicioAModificar = null;
+	}
+	public static void mostrarEjercicios() {
+		LinkedList<Ejercicio> listaEjercicios = new LinkedList<>();
+		EjercicioControlador controlador = new EjercicioControlador();
+		
+		StringBuilder nota = new StringBuilder("Lista de ejercicios:\n");
+	}
+	public static void borrarEjercicio() {
+		LinkedList<Ejercicio> listaEjercicios = new LinkedList<>();
+		EjercicioControlador controlador = new EjercicioControlador();
+			int ID_Ejercicio = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del ejercicio que desee borrar:"));
+			Ejercicio ejercicioABorrar = null;
+			for (Ejercicio ejercicio : listaEjercicios) {
+			}
+			public static void crearComida() {
+				LinkedList<Comida> listacomidas = new LinkedList<>();
+				ComidaControlador controlador = new ComidaControlador ();
+				
+				String Nombre = JOptionPane.showInputDialog("Ingrese el nombre de la comida :");
+				String Descripcion = JOptionPane.showInputDialog("Ingrese la descripcion de la comida:");
+				int ID_Comida = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Comida:"));
+			}
+			public static void modificarComida() {
+				LinkedList<Comida> listacomidas = new LinkedList<>();
+				ComidaControlador controlador = new ComidaControlador ();
+				
+				int ID_Comida = Integer.parseInt(JOptionPane.showInputDialog("ingrese el ID de la comida a modificar"));
+				Comida comidaAModificar = null;
+			}
+			 public static void mostrarComidas() {
+				 LinkedList<Comida> listacomidas = new LinkedList<>();
+					ComidaControlador controlador = new ComidaControlador ();
+					
+			        StringBuilder nota = new StringBuilder("Lista de comidas:\n");
+			        
+			        for (Comida comida : listacomidas) {
+			        }
+			 }
+			        public static void borrarComida() {
+						LinkedList<Comida> listacomidas = new LinkedList<>();
+						ComidaControlador controlador = new ComidaControlador ();
+						
+						int ID_Comida = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la comida que desee borrar"));
+						Comida comidaABorrar = null;
+			        }
 	@Override
 	public void Menu() {
         String[] opciones = {"Clientes", "Entrenadores", "Rutinas", "Incentivos", "Dietas", "Areas","Comida","Ejercicios"};
@@ -811,7 +867,7 @@ do {
                      break;
 
                  case "Borrar":
-                	 BorrarRutinas();
+                	 borrarIncentivo();
                      break;
              }
                 break;
