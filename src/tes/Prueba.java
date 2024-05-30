@@ -96,4 +96,73 @@ public class Prueba {
          assertEquals(true,!Admin.clientesiguales(cliente,controlador.getAllClientesBySucursal(Admin.getId_sucursal()).get(0)) );
     	
     }
+    @Test 
+    public void MostrarRutinasV() {
+        RutinaControlador controlador = new RutinaControlador();
+        AdminControlador Admins = new AdminControlador();
+        Admin Admin = Admins.getAllAdmin().get(0);
+        int total = 0;
+        int totaldesp = 0;
+        for (Rutina rutina : controlador.getAllRutinas()) {
+            total++;
+        }
+        Admin.MostrarRutinas();
+        for (Rutina rutina : controlador.getAllRutinas()) {
+            totaldesp++;
+        }
+        assertEquals(true, total < totaldesp);   
+    }
+
+    @Test
+    public void MostrarRutinasF() {
+        JOptionPane.showMessageDialog(null, "Falso");
+        RutinaControlador controlador = new RutinaControlador();
+        AdminControlador Admins = new AdminControlador();
+        Admin Admin = Admins.getAllAdmin().get(0);
+        int total = 0;
+        int totaldesp = 0;
+        for (Rutina rutina : controlador.getAllRutinas()) {
+            total++;
+        }
+        Admin.MostrarRutinas();
+        for (Rutina rutina : controlador.getAllRutinas()) {
+            totaldesp++;
+        }
+        assertEquals(true, total == totaldesp);   
+    }
+    @Test
+    public void BorrarRutinasV() {
+        RutinaControlador controlador = new RutinaControlador();
+        AdminControlador Admins = new AdminControlador();
+        Admin Admin = Admins.getAllAdmin().get(0);
+        
+        int totalAntes = controlador.getAllRutinas().size();
+        
+        if (totalAntes > 0) {
+            Rutina rutinaABorrar = controlador.getAllRutinas().get(0);
+            
+            Admin.BorrarRutinas();
+            
+            int totalDespues = controlador.getAllRutinas().size();
+            
+            assertTrue(totalDespues < totalAntes);
+        } else {
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void BorrarRutinasF() {
+        RutinaControlador controlador = new RutinaControlador();
+        AdminControlador Admins = new AdminControlador();
+        Admin Admin = Admins.getAllAdmin().get(0);
+        
+        for (Rutina rutina : controlador.getAllRutinas()) {
+            controlador.deleteRutina(rutina.getId());
+        }
+        
+        Admin.BorrarRutinas();
+        
+        assertEquals(0, controlador.getAllRutinas().size());
+    }
 }
