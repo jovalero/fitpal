@@ -48,6 +48,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 	
 	public void RegistrarCliente() {
 		ClienteControlador controlador;
+		Cliente nuevocliente=null;
 
 	    try {
 	        controlador = new ClienteControlador();
@@ -80,7 +81,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 								if (Peso!=-1) {
 									Double Altura=VerificacionesRepository.SoloDoubles("Ingresa altura: ");
 									if (Altura!=-1) {
-										Cliente nuevocliente= new Cliente(Nombre,Apellido,Telefono,sucursal,DNI,Email,Contrasena,"Nuevo",Peso,Altura);
+										nuevocliente= new Cliente(Nombre,Apellido,Telefono,sucursal,DNI,Email,Contrasena,"Nuevo",Peso,Altura);
 										controlador.addCliente(nuevocliente);
 									}
 								}
@@ -89,8 +90,8 @@ public class Admin extends Persona implements VerificacionesRepository{
 					}
 				}
 			}
-			else {
-				JOptionPane.showMessageDialog(null, "Has cancelado la operacion");
+			if (nuevocliente==null) {
+				JOptionPane.showMessageDialog(null, "Cancelaron la operacion");
 			}
 		}
 			
@@ -289,7 +290,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 		String nota="Lista de clientes: \n";
 		
 		for (Cliente cliente : Clientes) {
-			nota+= cliente.toString() + "\n";String otramodificacion;
+			nota+= cliente.toString() + "\n";
 		
 		}
 		JOptionPane.showMessageDialog(null, nota);

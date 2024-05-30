@@ -23,6 +23,9 @@ public interface VerificacionesRepository {
     	do {
     		seguro=true;
 			Texto=JOptionPane.showInputDialog(texto);
+			if (Texto==null) {
+				return null;
+			}
 			if (!Texto.isEmpty()) {
 			    for (int i = 0; i < Texto.length(); i++) {
 		            char caracter = Texto.charAt(i);
@@ -35,8 +38,8 @@ public interface VerificacionesRepository {
 			else {
 				JOptionPane.showMessageDialog(null, "Dejaste vacio el recuadro!");
 				seguro=false;
+				
 			}
-
 		} while (!seguro);	
     
         return Texto;
