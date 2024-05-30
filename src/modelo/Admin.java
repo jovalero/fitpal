@@ -1,13 +1,14 @@
 package modelo;
 
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
 import controlador.ClienteControlador;
+import controlador.EjercicioControlador;
 import controlador.EntrenadorControlador;
-import controlador.IncentivoControlador;
 import interfaces.VerificacionesRepository;
 
 
@@ -36,8 +37,8 @@ public class Admin extends Persona implements VerificacionesRepository{
 		this.id_admin = id_admin;
 	}
 	
-
-
+	
+	
 	@Override
 	public String toString() {
 		return "Admin [id_admin=" + id_admin + ", getNombre()=" + getNombre() + ", getApellido()=" + getApellido()
@@ -46,8 +47,21 @@ public class Admin extends Persona implements VerificacionesRepository{
 	}
 	
 	public void RegistrarCliente() {
-		ClienteControlador controlador= new ClienteControlador();
-		if (controlador!=null) {
+		ClienteControlador controlador;
+		Cliente nuevocliente=null;
+
+	    try {
+	        controlador = new ClienteControlador();
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+	        return;  
+	    }
+
+	    if (controlador.getConnection() == null) {
+	        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+	        return; 
+	    }
+		
 			int DNI;
 			String Nombre=VerificacionesRepository.Sololetras("Escribe el nombre del cliente: ");
 			if (Nombre != null) {
@@ -67,7 +81,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 								if (Peso!=-1) {
 									Double Altura=VerificacionesRepository.SoloDoubles("Ingresa altura: ");
 									if (Altura!=-1) {
-										Cliente nuevocliente= new Cliente(Nombre,Apellido,Telefono,sucursal,DNI,Email,Contrasena,"Nuevo",Peso,Altura);
+										nuevocliente= new Cliente(Nombre,Apellido,Telefono,sucursal,DNI,Email,Contrasena,"Nuevo",Peso,Altura);
 										controlador.addCliente(nuevocliente);
 									}
 								}
@@ -76,20 +90,27 @@ public class Admin extends Persona implements VerificacionesRepository{
 					}
 				}
 			}
-			else {
-				JOptionPane.showMessageDialog(null, "Has cancelado la operacion");
+			if (nuevocliente==null) {
+				JOptionPane.showMessageDialog(null, "Cancelaron la operacion");
 			}
 		}
-		else {
-			JOptionPane.showMessageDialog(null, "No hay conexion");
-		}
-		
-
-	}
+			
+	
 	
 	public void ModificarCliente() {
 		String otramodificacion;
-		ClienteControlador controlador = new ClienteControlador();
+		ClienteControlador controlador;
+		   try {
+		        controlador = new ClienteControlador();
+		    } catch (Exception e) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return;  
+		    }
+
+		    if (controlador.getConnection() == null) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return; 
+		    }
 		LinkedList<Cliente> Clientes = controlador.getAllClientesBySucursal(this.getId_sucursal());
 		Cliente [] ArrayClientes= Clientes.toArray(new Cliente[0]);
 		String[] Opciones= {"Nombre","Apellido","Email","Contraseña","DNI","Suscripcion","Puntos","Salir"};
@@ -253,18 +274,40 @@ public class Admin extends Persona implements VerificacionesRepository{
 	}
 	
 	public void MostrarClientes(){
-		ClienteControlador controlador = new ClienteControlador();
+		ClienteControlador controlador;
+		   try {
+		        controlador = new ClienteControlador();
+		    } catch (Exception e) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return;  
+		    }
+
+		    if (controlador.getConnection() == null) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return; 
+		    }
 		LinkedList<Cliente> Clientes = controlador.getAllClientesBySucursal(this.getId_sucursal());
 		String nota="Lista de clientes: \n";
 		
 		for (Cliente cliente : Clientes) {
-			nota+= cliente.toString() + "\n";String otramodificacion;
+			nota+= cliente.toString() + "\n";
 		
 		}
 		JOptionPane.showMessageDialog(null, nota);
 	}
 	public void BorrarClientes() {
-		ClienteControlador controlador = new ClienteControlador();
+		ClienteControlador controlador;
+		   try {
+		        controlador = new ClienteControlador();
+		    } catch (Exception e) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return;  
+		    }
+
+		    if (controlador.getConnection() == null) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return; 
+		    }
 		int DNI;
 		String mensaje="";
 		String otramodificacion;
@@ -290,6 +333,18 @@ public class Admin extends Persona implements VerificacionesRepository{
 	}
 	public void CrearEntrenadores() {
 		EntrenadorControlador controlador= new EntrenadorControlador();
+		Entrenador nuevoentrenador=null;
+		   try {
+		        controlador = new EntrenadorControlador();
+		    } catch (Exception e) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return;  
+		    }
+
+		    if (controlador.getConnection() == null) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return; 
+		    }
 		int DNI;
 		String Nombre=VerificacionesRepository.Sololetras("Escribe el nombre del Entrenador: ");
 		if (Nombre != null) {
@@ -306,15 +361,15 @@ public class Admin extends Persona implements VerificacionesRepository{
 						if (DNI!=-1) {
 							String Contrasena= "Primeracontrasena!";
 							int numentrenados=0;
-							Entrenador nuevoentrenador=new Entrenador(Nombre,Apellido,Telefono,sucursal,DNI,Email,Contrasena,numentrenados);
+							 nuevoentrenador=new Entrenador(Nombre,Apellido,Telefono,sucursal,DNI,Email,Contrasena,numentrenados);
 							controlador.addEntrenador(nuevoentrenador);
 						}
 					}
 				}
 			}
 		}
-		else {
-			JOptionPane.showMessageDialog(null, "Has cancelado la operacion");
+		if (nuevoentrenador==null) {
+			JOptionPane.showMessageDialog(null, "Cancelaron la operacion");
 		}
 
 		
@@ -322,7 +377,18 @@ public class Admin extends Persona implements VerificacionesRepository{
 	
 	public void ModificarEntrenador() {
 		String otramodificacion;
-	EntrenadorControlador controlador = new EntrenadorControlador();
+	EntrenadorControlador controlador;
+	   try {
+	        controlador = new EntrenadorControlador();
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+	        return;  
+	    }
+
+	    if (controlador.getConnection() == null) {
+	        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+	        return; 
+	    }
 		LinkedList<Entrenador> Entrenadores = controlador.getAllEntrenadoresBySucursal(this.getId_sucursal());
 		Entrenador [] ArrayEntrenadores= Entrenadores.toArray(new Entrenador[0]);
 		String[] Opciones= {"Nombre","Apellido","Email","Contraseña","DNI","Salir"};
@@ -395,7 +461,18 @@ public class Admin extends Persona implements VerificacionesRepository{
 	}
 	
 	public void MostrarEntrenadores() {
-		EntrenadorControlador controlador = new EntrenadorControlador();
+		EntrenadorControlador controlador;
+		   try {
+		        controlador = new EntrenadorControlador();
+		    } catch (Exception e) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return;  
+		    }
+
+		    if (controlador.getConnection() == null) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return; 
+		    }
 		LinkedList<Entrenador> Entrenadores = controlador.getAllEntrenadoresBySucursal(this.getId_sucursal());
 		String nota="Lista de Entrenadores: \n";
 		
@@ -406,7 +483,18 @@ public class Admin extends Persona implements VerificacionesRepository{
 		JOptionPane.showMessageDialog(null, nota);
 	}
 	public void BorrarEntrenador() {
-		EntrenadorControlador controlador = new EntrenadorControlador();
+		EntrenadorControlador controlador;
+		   try {
+		        controlador = new EntrenadorControlador();
+		    } catch (Exception e) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return;  
+		    }
+
+		    if (controlador.getConnection() == null) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return; 
+		    }
 		int DNI;
 		String mensaje="";
 		String otramodificacion;
@@ -430,18 +518,98 @@ public class Admin extends Persona implements VerificacionesRepository{
 	}
 	
 	public void AsignarEntrenador() {
-		EntrenadorControlador controlador = new EntrenadorControlador();
+		EntrenadorControlador controlador;
+		ClienteControlador controladorcliente;
+		   try {
+		        controlador = new EntrenadorControlador();
+		        controladorcliente= new ClienteControlador();
+		    } catch (Exception e) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return;  
+		    }
+
+		    if (controlador.getConnection() == null) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return; 
+		    }
+
+		String [] accion= {"Añadir Cliente","Quitar Cliente","Salir"};
+		int seleccion2;
+		Cliente clienteseleccionado;
+		Entrenador opcion;
+		String Seleccion;
+		String otramodificacion;
 		LinkedList<Entrenador> Entrenadores = controlador.getAllEntrenadoresBySucursal(this.getId_sucursal());
-		LinkedList<Entrenador>EntrenadoresDisponibles= new LinkedList<Entrenador>();
+		Entrenador [] arrayEntrenadores= Entrenadores.toArray(new Entrenador[0]);
+do {
+	
+	opcion= (Entrenador)JOptionPane.showInputDialog(null,"A que entrenador deseas configurar asignados:  ","Seleccionador Entrenador",JOptionPane.DEFAULT_OPTION,null,arrayEntrenadores,arrayEntrenadores[0]);
+
+	do {
 		
-		for (Entrenador entrenador : Entrenadores) {
-			if (entrenador.getNumentrenados()<50) {
-				EntrenadoresDisponibles.add(entrenador);
+		LinkedList<Cliente> ClientesDisponibles= new LinkedList<Cliente>();
+		LinkedList<Cliente> Clientesdelentrenador= new LinkedList<Cliente>();
+		LinkedList<Cliente> Clientes=controladorcliente.getAllClientesBySucursal(this.getId_sucursal());
+		for (Cliente cliente : Clientes) {
+			if (cliente.getId_entrenador()==0 && !cliente.getEstado_sus().equalsIgnoreCase("Desactivada")) {
+				ClientesDisponibles.add(cliente);
 			}
 		}
-		Entrenador [] arrayEntrenadores= EntrenadoresDisponibles.toArray(new Entrenador[0]);
-		Entrenador opcion= (Entrenador)JOptionPane.showInputDialog(null,"A que entrenador deseas configurar asignados:  ","Seleccionador Entrenador",JOptionPane.DEFAULT_OPTION,null,arrayEntrenadores,arrayEntrenadores[0]);
+		Cliente [] ArrrayClientesDisponibles=ClientesDisponibles.toArray(new Cliente[0]);
+		Cliente [] ArrrayClientesEntrenador;
+		if (opcion.getNumentrenados()<50) {
+			Seleccion=(String) JOptionPane.showInputDialog(null,"Que desea realizar?","Tittle",JOptionPane.DEFAULT_OPTION,null,accion,accion[0]);
+
+		}
+		else {
+			String eliminar=VerificacionesRepository.solicitarConfirmacion("Desea eliminar un cliente, este entrenador ya tiene mas de 50 personas");
+			if (eliminar.equalsIgnoreCase("Si")) {
+				Seleccion="Quitar cliente";
+			}
+			else {
+				Seleccion="";
+			}
+		}
+		switch (Seleccion) {
+		case "Añadir cliente":
+			seleccion2=JOptionPane.showOptionDialog(null, "Que cliente desea añadirle", "Cliente", JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE , null, ArrrayClientesDisponibles, ArrrayClientesDisponibles[0]);
+			clienteseleccionado=ArrrayClientesDisponibles[seleccion2];
+			clienteseleccionado.setId_entrenador(opcion.getId_entrenador());
+			controladorcliente.updateCliente(clienteseleccionado);
+			opcion.setNumentrenados(opcion.getNumentrenados()+1);
+			controlador.updateEntrenador(opcion);
+			break;
+		case "Quitar cliente":
+			
+			for (Cliente cliente : Clientes) {
+				if (cliente.getId_entrenador()==opcion.getId_entrenador()) {
+					Clientesdelentrenador.add(cliente);
+				}
+			}
+			ArrrayClientesEntrenador=Clientesdelentrenador.toArray(new Cliente[0]);
+			seleccion2=JOptionPane.showOptionDialog(null, "Que cliente desea eliminar", "Cliente", JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE , null, ArrrayClientesEntrenador, ArrrayClientesEntrenador[0]);
+			clienteseleccionado=ArrrayClientesEntrenador[seleccion2];
+			clienteseleccionado.setId_entrenador(0);
+			opcion.setNumentrenados(opcion.getNumentrenados()-1);
+			controladorcliente.updateCliente(clienteseleccionado);
+			controlador.updateEntrenador(opcion);
+			break;
+		default:
+			break;
+		}
+		otramodificacion=VerificacionesRepository.solicitarConfirmacion("Deseas hacer otra modificacion a este entrenador?");
+		if (otramodificacion.equalsIgnoreCase("Si") && opcion.getNumentrenados()<50) {
 		
+		}
+	} while (otramodificacion.equalsIgnoreCase("Si") && opcion.getNumentrenados()<50);
+	
+	
+	otramodificacion=VerificacionesRepository.solicitarConfirmacion("Deseas modificar otro entrenador?");
+
+} while (otramodificacion.equalsIgnoreCase("Si"));
+		
+		
+	
 	}
 	public void MostrarRutinas(){
 	    RutinaControlador controlador = new RutinaControlador();
@@ -489,77 +657,200 @@ public class Admin extends Persona implements VerificacionesRepository{
 	    }
 	}
 	
-	public static void crearIncentivo() {
-		IncentivoControlador controlador = new IncentivoControlador();
-		LinkedList<Incentivo> listaincentivo = controlador.getAllIncentivos();
-		int Costo = Integer.parseInt(JOptionPane.showInputDialog(null, "Precio:"));
-		String Descripcion = JOptionPane.showInputDialog("Ingrese la descripcion:");
-		int ID_Incentivo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID:"));
-		
-		Incentivo nuevoIncentivo = new Incentivo(Costo,Descripcion,ID_Incentivo);
-		listaincentivo.add(nuevoIncentivo);
-		JOptionPane.showMessageDialog(null,"Incentivo creado exitosamente!");
-	}
 	
-	public static void modificarIncentivo() {
-		IncentivoControlador controlador = new IncentivoControlador();
-		LinkedList<Incentivo> listaincentivo = controlador.getAllIncentivos();
-		int ID_Incentivo  = Integer.parseInt(JOptionPane.showInputDialog("ingrese el ID:"));
-		Incentivo incentivoAModificar = null;
+	
+		public static void crearEjercicio() {
+			LinkedList<Ejercicio> listaEjercicios = new LinkedList<>();
+			EjercicioControlador controlador = new EjercicioControlador();
+			
+			int ID_Ejercicio = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del ejercicio:"));
+			String Nombre = JOptionPane.showInputDialog("Ingrese el nombre del ejercicio:");
+			String Maquina = JOptionPane.showInputDialog("Ingrese la máquina del ejercicio:");
+			String Musculo = JOptionPane.showInputDialog("Ingrese el músculo trabajado en el ejercicio:");
+			String Descripcion = JOptionPane.showInputDialog("Ingrese la descripción del ejercicio:");
+			String Video = JOptionPane.showInputDialog("Ingrese el enlace del video del ejercicio:");
+			int ID_Area = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del área del ejercicio:"));
+			
+			Ejercicio nuevoEjercicio = new Ejercicio (ID_Ejercicio, Nombre, Maquina, Musculo, Descripcion, Video, ID_Area);
+			listaEjercicios.add(nuevoEjercicio);
+			JOptionPane.showMessageDialog(null," Ejercicio creado exitosamente! :)");
+		}
 		
-		for (Incentivo incentivo : listaincentivo) {
-			if (incentivo.getID_Incentivo() == ID_Incentivo) {
-				incentivoAModificar = incentivo;
-				break;
+		public static void modificarEjercicio() {
+			LinkedList<Ejercicio> listaEjercicios = new LinkedList<>();
+			EjercicioControlador controlador = new EjercicioControlador();
+			int ID_Ejercicio = Integer.parseInt(JOptionPane.showInputDialog("Ingrese ID del ejercicio que desee modificar "));
+			Ejercicio ejercicioAModificar = null;
+			
+			for(Ejercicio ejercicio:listaEjercicios) {
+				if(ejercicio.getID_Ejercicio() == ID_Ejercicio) {
+					ejercicioAModificar = ejercicio;
+					break;
+				}
+			}
+			if (ejercicioAModificar != null) {
+				String nuevoNombre = JOptionPane.showInputDialog("Ingrese el nuevo nombre del ejercicio:", ejercicioAModificar.getNombre());
+				String nuevaMaquina = JOptionPane.showInputDialog("Ingrese la nueva máquina del ejercicio:", ejercicioAModificar.getMaquina());
+				String nuevoMusculo = JOptionPane.showInputDialog("Ingrese el nuevo músculo trabajado en el ejercicio:", ejercicioAModificar.getMusculo());
+				String nuevaDescripcion = JOptionPane.showInputDialog("Ingrese la nueva descripción del ejercicio:", ejercicioAModificar.getDescripcion());
+				String nuevoVideo = JOptionPane.showInputDialog("Ingrese el nuevo enlace del video del ejercicio:", ejercicioAModificar.getVideo());
+				int nuevoID_Area = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el nuevo ID del área del ejercicio:", ejercicioAModificar.getID_Area()));
+				
+				ejercicioAModificar.setNombre(nuevoNombre);
+				ejercicioAModificar.setMaquina(nuevaMaquina);
+				ejercicioAModificar.setMusculo(nuevoMusculo);
+				ejercicioAModificar.setDescripcion(nuevaDescripcion);
+				ejercicioAModificar.setVideo(nuevoVideo);
+				ejercicioAModificar.setID_Area(nuevoID_Area);
+				
+				JOptionPane.showMessageDialog(null, "Ejercicio modificado exitosamente! :)");
+			} else {
+				JOptionPane.showMessageDialog(null, "Ejercicio no encontrado :(");
 			}
 		}
-		if (incentivoAModificar != null) {
-			int nuevoCosto = Integer.parseInt(JOptionPane.showInputDialog("Precio:",incentivoAModificar.getCosto()));
-			String nuevaDescripcion = JOptionPane.showInputDialog("Ingrese la nueva descripcion:",incentivoAModificar.getDescripcion());
-			
-			incentivoAModificar.setCosto(nuevoCosto);
-			incentivoAModificar.setDescripcion(nuevaDescripcion);
-			
-			JOptionPane.showMessageDialog(null,"Comida modificada exitosamente! :)");
-		} else {
-			JOptionPane.showMessageDialog(null,"Comida no encontrada: ");
-		}
-	}
-
-	 public static void mostrarIncentivo() {
-		 IncentivoControlador controlador = new IncentivoControlador();
-		 LinkedList<Incentivo> listaincentivo = controlador.getAllIncentivos();
-	     StringBuilder nota = new StringBuilder("Lista:\n");
-	        
-	        for (Incentivo incentivo : listaincentivo) {
-	            nota.append(incentivo.toString()).append("\n");
-	        }
-	        
-	        JOptionPane.showMessageDialog(null, nota.toString());
-	    }
-	 
-	public static void borrarIncentivo() {
-		IncentivoControlador controlador = new IncentivoControlador();
-		LinkedList<Incentivo> listaincentivo = controlador.getAllIncentivos();
-		int ID_Incentivo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID que desee borrar: "));
-		Incentivo IncentivoABorrar = null;
 		
-		for (Incentivo incentivo : listaincentivo) {
-			if (incentivo.getID_Incentivo() == ID_Incentivo) {
-			IncentivoABorrar = incentivo;
-			break;
-		  }
+		
+			public static void mostrarEjercicios() {
+				LinkedList<Ejercicio> listaEjercicios = new LinkedList<>();
+				EjercicioControlador controlador = new EjercicioControlador();
+				
+				StringBuilder nota = new StringBuilder("Lista de ejercicios:\n");
+				
+				for (Ejercicio ejercicio : listaEjercicios) {
+					nota.append(ejercicio.toString()).append("\n");
+				}
+				JOptionPane.showMessageDialog(null, nota.toString());
+				
+			}
+		
+		public static void borrarEjercicio() {
+			LinkedList<Ejercicio> listaEjercicios = new LinkedList<>();
+			EjercicioControlador controlador = new EjercicioControlador();
+				int ID_Ejercicio = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del ejercicio que desee borrar:"));
+				Ejercicio ejercicioABorrar = null;
+				for (Ejercicio ejercicio : listaEjercicios) {
+					if(ejercicio.getID_Ejercicio()== ID_Ejercicio) {
+						ejercicioABorrar = ejercicio;
+						break;
+					}
+				}
+				if (ejercicioABorrar != null) {
+					listaEjercicios.remove(ejercicioABorrar);
+					JOptionPane.showMessageDialog(null,"Ejercicio borrado exitosamente!");
+				} else {
+					JOptionPane.showMessageDialog(null,"Ejercicio no encontrado :(");
+				}
 		}
+		
+		public static void crearComida() {
+			LinkedList<Comida> listacomidas = new LinkedList<>();
+			ComidaControlador controlador = new ComidaControlador ();
+			
+			String Nombre = JOptionPane.showInputDialog("Ingrese el nombre de la comida :");
+			String Descripcion = JOptionPane.showInputDialog("Ingrese la descripcion de la comida:");
+			int ID_Comida = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Comida:"));
+			
+			Comida nuevaComida = new Comida(Nombre,Descripcion,ID_Comida);
+			listacomidas.add(nuevaComida);
+			JOptionPane.showMessageDialog(null,"Comida creada exitosamente!");
+		}
+		
+		
+		public static void modificarComida() {
+			LinkedList<Comida> listacomidas = new LinkedList<>();
+			ComidaControlador controlador = new ComidaControlador ();
+			
+			int ID_Comida = Integer.parseInt(JOptionPane.showInputDialog("ingrese el ID de la comida a modificar"));
+			Comida comidaAModificar = null;
+			
+			for (Comida comida : listacomidas) {
+				if (comida.getID_Comida() == ID_Comida) {
+					comidaAModificar = comida;
+					break;
+				}
+			}
+			if (comidaAModificar != null) {
+				String nuevoNombre = JOptionPane.showInputDialog("Ingrese el nuevo nombre de la comida:",comidaAModificar.getNombre());
+				String nuevaDescripcion = JOptionPane.showInputDialog("Ingrese la nueva descripcion de la comida:",comidaAModificar.getDescripcion());
+				
+				comidaAModificar.setNombre(nuevoNombre);
+				comidaAModificar.setDescripcion(nuevaDescripcion);
+				
+				JOptionPane.showMessageDialog(null,"Comida modificada exitosamente! :)");
+			} else {
+				JOptionPane.showMessageDialog(null,"Comida no encontrada :(");
+			}
+		}
+		
+		
+		 public static void mostrarComidas() {
+			 LinkedList<Comida> listacomidas = new LinkedList<>();
+				ComidaControlador controlador = new ComidaControlador ();
+				
+		        StringBuilder nota = new StringBuilder("Lista de comidas:\n");
+		        
+		        for (Comida comida : listacomidas) {
+		            nota.append(comida.toString()).append("\n");
+		        }
+		        
+		        JOptionPane.showMessageDialog(null, nota.toString());
+		    }
+		 
+		public static void borrarComida() {
+			LinkedList<Comida> listacomidas = new LinkedList<>();
+			ComidaControlador controlador = new ComidaControlador ();
+			
+			int ID_Comida = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la comida que desee borrar"));
+			Comida comidaABorrar = null;
+			
+			for (Comida comida : listacomidas) {
+				if (comida.getID_Comida() == ID_Comida) {
+				comidaABorrar = comida;
+				break;
+			  }
+			}
 
-		if (IncentivoABorrar != null) {
-			listaincentivo.remove(IncentivoABorrar);
-			JOptionPane.showMessageDialog(null,"borrado exitosamente! :)");
-		}else {
-			JOptionPane.showMessageDialog(null,"no encontrado :(");
+			if (comidaABorrar != null) {
+				listacomidas.remove(comidaABorrar);
+				JOptionPane.showMessageDialog(null,"Comida borrada exitosamente! :)");
+			}else {
+				JOptionPane.showMessageDialog(null,"Comida no encontrada :(");
+			}
 		}
-	 
-}
-	
+			public void MostrarDietas() {
+			    DietaControlador controlador = new DietaControlador();
+			    LinkedList<Dieta> dietas = controlador.getAllDietas();
+			    String nota = "Lista de dietas: \n";
+
+			    for (Dieta dieta : dietas) {
+			        nota += dieta.toString() + "\n";
+			    }
+			    JOptionPane.showMessageDialog(null, nota);
+			}
+
+			public void BorrarDietas() {
+			    DietaControlador controlador = new DietaControlador();
+			    String otraModificacion;
+
+			    do {
+			        String mensaje = "";
+			        int id = VerificacionesRepository.SoloEnteros("Ingrese el ID de la dieta a borrar: ");
+			        if (id == -1) {
+			            JOptionPane.showMessageDialog(null, "Operación cancelada");
+			            break;
+			        }
+			        
+			        Dieta dieta = controlador.getDietaById(id);
+			        if (dieta != null) {
+			            controlador.deleteDieta(id);
+			            mensaje = "Se eliminó la dieta " + dieta.toString();
+			            JOptionPane.showMessageDialog(null, mensaje);
+			        } else {
+			            JOptionPane.showMessageDialog(null, "No se encontró ninguna dieta con ese ID");
+			        }
+			        otraModificacion = VerificacionesRepository.solicitarConfirmacion("Desea borrar alguna otra dieta?");
+			    } while (otraModificacion.equalsIgnoreCase("Si"));
+			}
 
 	@Override
 	public void Menu() {
@@ -641,15 +932,19 @@ public class Admin extends Persona implements VerificacionesRepository{
 
             	 switch (Elegida) {
                  case "Crear":
+                	 crearComida();
                      break;
 
                  case "Modificar":
+                	 modificarComida();
                      break;
 
                  case "Mostrar":
+                	 mostrarComidas();
                      break;
 
                  case "Borrar":
+                	 borrarComida();
                      break;
              }
                 break;
@@ -659,19 +954,15 @@ public class Admin extends Persona implements VerificacionesRepository{
 
             	 switch (Elegida) {
                  case "Crear":
-                	 crearIncentivo();
                      break;
 
                  case "Modificar":
-                	 modificarIncentivo();
                      break;
 
                  case "Mostrar":
-                	 mostrarIncentivo();
                      break;
 
                  case "Borrar":
-                	 borrarIncentivo();
                      break;
              }
                 break;
@@ -681,9 +972,11 @@ public class Admin extends Persona implements VerificacionesRepository{
 
                 switch (Elegida) {
                     case "Mostrar":
+                    	MostrarDietas();
                         break;
 
                     case "Borrar":
+                    	BorrarDietas();
                         break;
                 }   
                 break;
@@ -710,15 +1003,19 @@ public class Admin extends Persona implements VerificacionesRepository{
 
             	 switch (Elegida) {
                  case "Crear":
+                	 crearEjercicio();
                      break;
-
+                     
                  case "Modificar":
+                	 modificarEjercicio();
                      break;
-
+                     
                  case "Mostrar":
+                	 mostrarEjercicios();
                      break;
-
+                     
                  case "Borrar":
+                	 borrarEjercicio();
                      break;
              }
                 break;

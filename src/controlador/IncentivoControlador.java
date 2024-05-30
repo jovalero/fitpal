@@ -18,6 +18,9 @@ public class IncentivoControlador implements IncentivoRepository{
 	        this.connection = DatabaseConnection.getInstance().getConnection();
 	    
 	  }
+		public Connection getConnection() {
+			return connection;
+		}
 
 	@Override
 	public LinkedList<Incentivo> getAllIncentivos() {

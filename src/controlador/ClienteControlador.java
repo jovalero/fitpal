@@ -26,6 +26,12 @@ public class ClienteControlador implements ClienteRepository {
     public ClienteControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
+    
+
+	public Connection getConnection() {
+		return connection;
+	}
+
 
 	@Override
 	public LinkedList<Cliente> getAllClientesBySucursal(int sucursal) {

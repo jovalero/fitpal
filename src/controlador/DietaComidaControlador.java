@@ -16,6 +16,10 @@ public class DietaComidaControlador implements DietaComidaRepository {
     public DietaComidaControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
+	public Connection getConnection() {
+		return connection;
+	}
+
 
     @Override
     public List<DietaComida> getAllDietaComida() {
