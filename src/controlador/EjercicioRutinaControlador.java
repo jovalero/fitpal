@@ -16,6 +16,9 @@ public class EjercicioRutinaControlador implements EjercicioRutinaRepository {
     public EjercicioRutinaControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
+	public Connection getConnection() {
+		return connection;
+	}
 
     @Override
     public List<EjercicioRutina> getAllEjercicioRutina() {

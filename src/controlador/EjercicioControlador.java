@@ -15,6 +15,10 @@ public class EjercicioControlador implements EjercicioRepository{
 	 public EjercicioControlador() {
 		 this.connection = DatabaseConnection.getInstance().getConnection();
 	 }
+		public Connection getConnection() {
+			return connection;
+		}
+
 	@Override
 	public LinkedList<Ejercicio> getAllEjercicio() {
 		 LinkedList<Ejercicio> ejercicios = new LinkedList<>();

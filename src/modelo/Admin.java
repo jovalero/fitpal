@@ -1,11 +1,13 @@
 package modelo;
 
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
 import controlador.ClienteControlador;
+import controlador.EjercicioControlador;
 import controlador.EntrenadorControlador;
 import controlador.IncentivoControlador;
 import interfaces.VerificacionesRepository;
@@ -46,8 +48,20 @@ public class Admin extends Persona implements VerificacionesRepository{
 	}
 	
 	public void RegistrarCliente() {
-		ClienteControlador controlador= new ClienteControlador();
-		if (controlador!=null) {
+		ClienteControlador controlador;
+
+	    try {
+	        controlador = new ClienteControlador();
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+	        return;  
+	    }
+
+	    if (controlador.getConnection() == null) {
+	        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+	        return; 
+	    }
+		
 			int DNI;
 			String Nombre=VerificacionesRepository.Sololetras("Escribe el nombre del cliente: ");
 			if (Nombre != null) {
@@ -80,16 +94,23 @@ public class Admin extends Persona implements VerificacionesRepository{
 				JOptionPane.showMessageDialog(null, "Has cancelado la operacion");
 			}
 		}
-		else {
-			JOptionPane.showMessageDialog(null, "No hay conexion");
-		}
-		
-
-	}
+			
+	
 	
 	public void ModificarCliente() {
 		String otramodificacion;
-		ClienteControlador controlador = new ClienteControlador();
+		ClienteControlador controlador;
+		   try {
+		        controlador = new ClienteControlador();
+		    } catch (Exception e) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return;  
+		    }
+
+		    if (controlador.getConnection() == null) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return; 
+		    }
 		LinkedList<Cliente> Clientes = controlador.getAllClientesBySucursal(this.getId_sucursal());
 		Cliente [] ArrayClientes= Clientes.toArray(new Cliente[0]);
 		String[] Opciones= {"Nombre","Apellido","Email","Contraseña","DNI","Suscripcion","Puntos","Salir"};
@@ -253,7 +274,18 @@ public class Admin extends Persona implements VerificacionesRepository{
 	}
 	
 	public void MostrarClientes(){
-		ClienteControlador controlador = new ClienteControlador();
+		ClienteControlador controlador;
+		   try {
+		        controlador = new ClienteControlador();
+		    } catch (Exception e) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return;  
+		    }
+
+		    if (controlador.getConnection() == null) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return; 
+		    }
 		LinkedList<Cliente> Clientes = controlador.getAllClientesBySucursal(this.getId_sucursal());
 		String nota="Lista de clientes: \n";
 		
@@ -264,7 +296,18 @@ public class Admin extends Persona implements VerificacionesRepository{
 		JOptionPane.showMessageDialog(null, nota);
 	}
 	public void BorrarClientes() {
-		ClienteControlador controlador = new ClienteControlador();
+		ClienteControlador controlador;
+		   try {
+		        controlador = new ClienteControlador();
+		    } catch (Exception e) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return;  
+		    }
+
+		    if (controlador.getConnection() == null) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return; 
+		    }
 		int DNI;
 		String mensaje="";
 		String otramodificacion;
@@ -290,6 +333,17 @@ public class Admin extends Persona implements VerificacionesRepository{
 	}
 	public void CrearEntrenadores() {
 		EntrenadorControlador controlador= new EntrenadorControlador();
+		   try {
+		        controlador = new EntrenadorControlador();
+		    } catch (Exception e) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return;  
+		    }
+
+		    if (controlador.getConnection() == null) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return; 
+		    }
 		int DNI;
 		String Nombre=VerificacionesRepository.Sololetras("Escribe el nombre del Entrenador: ");
 		if (Nombre != null) {
@@ -322,7 +376,18 @@ public class Admin extends Persona implements VerificacionesRepository{
 	
 	public void ModificarEntrenador() {
 		String otramodificacion;
-	EntrenadorControlador controlador = new EntrenadorControlador();
+	EntrenadorControlador controlador;
+	   try {
+	        controlador = new EntrenadorControlador();
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+	        return;  
+	    }
+
+	    if (controlador.getConnection() == null) {
+	        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+	        return; 
+	    }
 		LinkedList<Entrenador> Entrenadores = controlador.getAllEntrenadoresBySucursal(this.getId_sucursal());
 		Entrenador [] ArrayEntrenadores= Entrenadores.toArray(new Entrenador[0]);
 		String[] Opciones= {"Nombre","Apellido","Email","Contraseña","DNI","Salir"};
@@ -395,7 +460,18 @@ public class Admin extends Persona implements VerificacionesRepository{
 	}
 	
 	public void MostrarEntrenadores() {
-		EntrenadorControlador controlador = new EntrenadorControlador();
+		EntrenadorControlador controlador;
+		   try {
+		        controlador = new EntrenadorControlador();
+		    } catch (Exception e) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return;  
+		    }
+
+		    if (controlador.getConnection() == null) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return; 
+		    }
 		LinkedList<Entrenador> Entrenadores = controlador.getAllEntrenadoresBySucursal(this.getId_sucursal());
 		String nota="Lista de Entrenadores: \n";
 		
@@ -406,7 +482,18 @@ public class Admin extends Persona implements VerificacionesRepository{
 		JOptionPane.showMessageDialog(null, nota);
 	}
 	public void BorrarEntrenador() {
-		EntrenadorControlador controlador = new EntrenadorControlador();
+		EntrenadorControlador controlador;
+		   try {
+		        controlador = new EntrenadorControlador();
+		    } catch (Exception e) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return;  
+		    }
+
+		    if (controlador.getConnection() == null) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return; 
+		    }
 		int DNI;
 		String mensaje="";
 		String otramodificacion;
@@ -430,18 +517,98 @@ public class Admin extends Persona implements VerificacionesRepository{
 	}
 	
 	public void AsignarEntrenador() {
-		EntrenadorControlador controlador = new EntrenadorControlador();
+		EntrenadorControlador controlador;
+		ClienteControlador controladorcliente;
+		   try {
+		        controlador = new EntrenadorControlador();
+		        controladorcliente= new ClienteControlador();
+		    } catch (Exception e) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return;  
+		    }
+
+		    if (controlador.getConnection() == null) {
+		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+		        return; 
+		    }
+
+		String [] accion= {"Añadir Cliente","Quitar Cliente","Salir"};
+		int seleccion2;
+		Cliente clienteseleccionado;
+		Entrenador opcion;
+		String Seleccion;
+		String otramodificacion;
 		LinkedList<Entrenador> Entrenadores = controlador.getAllEntrenadoresBySucursal(this.getId_sucursal());
-		LinkedList<Entrenador>EntrenadoresDisponibles= new LinkedList<Entrenador>();
+		Entrenador [] arrayEntrenadores= Entrenadores.toArray(new Entrenador[0]);
+do {
+	
+	opcion= (Entrenador)JOptionPane.showInputDialog(null,"A que entrenador deseas configurar asignados:  ","Seleccionador Entrenador",JOptionPane.DEFAULT_OPTION,null,arrayEntrenadores,arrayEntrenadores[0]);
+
+	do {
 		
-		for (Entrenador entrenador : Entrenadores) {
-			if (entrenador.getNumentrenados()<50) {
-				EntrenadoresDisponibles.add(entrenador);
+		LinkedList<Cliente> ClientesDisponibles= new LinkedList<Cliente>();
+		LinkedList<Cliente> Clientesdelentrenador= new LinkedList<Cliente>();
+		LinkedList<Cliente> Clientes=controladorcliente.getAllClientesBySucursal(this.getId_sucursal());
+		for (Cliente cliente : Clientes) {
+			if (cliente.getId_entrenador()==0 && !cliente.getEstado_sus().equalsIgnoreCase("Desactivada")) {
+				ClientesDisponibles.add(cliente);
 			}
 		}
-		Entrenador [] arrayEntrenadores= EntrenadoresDisponibles.toArray(new Entrenador[0]);
-		Entrenador opcion= (Entrenador)JOptionPane.showInputDialog(null,"A que entrenador deseas configurar asignados:  ","Seleccionador Entrenador",JOptionPane.DEFAULT_OPTION,null,arrayEntrenadores,arrayEntrenadores[0]);
+		Cliente [] ArrrayClientesDisponibles=ClientesDisponibles.toArray(new Cliente[0]);
+		Cliente [] ArrrayClientesEntrenador;
+		if (opcion.getNumentrenados()<50) {
+			Seleccion=(String) JOptionPane.showInputDialog(null,"Que desea realizar?","Tittle",JOptionPane.DEFAULT_OPTION,null,accion,accion[0]);
+
+		}
+		else {
+			String eliminar=VerificacionesRepository.solicitarConfirmacion("Desea eliminar un cliente, este entrenador ya tiene mas de 50 personas");
+			if (eliminar.equalsIgnoreCase("Si")) {
+				Seleccion="Quitar cliente";
+			}
+			else {
+				Seleccion="";
+			}
+		}
+		switch (Seleccion) {
+		case "Añadir cliente":
+			seleccion2=JOptionPane.showOptionDialog(null, "Que cliente desea añadirle", "Cliente", JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE , null, ArrrayClientesDisponibles, ArrrayClientesDisponibles[0]);
+			clienteseleccionado=ArrrayClientesDisponibles[seleccion2];
+			clienteseleccionado.setId_entrenador(opcion.getId_entrenador());
+			controladorcliente.updateCliente(clienteseleccionado);
+			opcion.setNumentrenados(opcion.getNumentrenados()+1);
+			controlador.updateEntrenador(opcion);
+			break;
+		case "Quitar cliente":
+			
+			for (Cliente cliente : Clientes) {
+				if (cliente.getId_entrenador()==opcion.getId_entrenador()) {
+					Clientesdelentrenador.add(cliente);
+				}
+			}
+			ArrrayClientesEntrenador=Clientesdelentrenador.toArray(new Cliente[0]);
+			seleccion2=JOptionPane.showOptionDialog(null, "Que cliente desea eliminar", "Cliente", JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE , null, ArrrayClientesEntrenador, ArrrayClientesEntrenador[0]);
+			clienteseleccionado=ArrrayClientesEntrenador[seleccion2];
+			clienteseleccionado.setId_entrenador(0);
+			opcion.setNumentrenados(opcion.getNumentrenados()-1);
+			controladorcliente.updateCliente(clienteseleccionado);
+			controlador.updateEntrenador(opcion);
+			break;
+		default:
+			break;
+		}
+		otramodificacion=VerificacionesRepository.solicitarConfirmacion("Deseas hacer otra modificacion a este entrenador?");
+		if (otramodificacion.equalsIgnoreCase("Si") && opcion.getNumentrenados()<50) {
 		
+		}
+	} while (otramodificacion.equalsIgnoreCase("Si") && opcion.getNumentrenados()<50);
+	
+	
+	otramodificacion=VerificacionesRepository.solicitarConfirmacion("Deseas modificar otro entrenador?");
+
+} while (otramodificacion.equalsIgnoreCase("Si"));
+		
+		
+	
 	}
 	public void MostrarRutinas(){
 	    RutinaControlador controlador = new RutinaControlador();
