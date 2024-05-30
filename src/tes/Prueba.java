@@ -96,4 +96,47 @@ public class Prueba {
          assertEquals(true,!Admin.clientesiguales(cliente,controlador.getAllClientesBySucursal(Admin.getId_sucursal()).get(0)) );
     	
     }
+    @Test
+    public void ModificarclienteF() {
+    	ClienteControlador controlador = new ClienteControlador();
+    	AdminControlador Admins= new AdminControlador();
+    	Admin Admin=Admins.getAllAdmin().get(0);
+    	Cliente cliente= controlador.getAllClientesBySucursal(Admin.getId_sucursal()).get(0);
+    	Admin.ModificarCliente();
+
+         assertEquals(true,Admin.clientesiguales(cliente,controlador.getAllClientesBySucursal(Admin.getId_sucursal()).get(0)) );
+    	
+    }
+    @Test
+    public void BorrarClienteV() { 
+    	ClienteControlador controlador = new ClienteControlador();
+    	AdminControlador Admins= new AdminControlador();
+    	Admin Admin=Admins.getAllAdmin().get(0);
+    	int total=0;
+    	int totaldesp=0;
+    	for (Cliente Cliente : controlador.getAllClientes()) {
+			total++;
+		}
+    	Admin.BorrarClientes();;
+    	for (Cliente Cliente : controlador.getAllClientes()) {
+			totaldesp++;
+		}
+    	assertEquals(true, total>totaldesp);
+    }
+    @Test
+    public void BorrarClienteF() { 
+    	ClienteControlador controlador = new ClienteControlador();
+    	AdminControlador Admins= new AdminControlador();
+    	Admin Admin=Admins.getAllAdmin().get(0);
+    	int total=0;
+    	int totaldesp=0;
+    	for (Cliente Cliente : controlador.getAllClientes()) {
+			total++;
+		}
+    	Admin.BorrarClientes();;
+    	for (Cliente Cliente : controlador.getAllClientes()) {
+			totaldesp++;
+		}
+    	assertEquals(true, total==totaldesp);
+    }
 }

@@ -6,9 +6,12 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 import controlador.ClienteControlador;
+import controlador.ComidaControlador;
+import controlador.DietaControlador;
 import controlador.EjercicioControlador;
 import controlador.EntrenadorControlador;
 import controlador.IncentivoControlador;
+import controlador.ProgresoControlador;
 import controlador.RutinaControlador;
 import interfaces.VerificacionesRepository;
 
@@ -139,10 +142,11 @@ public class Admin extends Persona implements VerificacionesRepository{
 		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
 		        return; 
 		    }
-		LinkedList<Cliente> Clientes = controlador.getAllClientesBySucursal(this.getId_sucursal());
-		Cliente [] ArrayClientes= Clientes.toArray(new Cliente[0]);
+
 		String[] Opciones= {"Nombre","Apellido","Email","Contraseña","DNI","Suscripcion","Puntos","Salir"};
 		do {
+			LinkedList<Cliente> Clientes = controlador.getAllClientesBySucursal(this.getId_sucursal());
+			Cliente [] ArrayClientes= Clientes.toArray(new Cliente[0]);
 			Cliente opcion=(Cliente)JOptionPane.showInputDialog(null,"Que cliente quieres modificar: ","Seleccionador cliente",JOptionPane.DEFAULT_OPTION,null,ArrayClientes,ArrayClientes[0]);
 			Cliente nuevocliente= opcion;
 			do {
@@ -286,7 +290,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 				}
 				
 					otramodificacion=VerificacionesRepository.solicitarConfirmacion("Desea realizar otra modificacion al cliente?");
-				
+
 			} while (otramodificacion.equalsIgnoreCase("Si"));
 			
 			if (clientesiguales(nuevocliente, opcion)) {
@@ -325,8 +329,10 @@ public class Admin extends Persona implements VerificacionesRepository{
 	}
 	public void BorrarClientes() {
 		ClienteControlador controlador;
+		ProgresoControlador progreso;
 		   try {
 		        controlador = new ClienteControlador();
+		        progreso=new ProgresoControlador();
 		    } catch (Exception e) {
 		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
 		        return;  
@@ -346,6 +352,12 @@ public class Admin extends Persona implements VerificacionesRepository{
 			
 			for (Cliente cliente : Clientes) {
 				if (cliente.getDNI()==DNI) {
+					LinkedList<Progreso> progresoscliente= progreso.getAllProgresos();
+					for (Progreso progresoc : progresoscliente) {
+						if (progresoc.getIdCliente()==cliente.getId_cliente()) {
+							progreso.deleteProgreso(progresoc.getIdProgreso());
+						}
+					}
 					controlador.deleteCliente(cliente.getId_cliente());
 					mensaje="Se elimino el cliente" + cliente.toString();
 					JOptionPane.showMessageDialog(null, mensaje);
@@ -845,7 +857,7 @@ do {
 		}
 			public void MostrarDietas() {
 			    DietaControlador controlador = new DietaControlador();
-			    LinkedList<Dieta> dietas = controlador.getAllDieta();
+			    LinkedList<Dieta> dietas = controlador.getAllDietas();
 			    String nota = "Lista de dietas: \n";
 
 			    for (Dieta dieta : dietas) {

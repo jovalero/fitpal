@@ -22,8 +22,8 @@ public class ProgresoControlador implements ProgresoRepository {
 	}
 
     @Override
-    public List<Progreso> getAllProgresos() {
-        List<Progreso> progresos = new LinkedList<>();
+    public LinkedList<Progreso> getAllProgresos() {
+        LinkedList<Progreso> progresos = new LinkedList<Progreso>();
         
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM progreso");
