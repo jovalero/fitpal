@@ -333,6 +333,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 	}
 	public void CrearEntrenadores() {
 		EntrenadorControlador controlador= new EntrenadorControlador();
+		Entrenador nuevoentrenador=null;
 		   try {
 		        controlador = new EntrenadorControlador();
 		    } catch (Exception e) {
@@ -360,15 +361,15 @@ public class Admin extends Persona implements VerificacionesRepository{
 						if (DNI!=-1) {
 							String Contrasena= "Primeracontrasena!";
 							int numentrenados=0;
-							Entrenador nuevoentrenador=new Entrenador(Nombre,Apellido,Telefono,sucursal,DNI,Email,Contrasena,numentrenados);
+							 nuevoentrenador=new Entrenador(Nombre,Apellido,Telefono,sucursal,DNI,Email,Contrasena,numentrenados);
 							controlador.addEntrenador(nuevoentrenador);
 						}
 					}
 				}
 			}
 		}
-		else {
-			JOptionPane.showMessageDialog(null, "Has cancelado la operacion");
+		if (nuevoentrenador==null) {
+			JOptionPane.showMessageDialog(null, "Cancelaron la operacion");
 		}
 
 		
