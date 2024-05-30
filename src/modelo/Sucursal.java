@@ -6,6 +6,13 @@ public class Sucursal {
 	private int id_sucursal;
 	private String Direccion;
 	private int Telefono;
+<<<<<<< HEAD
+=======
+
+	
+	
+
+>>>>>>> franco-
 	private Admin administrador;
 	private LinkedList<Cliente> clientes= new LinkedList<>();
 	private LinkedList<Entrenador> entrenadores= new LinkedList<>();
@@ -19,6 +26,10 @@ public class Sucursal {
 		this.clientes = clientes;
 		this.entrenadores = entrenadores;
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> franco-
 	
 	
 }
