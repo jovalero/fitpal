@@ -858,167 +858,171 @@ do {
         String[] op_acciones = {"Crear", "Modificar", "Mostrar", "Borrar"};
         String[] op_acciones2 = {"Crear", "Modificar", "Mostrar", "Borrar","Asignar"};
         String[] op_acciones3 = {"Mostrar", "Borrar"};
-
+        String otraaccion;
         String Elegida = "";
+do {
+	
+	 Elegida = (String) JOptionPane.showInputDialog(null, "Que seccion deseas acceder:", "Menu secciones", JOptionPane.DEFAULT_OPTION, null, opciones, opciones[0]);
 
-        Elegida = (String) JOptionPane.showInputDialog(null, "Que seccion deseas acceder:", "Menu secciones", JOptionPane.DEFAULT_OPTION, null, opciones, opciones[0]);
+     switch (Elegida) {
+         case "Clientes":
+             Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
 
-        switch (Elegida) {
-            case "Clientes":
-                Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
-
-                switch (Elegida) {
-                    case "Crear":
-                    	RegistrarCliente();
-                        break;
-
-                    case "Modificar":
-                    	ModificarCliente();
-                        
-                        break;
-
-                    case "Mostrar":
-                    	MostrarClientes();
-                        break;
-
-                    case "Borrar":
-                    	BorrarClientes();
-                        break;
-                }
-                break;
-
-            case "Entrenadores" :
-                Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones2, op_acciones2[0]);
-
-                switch (Elegida) {
-                    case "Crear":
-                    	CrearEntrenadores();
-                        break;
-
-                    case "Modificar":
-                    	ModificarEntrenador();
-                        break;
-
-                    case "Mostrar":
-                    	MostrarEntrenadores();
-                        break;
-
-                    case "Borrar":
-                    	BorrarEntrenador();
-                        break;
-                    case "Asignar":
-                    	AsignarEntrenador();
-                    	break;
-                }
-                break;
-
-            case "Rutinas":
-               
-            	Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones3, op_acciones3[0]);
-
-                switch (Elegida) {
-                    case "Mostrar":
-                    	MostrarRutinas();
-                        break;
-
-                    case "Borrar":
-                    	BorrarRutinas();
-                        break;
-                }
-                break;
-                
-            case "Comida":
-            	 Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
-
-            	 switch (Elegida) {
+             switch (Elegida) {
                  case "Crear":
-                	 crearComida();
+                 	RegistrarCliente();
                      break;
 
                  case "Modificar":
-                	 modificarComida();
-                     break;
-
-                 case "Mostrar":
-                	 mostrarComidas();
-                     break;
-
-                 case "Borrar":
-                	 borrarComida();
-                     break;
-             }
-                break;
-            	
-            case "Incentivos":
-                Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
-
-            	 switch (Elegida) {
-                 case "Crear":
-                     break;
-
-                 case "Modificar":
-                     break;
-
-                 case "Mostrar":
-                     break;
-
-                 case "Borrar":
-                     break;
-             }
-                break;
-
-            case "Dietas":
-            	Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones3, op_acciones3[0]);
-
-                switch (Elegida) {
-                    case "Mostrar":
-                    	MostrarDietas();
-                        break;
-
-                    case "Borrar":
-                    	BorrarDietas();
-                        break;
-                }   
-                break;
-               
-            case "Areas":
-                Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
-
-            	 switch (Elegida) {
-                 case "Crear":
-                     break;
-
-                 case "Modificar":
-                     break;
-
-                 case "Mostrar":
-                     break;
-
-                 case "Borrar":
-                     break;
-             }
-                break;
-            case "Ejercicios":
-                Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
-
-            	 switch (Elegida) {
-                 case "Crear":
-                	 crearEjercicio();
-                     break;
+                 	ModificarCliente();
                      
-                 case "Modificar":
-                	 modificarEjercicio();
                      break;
-                     
+
                  case "Mostrar":
-                	 mostrarEjercicios();
+                 	MostrarClientes();
                      break;
-                     
+
                  case "Borrar":
-                	 borrarEjercicio();
+                 	BorrarClientes();
                      break;
              }
-                break;
-        }
+             break;
+
+         case "Entrenadores" :
+             Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones2, op_acciones2[0]);
+
+             switch (Elegida) {
+                 case "Crear":
+                 	CrearEntrenadores();
+                     break;
+
+                 case "Modificar":
+                 	ModificarEntrenador();
+                     break;
+
+                 case "Mostrar":
+                 	MostrarEntrenadores();
+                     break;
+
+                 case "Borrar":
+                 	BorrarEntrenador();
+                     break;
+                 case "Asignar":
+                 	AsignarEntrenador();
+                 	break;
+             }
+             break;
+
+         case "Rutinas":
+            
+         	Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones3, op_acciones3[0]);
+
+             switch (Elegida) {
+                 case "Mostrar":
+                 	MostrarRutinas();
+                     break;
+
+                 case "Borrar":
+                 	BorrarRutinas();
+                     break;
+             }
+             break;
+             
+         case "Comida":
+         	 Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
+
+         	 switch (Elegida) {
+              case "Crear":
+             	 crearComida();
+                  break;
+
+              case "Modificar":
+             	 modificarComida();
+                  break;
+
+              case "Mostrar":
+             	 mostrarComidas();
+                  break;
+
+              case "Borrar":
+             	 borrarComida();
+                  break;
+          }
+             break;
+         	
+         case "Incentivos":
+             Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
+
+         	 switch (Elegida) {
+              case "Crear":
+                  break;
+
+              case "Modificar":
+                  break;
+
+              case "Mostrar":
+                  break;
+
+              case "Borrar":
+                  break;
+          }
+             break;
+
+         case "Dietas":
+         	Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones3, op_acciones3[0]);
+
+             switch (Elegida) {
+                 case "Mostrar":
+                 	MostrarDietas();
+                     break;
+
+                 case "Borrar":
+                 	BorrarDietas();
+                     break;
+             }   
+             break;
+            
+         case "Areas":
+             Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
+
+         	 switch (Elegida) {
+              case "Crear":
+                  break;
+
+              case "Modificar":
+                  break;
+
+              case "Mostrar":
+                  break;
+
+              case "Borrar":
+                  break;
+          }
+             break;
+         case "Ejercicios":
+             Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones, op_acciones[0]);
+
+         	 switch (Elegida) {
+              case "Crear":
+             	 crearEjercicio();
+                  break;
+                  
+              case "Modificar":
+             	 modificarEjercicio();
+                  break;
+                  
+              case "Mostrar":
+             	 mostrarEjercicios();
+                  break;
+                  
+              case "Borrar":
+             	 borrarEjercicio();
+                  break;
+          }
+             break;
+     }
+     otraaccion=VerificacionesRepository.solicitarConfirmacion("Desea hacer otra accion?");
+} while (otraaccion.equalsIgnoreCase("Si"));
+       
 	}
 }
