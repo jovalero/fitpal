@@ -616,7 +616,7 @@ do {
 	}
 	public void MostrarRutinas(){
 	    RutinaControlador controlador = new RutinaControlador();
-	    LinkedList<Rutina> Rutinas = controlador.getAllRutina();
+	    LinkedList<Rutina> Rutinas = controlador.getAllRutinas();
 	    String nota="Lista de rutinas: \n";
 	    
 	    for (Rutina rutina : Rutinas) {
@@ -627,7 +627,7 @@ do {
 
 	public void BorrarRutinas() {
 	    RutinaControlador controlador = new RutinaControlador();
-	    LinkedList<Rutina> Rutinas = controlador.getAllRutina();
+	    LinkedList<Rutina> Rutinas = controlador.getAllRutinas();
 	    
 	    if (Rutinas.isEmpty()) {
 	        JOptionPane.showMessageDialog(null, "No hay rutinas para borrar.");
