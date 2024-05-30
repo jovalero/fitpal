@@ -838,7 +838,7 @@ do {
                      break;
 
                  case "Borrar":
-                	 BorrarRutinas();
+                	 borrarIncentivo();
                      break;
              }
                 break;
