@@ -1,11 +1,5 @@
 package modelo;
 
-import java.util.LinkedList;
-
-import javax.swing.JOptionPane;
-
-import controlador.IncentivoControlador;
-
 public class Incentivo {
 	private int Costo;
 	private String Descripcion;
@@ -47,5 +41,5 @@ public class Incentivo {
                 ", descripcion='" + Descripcion + '\'' +
                 ", id_comida=" + ID_Incentivo +
                 '}';		
-	}		
-}
+		}	
+	}

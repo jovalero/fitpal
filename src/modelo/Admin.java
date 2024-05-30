@@ -656,6 +656,7 @@ do {
 	        }
 	    }
 	}
+<<<<<<< HEAD
 	
 	
 	
@@ -851,6 +852,7 @@ do {
 			        otraModificacion = VerificacionesRepository.solicitarConfirmacion("Desea borrar alguna otra dieta?");
 			    } while (otraModificacion.equalsIgnoreCase("Si"));
 			}
+=======
 
 	@Override
 	public void Menu() {
@@ -893,6 +895,7 @@ do {
 
              switch (Elegida) {
                  case "Crear":
+<<<<<<< HEAD
                  	CrearEntrenadores();
                      break;
 
@@ -906,6 +909,17 @@ do {
 
                  case "Borrar":
                  	BorrarEntrenador();
+=======
+                     break;
+
+                 case "Modificar":
+                     break;
+
+                 case "Mostrar":
+                     break;
+
+                 case "Borrar":
+>>>>>>> parent of 272dda6 (incentivos)
                      break;
                  case "Asignar":
                  	AsignarEntrenador();
