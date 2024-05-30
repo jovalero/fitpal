@@ -84,9 +84,6 @@ public abstract class Persona {
 			if (Usuarios.get(i).getUsuario().equalsIgnoreCase(email) && Usuarios.get(i).getContrasena().equalsIgnoreCase(password)) {
 				return i;
 			}
-			if (Usuarios.get(i).getUsuario().equalsIgnoreCase("Admin") && Usuarios.get(i).getContrasena().equalsIgnoreCase(password) ) {
-				return i;
-			}
 		}
 		return -1;
 		
