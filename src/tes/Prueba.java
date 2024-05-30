@@ -93,7 +93,7 @@ public class Prueba {
     	Cliente cliente= controlador.getAllClientesBySucursal(Admin.getId_sucursal()).get(0);
     	Admin.ModificarCliente();
 
-         assertEquals(true, cliente != controlador.getAllClientesBySucursal(Admin.getId_sucursal()).get(0));
+         assertEquals(true,!Admin.clientesiguales(cliente,controlador.getAllClientesBySucursal(Admin.getId_sucursal()).get(0)) );
     	
     }
 }

@@ -98,6 +98,31 @@ public class Admin extends Persona implements VerificacionesRepository{
 		}
 			
 	
+	public boolean clientesiguales(Cliente cliente1, Cliente cliente2) {
+		if (cliente1.getDNI()!=cliente2.getDNI()) {
+			return false;
+		}
+		if (cliente1.getNombre().equalsIgnoreCase(cliente2.getNombre()))   {
+			return false;
+		}
+		if (cliente1.getApellido().equalsIgnoreCase(cliente2.getApellido())) {
+			return false;
+		}
+		if (cliente1.getContrasena().equalsIgnoreCase(cliente2.getContrasena())) {
+			return false;
+		}
+		if (cliente1.getEstado_sus().equalsIgnoreCase(cliente2.getEstado_sus())) {
+			return false;
+		}
+		if (cliente1.getFechavenc().equals(cliente2.getFechavenc()) ) {
+			return false;
+		}
+		if (cliente1.getPuntos()!=cliente2.getPuntos()) {
+			return false;
+		}
+		return true;
+		
+	}
 	
 	public void ModificarCliente() {
 		String otramodificacion;
@@ -263,7 +288,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 				
 			} while (otramodificacion.equalsIgnoreCase("Si"));
 			
-			if (opcion==nuevocliente) {
+			if (clientesiguales(nuevocliente, opcion)) {
 				JOptionPane.showMessageDialog(null, "No se modifico nada");
 			}
 			else {
