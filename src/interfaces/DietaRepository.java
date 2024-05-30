@@ -1,7 +1,6 @@
 package interfaces;
 
 import java.util.LinkedList;
-
 import modelo.Dieta;
 
 public interface DietaRepository {
@@ -10,10 +9,9 @@ public interface DietaRepository {
 	
 	Dieta getDietaById(int id); 
     
-    void addDieta(Dieta Dieta); 
+    void addDieta(Dieta dieta);
     
-    void updateDieta(Dieta Dieta); 
+    void updateDieta(Dieta dieta);
     
-    void deleteDieta(int Dieta); 
-    
+    void deleteDieta(int id);
 }
