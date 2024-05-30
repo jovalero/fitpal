@@ -131,8 +131,11 @@ public class Ejercicio {
 		} else {
 			JOptionPane.showMessageDialog(null, "Ejercicio no encontrado :(");
 		}
+	}
+<<<<<<< Updated upstream
 	
-	
+=======
+>>>>>>> Stashed changes
 	// Mostrar ejercicios
 		public static void mostrarEjercicios() {
 			StringBuilder nota = new StringBuilder("Lista de ejercicios:\n");

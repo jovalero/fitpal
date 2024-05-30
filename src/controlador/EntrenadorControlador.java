@@ -27,7 +27,7 @@ public class EntrenadorControlador implements EntrenadorRepository {
 	  }
 
 	@Override
-	public LinkedList<Entrenador> getAllEntrenadores(int sucursal) {
+	public LinkedList<Entrenador> getAllEntrenadoresBySucursal(int sucursal) {
 		LinkedList<Entrenador> entrenadores= new LinkedList<Entrenador>();
 		try {
 			PreparedStatement statement= connection.prepareStatement("SELECT * FROM entrenador WHERE ID_sucursal= ?");
@@ -128,6 +128,25 @@ public class EntrenadorControlador implements EntrenadorRepository {
 			JOptionPane.showMessageDialog(null, "No  se pudo eliminar el Entrenador");
 		}
 		
+	}
+
+	@Override
+	public LinkedList<Entrenador> getAllEntrenadores() {
+		LinkedList<Entrenador> entrenadores= new LinkedList<Entrenador>();
+		try {
+			PreparedStatement statement= connection.prepareStatement("SELECT * FROM entrenador");
+			ResultSet resultSet= statement.executeQuery();
+			
+		while (resultSet.next()) {
+			Entrenador entrenador=new Entrenador(resultSet.getString("Nombre"),resultSet.getString("Apellido"),resultSet.getInt("Telefono"),
+					resultSet.getInt("ID_SURCUSAL"),resultSet.getInt("DNI"),resultSet.getInt("ID"),resultSet.getString("email"),resultSet.getString("Contrasenia"),resultSet.getInt("Num_Entrenados"));
+			entrenadores.add(entrenador);
+		}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Ocurrio un error al mostrar");
+		}
+		return entrenadores;
 	}
 		
 	}

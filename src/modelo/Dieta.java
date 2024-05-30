@@ -1,46 +1,42 @@
 package modelo;
 
 public class Dieta {
-	private int ID_Dieta;
-	private String Nombre_Dieta;
-	private String Descripcion_Dieta;
-	
-	public Dieta(int id,String nombre, String descripcion) {
-		this.ID_Dieta=id;
-		this.Nombre_Dieta=nombre;
-		this.Descripcion_Dieta=descripcion;
-	}
+    private int idDieta;
+    private String nombreDieta;
+    private String descripcionDieta;
 
-	public int getID_Dieta() {
-		return ID_Dieta;
-	}
+    public Dieta(int idDieta, String nombreDieta, String descripcionDieta) {
+        this.idDieta = idDieta;
+        this.nombreDieta = nombreDieta;
+        this.descripcionDieta = descripcionDieta;
+    }
 
-	public void setID_Dieta(int iD_Dieta) {
-		ID_Dieta = iD_Dieta;
-	}
+    public int getIdDieta() {
+        return idDieta;
+    }
 
-	public String getNombre_Dieta() {
-		return Nombre_Dieta;
-	}
+    public void setIdDieta(int idDieta) {
+        this.idDieta = idDieta;
+    }
 
-	public void setNombre_Dieta(String nombre_Dieta) {
-		Nombre_Dieta = nombre_Dieta;
-	}
+    public String getNombreDieta() {
+        return nombreDieta;
+    }
 
-	public String getDescripcion_Dieta() {
-		return Descripcion_Dieta;
-	}
+    public void setNombreDieta(String nombreDieta) {
+        this.nombreDieta = nombreDieta;
+    }
 
-	public void setDescripcion_Dieta(String descripcion_Dieta) {
-		Descripcion_Dieta = descripcion_Dieta;
-	}
+    public String getDescripcionDieta() {
+        return descripcionDieta;
+    }
 
-	@Override
-	public String toString() {
-		return "Dieta [ID_Dieta=" + ID_Dieta + ", Nombre_Dieta=" + Nombre_Dieta + ", Descripcion_Dieta="
-				+ Descripcion_Dieta + "]";
-	}
-	
-	
+    public void setDescripcionDieta(String descripcionDieta) {
+        this.descripcionDieta = descripcionDieta;
+    }
 
+    @Override
+    public String toString() {
+        return "Dieta [idDieta=" + idDieta + ", nombreDieta=" + nombreDieta + ", descripcionDieta=" + descripcionDieta + "]";
+    }
 }

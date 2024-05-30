@@ -47,44 +47,50 @@ public class Admin extends Persona implements VerificacionesRepository{
 	
 	public void RegistrarCliente() {
 		ClienteControlador controlador= new ClienteControlador();
-		int DNI;
-		String Nombre=VerificacionesRepository.Sololetras("Escribe el nombre del cliente: ");
-		if (Nombre != null) {
-			String Apellido=VerificacionesRepository.Sololetras("Escribe el apellido del cliente");
-			if (Apellido !=null) {
-				String Email=VerificacionesRepository.Mail();
-				if (Email!=null) {
-					int Telefono=VerificacionesRepository.SoloEnteros("Ingresa el telefono del cliente: ");
-					if (Telefono!=-1) {
-						int sucursal= this.getId_sucursal();
-						do {
-							DNI=VerificacionesRepository.SoloEnteros("Ingrese DNI del cliente");
-						} while (VerificacionesRepository.DNIExistente(DNI));
-						if (DNI!=-1) {
-							String Contrasena= "Primeracontrasena!";
-							Double Peso=VerificacionesRepository.SoloDoubles("Ingresa peso: ");
-							if (Peso!=-1) {
-								Double Altura=VerificacionesRepository.SoloDoubles("Ingresa altura: ");
-								if (Altura!=-1) {
-									Cliente nuevocliente= new Cliente(Nombre,Apellido,Telefono,sucursal,DNI,Email,Contrasena,"Nuevo",Peso,Altura);
-									controlador.addCliente(nuevocliente);
+		if (controlador!=null) {
+			int DNI;
+			String Nombre=VerificacionesRepository.Sololetras("Escribe el nombre del cliente: ");
+			if (Nombre != null) {
+				String Apellido=VerificacionesRepository.Sololetras("Escribe el apellido del cliente");
+				if (Apellido !=null) {
+					String Email=VerificacionesRepository.Mail();
+					if (Email!=null) {
+						int Telefono=VerificacionesRepository.SoloEnteros("Ingresa el telefono del cliente: ");
+						if (Telefono!=-1) {
+							int sucursal= this.getId_sucursal();
+							do {
+								DNI=VerificacionesRepository.SoloEnteros("Ingrese DNI del cliente");
+							} while (VerificacionesRepository.DNIExistente(DNI));
+							if (DNI!=-1) {
+								String Contrasena= "Primeracontrasena!";
+								Double Peso=VerificacionesRepository.SoloDoubles("Ingresa peso: ");
+								if (Peso!=-1) {
+									Double Altura=VerificacionesRepository.SoloDoubles("Ingresa altura: ");
+									if (Altura!=-1) {
+										Cliente nuevocliente= new Cliente(Nombre,Apellido,Telefono,sucursal,DNI,Email,Contrasena,"Nuevo",Peso,Altura);
+										controlador.addCliente(nuevocliente);
+									}
 								}
 							}
 						}
 					}
 				}
 			}
+			else {
+				JOptionPane.showMessageDialog(null, "Has cancelado la operacion");
+			}
 		}
 		else {
-			JOptionPane.showMessageDialog(null, "Has cancelado la operacion");
+			JOptionPane.showMessageDialog(null, "No hay conexion");
 		}
+		
 
 	}
 	
 	public void ModificarCliente() {
 		String otramodificacion;
 		ClienteControlador controlador = new ClienteControlador();
-		LinkedList<Cliente> Clientes = controlador.getAllClientes(this.getId_sucursal());
+		LinkedList<Cliente> Clientes = controlador.getAllClientesBySucursal(this.getId_sucursal());
 		Cliente [] ArrayClientes= Clientes.toArray(new Cliente[0]);
 		String[] Opciones= {"Nombre","Apellido","Email","Contraseña","DNI","Suscripcion","Puntos","Salir"};
 		do {
@@ -248,7 +254,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 	
 	public void MostrarClientes(){
 		ClienteControlador controlador = new ClienteControlador();
-		LinkedList<Cliente> Clientes = controlador.getAllClientes(this.getId_sucursal());
+		LinkedList<Cliente> Clientes = controlador.getAllClientesBySucursal(this.getId_sucursal());
 		String nota="Lista de clientes: \n";
 		
 		for (Cliente cliente : Clientes) {
@@ -265,7 +271,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 		do {
 			mensaje="";
 			DNI=VerificacionesRepository.SoloEnteros("Ingrese DNI de cliente a borrar: ");
-			LinkedList<Cliente> Clientes = controlador.getAllClientes(this.getId_sucursal());
+			LinkedList<Cliente> Clientes = controlador.getAllClientesBySucursal(this.getId_sucursal());
 			
 			for (Cliente cliente : Clientes) {
 				if (cliente.getDNI()==DNI) {
@@ -317,7 +323,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 	public void ModificarEntrenador() {
 		String otramodificacion;
 	EntrenadorControlador controlador = new EntrenadorControlador();
-		LinkedList<Entrenador> Entrenadores = controlador.getAllEntrenadores(this.getId_sucursal());
+		LinkedList<Entrenador> Entrenadores = controlador.getAllEntrenadoresBySucursal(this.getId_sucursal());
 		Entrenador [] ArrayEntrenadores= Entrenadores.toArray(new Entrenador[0]);
 		String[] Opciones= {"Nombre","Apellido","Email","Contraseña","DNI","Salir"};
 		do {
@@ -390,7 +396,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 	
 	public void MostrarEntrenadores() {
 		EntrenadorControlador controlador = new EntrenadorControlador();
-		LinkedList<Entrenador> Entrenadores = controlador.getAllEntrenadores(this.getId_sucursal());
+		LinkedList<Entrenador> Entrenadores = controlador.getAllEntrenadoresBySucursal(this.getId_sucursal());
 		String nota="Lista de Entrenadores: \n";
 		
 		for (Entrenador Entrenador : Entrenadores) {
@@ -407,7 +413,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 		do {
 			mensaje="";
 			DNI=VerificacionesRepository.SoloEnteros("Ingrese DNI de Entrenador a borrar: ");
-			LinkedList<Entrenador> Entrenadores = controlador.getAllEntrenadores(this.getId_sucursal());
+			LinkedList<Entrenador> Entrenadores = controlador.getAllEntrenadoresBySucursal(this.getId_sucursal());
 			
 			for (Entrenador Entrenador : Entrenadores) {
 				if (Entrenador.getDNI()==DNI) {
@@ -425,7 +431,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 	
 	public void AsignarEntrenador() {
 		EntrenadorControlador controlador = new EntrenadorControlador();
-		LinkedList<Entrenador> Entrenadores = controlador.getAllEntrenadores(this.getId_sucursal());
+		LinkedList<Entrenador> Entrenadores = controlador.getAllEntrenadoresBySucursal(this.getId_sucursal());
 		LinkedList<Entrenador>EntrenadoresDisponibles= new LinkedList<Entrenador>();
 		
 		for (Entrenador entrenador : Entrenadores) {
