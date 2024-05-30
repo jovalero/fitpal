@@ -532,7 +532,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 	        JOptionPane.showMessageDialog(null, nota.toString());
 	    }
 	 
-	public static void borrarComida() {
+	public static void borrarIncentivo() {
 		IncentivoControlador controlador = new IncentivoControlador();
 		LinkedList<Incentivo> listaincentivo = controlador.getAllIncentivos();
 		int ID_Incentivo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID que desee borrar: "));
