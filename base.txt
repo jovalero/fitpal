@@ -73,11 +73,14 @@ CREATE TABLE administrador (
 );
 CREATE TABLE entrenador (
   ID_Entrenador INT PRIMARY KEY AUTO_INCREMENT,
+  Telefono VARCHAR(255) NOT NULL,
   Nombre VARCHAR(255) NOT NULL,
   Apellido VARCHAR(255) NOT NULL,
   Contrasenia VARCHAR(255) NOT NULL,
   ID_Sucursal INT NOT NULL,
   Num_Entrenados INT NOT NULL,
+  DNI INT NOT NULL,
+  email VARCHAR(255) NOT NULL,
   FOREIGN KEY (ID_Sucursal) REFERENCES sucursal(ID_Sucursal) -- Corrected typo here
 );
 CREATE TABLE cliente (
@@ -96,6 +99,7 @@ CREATE TABLE cliente (
   Contrasenia VARCHAR(255) NOT NULL,
   Estado_sus VARCHAR(255) NOT NULL,
   Puntos INT NOT NULL,
+  DNI INT NOT NULL,
   FOREIGN KEY (ID_Entrenador) REFERENCES entrenador(ID_Entrenador),
   FOREIGN KEY (ID_Dieta) REFERENCES dieta(ID_Dieta),
   FOREIGN KEY (ID_sucursal) REFERENCES sucursal(ID_Sucursal)
@@ -114,3 +118,67 @@ CREATE TABLE incentivo (
     costo DECIMAL(10, 2),
     dirigido VARCHAR(50)
 );
+-- Tabla sucursal
+INSERT INTO sucursal (Direccion, Telefono) VALUES 
+('123 Main St', '123-456-7890'),
+('456 Elm St', '987-654-3210');
+
+-- Tabla areas
+INSERT INTO areas (Nombre, ID_Sucursal, Ubicacion) VALUES 
+('Cardio', 1, 'Primer Piso'),
+('Pesas', 2, 'Segundo Piso');
+
+-- Tabla ejercicio
+INSERT INTO ejercicio (Nombre, Maquina, Musculo, Descripcion, Video, ID_Area) VALUES 
+('Correr', 'Trotadora', 'Piernas', 'Ejercicio cardiovascular en trotadora', 'video1.mp4', 1),
+('Press de banca', 'Máquina de press', 'Pectorales', 'Ejercicio de fuerza para el pecho', 'video2.mp4', 2);
+
+-- Tabla rutina
+INSERT INTO rutina (Estado, Descripcion, Objetivo) VALUES 
+('Activa', 'Rutina para principiantes', 'Perder peso'),
+('Inactiva', 'Rutina avanzada', 'Ganar músculo');
+
+-- Tabla ejercicio_rutina
+INSERT INTO ejercicio_rutina (ID_Ejercicio, ID_Rutina, Num_Series, Repeticiones) VALUES 
+(1, 1, 3, 10),
+(2, 2, 4, 8);
+
+-- Tabla dieta
+INSERT INTO dieta (Nombre_Dieta, Descripcion_Dieta) VALUES 
+('Dieta Keto', 'Alta en grasas y baja en carbohidratos'),
+('Dieta Vegana', 'Exclusivamente alimentos de origen vegetal');
+
+-- Tabla comida
+INSERT INTO comida (Nombre, Descripcion) VALUES 
+('Ensalada de Quinoa', 'Quinoa con vegetales frescos'),
+('Batido de Proteína', 'Batido con proteínas y frutas');
+
+-- Tabla dieta_comida
+INSERT INTO dieta_comida (ID_Dieta, ID_Comida, Cantidad) VALUES 
+(1, 1, 200.00),
+(2, 2, 300.00);
+
+-- Tabla administrador
+INSERT INTO administrador (ID_Sucursal, Telefono, Apellido, DNI, Contrasenia, Nombre) VALUES 
+(1, '123-456-7890', 'Gonzalez', '12345678', 'adminpass1', 'Juan'),
+(2, '987-654-3210', 'Martinez', '87654321', 'adminpass2', 'Ana');
+
+-- Tabla entrenador
+INSERT INTO entrenador (Nombre, Apellido, Contrasenia, ID_Sucursal, Num_Entrenados,Telefono) VALUES 
+('Carlos', 'Perez', 'trainpass1', 1, 5,33333333),
+('Maria', 'Lopez', 'trainpass2', 2, 10,22222222);
+
+-- Tabla cliente
+INSERT INTO cliente (ID_Entrenador, ID_Dieta, ID_sucursal, Peso, Altura, Objetivo, Nombre, Apellido, Correo_electronico, Telefono, Fecha_venc_sus, Contrasenia, Estado_sus, Puntos,DNI) VALUES 
+(1, 1, 1, 75.0, 1.80, 'Perder peso', 'Pedro', 'Fernandez', 'pedro.fernandez@example.com', '555-1234', '2024-12-31', 'clientpass1', 'Activa', 100,96033116),
+(2, 2, 2, 65.0, 1.65, 'Ganar músculo', 'Laura', 'Garcia', 'laura.garcia@example.com', '555-5678', '2024-12-31', 'clientpass2', 'Activa', 200, 29539661);
+
+-- Tabla progreso
+INSERT INTO progreso (ID_Cliente, Fecha, Imagen, Peso) VALUES 
+(1, '2024-01-01', 'imagen1.jpg', 74.5),
+(2, '2024-01-01', 'imagen2.jpg', 64.8);
+
+-- Tabla incentivo
+INSERT INTO incentivo (recompensa, costo, dirigido) VALUES 
+('Descuento en Membresía', 50.00, 'Cliente'),
+('Acceso VIP', 100.00, 'Cliente');
