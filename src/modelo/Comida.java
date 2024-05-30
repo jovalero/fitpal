@@ -87,7 +87,7 @@ public class Comida {
 		}
 	}
 	// mostrar comidas
-	 public static void mostrarComidas() {
+	 public static boolean mostrarComidas() {
 	        StringBuilder nota = new StringBuilder("Lista de comidas:\n");
 	        
 	        for (Comida comida : listacomidas) {
@@ -95,6 +95,7 @@ public class Comida {
 	        }
 	        
 	        JOptionPane.showMessageDialog(null, nota.toString());
+			return false;
 	    }
 	 //borrar comida
 	public static void borrarComida() {
