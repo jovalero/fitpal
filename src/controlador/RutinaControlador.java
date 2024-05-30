@@ -1,21 +1,17 @@
 package controlador;
 
 import java.sql.Connection;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.List;
 import javax.swing.JOptionPane;
-
 import interfaces.RutinaRepository;
-import modelo.rutina;
 import modelo.Rutina;
-import modelo.Sucursal;
 
 public class RutinaControlador implements RutinaRepository {
     private final Connection connection;
-	private Object rutina;
 
     public RutinaControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
@@ -85,21 +81,46 @@ public class RutinaControlador implements RutinaRepository {
 	@Override
 	public void updaterutina(rutina rutina) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE rutina SET ID_Rutina = ?, Estado = ?, Descripcion = ?, Objetivo WHERE id = ?");
-			statement.setInt(1, rutina.getId_sucursal());
-			statement.setInt(2, rutina.getTelefono());
-			statement.setString(3, rutina.getApellido());
-			statement.setInt(4,rutina.getDNI());
-			
-            int rowsUpdated = statement.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("Usuario actualizado exitosamente");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM rutina");
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {
+                Rutina rutina = new Rutina(
+                    resultSet.getInt("ID_Rutina"),
+                    resultSet.getString("Estado"),
+                    resultSet.getString("Descripcion"),
+                    resultSet.getString("Objetivo")
+                );
+                rutinaList.add(rutina);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al mostrar las rutinas");
+        }
+        return rutinaList;
+    }
+
+    @Override
+    public Rutina getRutinaById(int id) {
+        Rutina rutina = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM rutina WHERE ID_Rutina = ?");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            
+            if (resultSet.next()) {
+                rutina = new Rutina(
+                    resultSet.getInt("ID_Rutina"),
+                    resultSet.getString("Estado"),
+                    resultSet.getString("Descripcion"),
+                    resultSet.getString("Objetivo")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-		
-	}
+        return rutina;
+    }
 
 	@Override
 	public void deleteRutina(int Rutina) {

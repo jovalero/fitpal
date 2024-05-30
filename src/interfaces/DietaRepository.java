@@ -1,19 +1,16 @@
 package interfaces;
 
-import java.util.LinkedList;
-
+import java.util.List;
 import modelo.Dieta;
 
 public interface DietaRepository {
-	
-	LinkedList<Dieta> getAllDieta(); 
-	
-	Dieta getDietaById(int id); 
+    List<Dieta> getAllDietas();
     
-    void addDieta(Dieta Dieta); 
+    Dieta getDietaById(int id);
     
-    void updateDieta(Dieta Dieta); 
+    void addDieta(Dieta dieta);
     
-    void deleteDieta(int Dieta); 
+    void updateDieta(Dieta dieta);
     
+    void deleteDieta(int id);
 }
