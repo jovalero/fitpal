@@ -6,7 +6,7 @@ import modelo.Entrenador;
 
 public interface EntrenadorRepository {
 	
-	LinkedList<Entrenador> getAllEntrenadores(int sucursal); // llama a todos los Entrenadores de la bdd
+LinkedList<Entrenador> getAllEntrenadores(); // llama a todos los Entrenadores de la bdd
     
 LinkedList<Entrenador> getAllEntrenadoresBySucursal(int sucursal);
 
@@ -17,7 +17,5 @@ LinkedList<Entrenador> getAllEntrenadoresBySucursal(int sucursal);
     void updateEntrenador(Entrenador Entrenador); //actualiza los usuarios de la bdd
     
     void deleteEntrenador(int Entrenador); //eliminar usuarios de la bdd
-
-	
 }
 
