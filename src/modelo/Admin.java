@@ -46,6 +46,8 @@ public class Admin extends Persona implements VerificacionesRepository{
 				+ getDNI() + ", getContrasena()=" + getContrasena() + ", getUsuario()=" + getUsuario() + "]";
 	}
 	
+	
+	
 	public void RegistrarCliente() {
 		ClienteControlador controlador;
 		Cliente nuevocliente=null;
