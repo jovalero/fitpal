@@ -43,7 +43,12 @@ public class ClienteControlador implements ClienteRepository {
        
             while (resultSet.next()) {
             	Cliente user = new Cliente(resultSet.getString("Nombre"),resultSet.getString("Apellido"),resultSet.getInt("Telefono"),resultSet.getInt("ID_sucursal"),resultSet.getInt("DNI"),resultSet.getInt("ID_cliente"),resultSet.getString("Correo_electronico"),resultSet.getString("Contrasenia"),resultSet.getString("Objetivo"),resultSet.getDouble("Peso"),resultSet.getDouble("Altura"));
-                users.add(user);
+            	user.setFechavenc(resultSet.getDate("Fecha_venc_sus").toLocalDate());
+               user.setId_entrenador(resultSet.getInt("ID_Entrenador"));
+               user.setId_dieta(resultSet.getInt("ID_Dieta"));
+               user.setEstado_sus(resultSet.getString("Estado_sus"));
+               user.setPuntos(resultSet.getInt("Puntos"));
+            	users.add(user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -102,7 +107,7 @@ public class ClienteControlador implements ClienteRepository {
 	@Override
 	public void updateCliente(Cliente cliente) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE cliente SET Nombre = ?, Apellido = ?, Objetivooo= ?, Contrasenia = ?, Telefono = ?, Correo_Electronico = ?,Fecha_venc_sus = ?, Puntos= ?,Estado_sus= ?,ID_Entrenador= ?,ID_Dieta= ? WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE cliente SET Nombre = ?, Apellido = ?, Objetivo= ?, Contrasenia = ?, Telefono = ?, Correo_Electronico = ?,Fecha_venc_sus = ?, Puntos= ?,Estado_sus= ?,ID_Entrenador= ?,ID_Dieta= ? WHERE ID_cliente = ?");
             
             statement.setString(1,cliente.getNombre());
             statement.setString(2,cliente.getApellido());
@@ -110,9 +115,7 @@ public class ClienteControlador implements ClienteRepository {
             statement.setString(4,cliente.getContrasena());
             statement.setInt(5,cliente.getTelefono());
             statement.setString(6,cliente.getUsuario());
-            ZonedDateTime zonedDateTime = cliente.getFechavenc().atStartOfDay(ZoneId.systemDefault());
-            Instant instant = zonedDateTime.toInstant();
-            statement.setDate(11,(Date) Date.from(instant));
+            statement.setDate(7,Date.valueOf(cliente.getFechavenc()));
             statement.setInt(8,cliente.getPuntos());
             statement.setString(9,cliente.getEstado_sus());
             statement.setInt(10,cliente.getId_entrenador());

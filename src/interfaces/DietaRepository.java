@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import modelo.Dieta;
 
 public interface DietaRepository {
-    List<Dieta> getAllDietas();
+	LinkedList<Dieta> getAllDietas();
     
     Dieta getDietaById(int id);
     

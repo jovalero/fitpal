@@ -18,8 +18,8 @@ public class DietaControlador implements DietaRepository {
     }
 
     @Override
-    public List<Dieta> getAllDietas() {
-        List<Dieta> dietaList = new LinkedList<>();
+    public LinkedList<Dieta> getAllDietas() {
+    	LinkedList<Dieta> dietaList = new LinkedList<>();
         
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM dieta");

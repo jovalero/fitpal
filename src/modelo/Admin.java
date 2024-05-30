@@ -7,9 +7,16 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 import controlador.ClienteControlador;
+import controlador.ComidaControlador;
+import controlador.DietaControlador;
 import controlador.EjercicioControlador;
 import controlador.EntrenadorControlador;
 import controlador.IncentivoControlador;
+<<<<<<< HEAD
+=======
+import controlador.ProgresoControlador;
+import controlador.RutinaControlador;
+>>>>>>> origin/josevalero
 import interfaces.VerificacionesRepository;
 
 
@@ -139,10 +146,11 @@ public class Admin extends Persona implements VerificacionesRepository{
 		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
 		        return; 
 		    }
-		LinkedList<Cliente> Clientes = controlador.getAllClientesBySucursal(this.getId_sucursal());
-		Cliente [] ArrayClientes= Clientes.toArray(new Cliente[0]);
+
 		String[] Opciones= {"Nombre","Apellido","Email","Contraseña","DNI","Suscripcion","Puntos","Salir"};
 		do {
+			LinkedList<Cliente> Clientes = controlador.getAllClientesBySucursal(this.getId_sucursal());
+			Cliente [] ArrayClientes= Clientes.toArray(new Cliente[0]);
 			Cliente opcion=(Cliente)JOptionPane.showInputDialog(null,"Que cliente quieres modificar: ","Seleccionador cliente",JOptionPane.DEFAULT_OPTION,null,ArrayClientes,ArrayClientes[0]);
 			Cliente nuevocliente= opcion;
 			do {
@@ -286,7 +294,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 				}
 				
 					otramodificacion=VerificacionesRepository.solicitarConfirmacion("Desea realizar otra modificacion al cliente?");
-				
+
 			} while (otramodificacion.equalsIgnoreCase("Si"));
 			
 			if (clientesiguales(nuevocliente, opcion)) {
@@ -325,8 +333,10 @@ public class Admin extends Persona implements VerificacionesRepository{
 	}
 	public void BorrarClientes() {
 		ClienteControlador controlador;
+		ProgresoControlador progreso;
 		   try {
 		        controlador = new ClienteControlador();
+		        progreso=new ProgresoControlador();
 		    } catch (Exception e) {
 		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
 		        return;  
@@ -346,6 +356,12 @@ public class Admin extends Persona implements VerificacionesRepository{
 			
 			for (Cliente cliente : Clientes) {
 				if (cliente.getDNI()==DNI) {
+					LinkedList<Progreso> progresoscliente= progreso.getAllProgresos();
+					for (Progreso progresoc : progresoscliente) {
+						if (progresoc.getIdCliente()==cliente.getId_cliente()) {
+							progreso.deleteProgreso(progresoc.getIdProgreso());
+						}
+					}
 					controlador.deleteCliente(cliente.getId_cliente());
 					mensaje="Se elimino el cliente" + cliente.toString();
 					JOptionPane.showMessageDialog(null, mensaje);
@@ -790,9 +806,61 @@ do {
 				String Descripcion = JOptionPane.showInputDialog("Ingrese la descripcion de la comida:");
 				int ID_Comida = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la Comida:"));
 			}
+<<<<<<< HEAD
 			public static void modificarComida() {
 				LinkedList<Comida> listacomidas = new LinkedList<>();
 				ComidaControlador controlador = new ComidaControlador ();
+=======
+
+			if (comidaABorrar != null) {
+				listacomidas.remove(comidaABorrar);
+				JOptionPane.showMessageDialog(null,"Comida borrada exitosamente! :)");
+			}else {
+				JOptionPane.showMessageDialog(null,"Comida no encontrada :(");
+			}
+		}
+			public void MostrarDietas() {
+			    DietaControlador controlador = new DietaControlador();
+			    LinkedList<Dieta> dietas = controlador.getAllDietas();
+			    String nota = "Lista de dietas: \n";
+
+			    for (Dieta dieta : dietas) {
+			        nota += dieta.toString() + "\n";
+			    }
+			    JOptionPane.showMessageDialog(null, nota);
+			}
+
+			public void BorrarDietas() {
+			    DietaControlador controlador = new DietaControlador();
+			    String otraModificacion;
+
+			    do {
+			        String mensaje = "";
+			        int id = VerificacionesRepository.SoloEnteros("Ingrese el ID de la dieta a borrar: ");
+			        if (id == -1) {
+			            JOptionPane.showMessageDialog(null, "Operación cancelada");
+			            break;
+			        }
+			        
+			        Dieta dieta = controlador.getDietaById(id);
+			        if (dieta != null) {
+			            controlador.deleteDieta(id);
+			            mensaje = "Se eliminó la dieta " + dieta.toString();
+			            JOptionPane.showMessageDialog(null, mensaje);
+			        } else {
+			            JOptionPane.showMessageDialog(null, "No se encontró ninguna dieta con ese ID");
+			        }
+			        otraModificacion = VerificacionesRepository.solicitarConfirmacion("Desea borrar alguna otra dieta?");
+			    } while (otraModificacion.equalsIgnoreCase("Si"));
+			}
+	
+			public static void crearIncentivo() {
+				IncentivoControlador controlador = new IncentivoControlador();
+				LinkedList<Incentivo> listaincentivo = controlador.getAllIncentivo();
+				int Costo = Integer.parseInt(JOptionPane.showInputDialog(null, "Precio:"));
+				String Descripcion = JOptionPane.showInputDialog("Ingrese la descripcion:");
+				int ID_Incentivo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID:"));
+>>>>>>> origin/josevalero
 				
 				int ID_Comida = Integer.parseInt(JOptionPane.showInputDialog("ingrese el ID de la comida a modificar"));
 				Comida comidaAModificar = null;
