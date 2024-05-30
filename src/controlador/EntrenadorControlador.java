@@ -25,6 +25,10 @@ public class EntrenadorControlador implements EntrenadorRepository {
 	        this.connection = DatabaseConnection.getInstance().getConnection();
 	    
 	  }
+	  
+	public Connection getConnection() {
+			return connection;
+		}
 
 	@Override
 	public LinkedList<Entrenador> getAllEntrenadoresBySucursal(int sucursal) {

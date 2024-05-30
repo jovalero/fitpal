@@ -16,6 +16,9 @@ public class SucursalControlador implements SucursalRepository {
     public SucursalControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
+	public Connection getConnection() {
+		return connection;
+	}
 
     @Override
     public LinkedList<Sucursal> getAllSucursales() {

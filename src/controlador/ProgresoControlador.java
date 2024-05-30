@@ -17,6 +17,9 @@ public class ProgresoControlador implements ProgresoRepository {
     public ProgresoControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
+	public Connection getConnection() {
+		return connection;
+	}
 
     @Override
     public List<Progreso> getAllProgresos() {

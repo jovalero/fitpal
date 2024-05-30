@@ -18,7 +18,9 @@ public class DietaControlador implements DietaRepository {
     public DietaControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
-
+	public Connection getConnection() {
+		return connection;
+	}
 
 	@Override
 	public LinkedList<Dieta> getAllDieta() {

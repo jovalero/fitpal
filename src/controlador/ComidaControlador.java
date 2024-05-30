@@ -15,6 +15,10 @@ public class ComidaControlador implements ComidaRepository{
 	public ComidaControlador() {
 		this.connection = DatabaseConnection.getInstance().getConnection();
 	}
+	public Connection getConnection() {
+		return connection;
+	}
+
 	@Override
 	public LinkedList<Comida> getAllComidas() {
 		 LinkedList<Comida> comidas = new LinkedList<>();

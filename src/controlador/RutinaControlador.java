@@ -20,6 +20,9 @@ public class RutinaControlador implements RutinaRepository {
     public RutinaControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
+	public Connection getConnection() {
+		return connection;
+	}
 
 	@Override
 	public LinkedList<Rutina> getAllRutina() {
@@ -30,7 +33,7 @@ public class RutinaControlador implements RutinaRepository {
 			ResultSet resultset= statement.executeQuery();
 			
 			while (resultset.next()) {
-				Rutina Rutina=new rutina(resultset.getString("ID_Rutina"),resultset.getString("Estado"),resultset.getInt("Descripcion"),resultset.getInt("Objetivo"));
+				Rutina Rutina=new Rutina(resultset.getString("ID_Rutina"),resultset.getString("Estado"),resultset.getInt("Descripcion"),resultset.getInt("Objetivo"));
 				Rutina.add(rutina);
 				
 			}
@@ -111,45 +114,6 @@ public class RutinaControlador implements RutinaRepository {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "No  se pudo eliminar el usuario");
 		}
-		
-	}
-
-
-    
-    
-
-	@Override
-	public LinkedList<Rutina> getAllRutina() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Rutina getrutinaByRutina(int Rutina) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addRutina(Rutina Rutina) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateRutina(Rutina Rutina) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteRutina(int Rutina) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addRutina(rutina rutina) {
-		// TODO Auto-generated method stub
 		
 	}
 }
