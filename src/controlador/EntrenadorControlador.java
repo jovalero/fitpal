@@ -34,13 +34,13 @@ public class EntrenadorControlador implements EntrenadorRepository {
 	public LinkedList<Entrenador> getAllEntrenadoresBySucursal(int sucursal) {
 		LinkedList<Entrenador> entrenadores= new LinkedList<Entrenador>();
 		try {
-			PreparedStatement statement= connection.prepareStatement("SELECT * FROM entrenador WHERE ID_sucursal= ?");
+			PreparedStatement statement= connection.prepareStatement("SELECT * FROM entrenador WHERE ID_Sucursal= ?");
 			statement.setInt(1, sucursal);
 			ResultSet resultSet= statement.executeQuery();
 			
 		while (resultSet.next()) {
 			Entrenador entrenador=new Entrenador(resultSet.getString("Nombre"),resultSet.getString("Apellido"),resultSet.getInt("Telefono"),
-					resultSet.getInt("ID_SURCUSAL"),resultSet.getInt("DNI"),resultSet.getInt("ID"),resultSet.getString("email"),resultSet.getString("Contrasenia"),resultSet.getInt("Num_Entrenados"));
+					resultSet.getInt("ID_Sucursal"),resultSet.getInt("DNI"),resultSet.getInt("ID_Entrenador"),resultSet.getString("email"),resultSet.getString("Contrasenia"),resultSet.getInt("Num_Entrenados"));
 			entrenadores.add(entrenador);
 		}
 		} catch (SQLException e) {
@@ -54,14 +54,14 @@ public class EntrenadorControlador implements EntrenadorRepository {
 	public Entrenador getEntrenadorByid(int id) {
 		Entrenador entrenador = null;
 	        try {
-	            PreparedStatement statement = connection.prepareStatement("SELECT * FROM entrenador WHERE id = ?");
+	            PreparedStatement statement = connection.prepareStatement("SELECT * FROM entrenador WHERE ID_Entrenador = ?");
 	            statement.setInt(1, id);
 	            
 	            ResultSet resultSet = statement.executeQuery();
 	            
 	            if (resultSet.next()) {
 	            	entrenador= new Entrenador(resultSet.getString("Nombre"),resultSet.getString("Apellido"),resultSet.getInt("Telefono"),
-	    					resultSet.getInt("ID_SURCUSAL"),resultSet.getInt("DNI"),resultSet.getInt("ID"),resultSet.getString("email"),resultSet.getString("Contrasenia"),resultSet.getInt("Num_Entrenados"));
+	    					resultSet.getInt("ID_Sucursal"),resultSet.getInt("DNI"),resultSet.getInt("ID_Entrenador"),resultSet.getString("email"),resultSet.getString("Contrasenia"),resultSet.getInt("Num_Entrenados"));
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
@@ -73,7 +73,7 @@ public class EntrenadorControlador implements EntrenadorRepository {
 	public void addEntrenador(Entrenador entrenador) {
 		try {
             PreparedStatement statement = connection.prepareStatement
-            		("INSERT INTO entrenador ( ID_sucursal, DNI, Contrasenia, Telefono, Correo_electronico, Apellido, Nombre ) "
+            		("INSERT INTO entrenador ( ID_Sucursal, DNI, Contrasenia, Telefono, Correo_electronico, Apellido, Nombre ) "
             				+ "VALUES (?, ?, ?, ?, ?, ?, ?)");
           
             
@@ -100,7 +100,7 @@ public class EntrenadorControlador implements EntrenadorRepository {
 	@Override
 	public void updateEntrenador(Entrenador Entrenador) {
 		try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE Entrenador SET ID_sucursal= ? ID_Entrenador= ?, DNI= ?, Contrasenia= ?, Telefono= ?, Correo_electronico= ?, Apellido= ?, Nombre= ?  WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE Entrenador SET ID_Sucursal= ? ID_Entrenador= ?, DNI= ?, Contrasenia= ?, Telefono= ?, Correo_electronico= ?, Apellido= ?, Nombre= ?  WHERE id = ?");
             
             statement.setString(1,Entrenador.getNombre());
             statement.setString(2,Entrenador.getApellido());
@@ -143,7 +143,7 @@ public class EntrenadorControlador implements EntrenadorRepository {
 			
 		while (resultSet.next()) {
 			Entrenador entrenador=new Entrenador(resultSet.getString("Nombre"),resultSet.getString("Apellido"),resultSet.getInt("Telefono"),
-					resultSet.getInt("ID_SURCUSAL"),resultSet.getInt("DNI"),resultSet.getInt("ID"),resultSet.getString("email"),resultSet.getString("Contrasenia"),resultSet.getInt("Num_Entrenados"));
+					resultSet.getInt("ID_Sucursal"),resultSet.getInt("DNI"),resultSet.getInt("ID_Entrenador"),resultSet.getString("email"),resultSet.getString("Contrasenia"),resultSet.getInt("Num_Entrenados"));
 			entrenadores.add(entrenador);
 		}
 		} catch (SQLException e) {
