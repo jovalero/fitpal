@@ -1,14 +1,17 @@
 package modelo;
 
 import java.time.LocalDate;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
 import controlador.ClienteControlador;
+import controlador.ComidaControlador;
+import controlador.DietaControlador;
 import controlador.EjercicioControlador;
 import controlador.EntrenadorControlador;
+import controlador.IncentivoControlador;
+import controlador.RutinaControlador;
 import interfaces.VerificacionesRepository;
 
 
@@ -613,7 +616,7 @@ do {
 	}
 	public void MostrarRutinas(){
 	    RutinaControlador controlador = new RutinaControlador();
-	    LinkedList<Rutina> Rutinas = controlador.getAllRutinas();
+	    LinkedList<Rutina> Rutinas = controlador.getAllRutina();
 	    String nota="Lista de rutinas: \n";
 	    
 	    for (Rutina rutina : Rutinas) {
@@ -624,7 +627,7 @@ do {
 
 	public void BorrarRutinas() {
 	    RutinaControlador controlador = new RutinaControlador();
-	    LinkedList<Rutina> Rutinas = controlador.getAllRutinas();
+	    LinkedList<Rutina> Rutinas = controlador.getAllRutina();
 	    
 	    if (Rutinas.isEmpty()) {
 	        JOptionPane.showMessageDialog(null, "No hay rutinas para borrar.");
@@ -649,17 +652,14 @@ do {
 	        }
 	        
 	        if (rutinaAEliminar != null) {
-	            controlador.deleteRutina(rutinaAEliminar.getId());
+	            controlador.deleteRutina(rutinaAEliminar.getIdRutina());
 	            JOptionPane.showMessageDialog(null, "La rutina ha sido eliminada exitosamente.");
 	        } else {
 	            JOptionPane.showMessageDialog(null, "No se encontró la rutina seleccionada.");
 	        }
 	    }
 	}
-<<<<<<< HEAD
-	
-	
-	
+
 		public static void crearEjercicio() {
 			LinkedList<Ejercicio> listaEjercicios = new LinkedList<>();
 			EjercicioControlador controlador = new EjercicioControlador();
@@ -820,7 +820,7 @@ do {
 		}
 			public void MostrarDietas() {
 			    DietaControlador controlador = new DietaControlador();
-			    LinkedList<Dieta> dietas = controlador.getAllDietas();
+			    LinkedList<Dieta> dietas = controlador.getAllDieta();
 			    String nota = "Lista de dietas: \n";
 
 			    for (Dieta dieta : dietas) {
@@ -852,7 +852,80 @@ do {
 			        otraModificacion = VerificacionesRepository.solicitarConfirmacion("Desea borrar alguna otra dieta?");
 			    } while (otraModificacion.equalsIgnoreCase("Si"));
 			}
-=======
+	
+			public static void crearIncentivo() {
+				IncentivoControlador controlador = new IncentivoControlador();
+				LinkedList<Incentivo> listaincentivo = controlador.getAllIncentivo();
+				int Costo = Integer.parseInt(JOptionPane.showInputDialog(null, "Precio:"));
+				String Descripcion = JOptionPane.showInputDialog("Ingrese la descripcion:");
+				int ID_Incentivo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID:"));
+				
+				Incentivo nuevoIncentivo = new Incentivo(Costo,Descripcion,ID_Incentivo);
+				listaincentivo.add(nuevoIncentivo);
+				JOptionPane.showMessageDialog(null,"Incentivo creado exitosamente!");
+			}
+			
+			//modifcar incentivo
+			public static void modificarIncentivo() {
+				IncentivoControlador controlador = new IncentivoControlador();
+				LinkedList<Incentivo> listaincentivo = controlador.getAllIncentivo();
+				int ID_Incentivo  = Integer.parseInt(JOptionPane.showInputDialog("ingrese el ID:"));
+				Incentivo incentivoAModificar = null;
+				
+				for (Incentivo incentivo : listaincentivo) {
+					if (incentivo.getID_Incentivo() == ID_Incentivo) {
+						incentivoAModificar = incentivo;
+						break;
+					}
+				}
+				if (incentivoAModificar != null) {
+					int nuevoCosto = Integer.parseInt(JOptionPane.showInputDialog("Precio:",incentivoAModificar.getCosto()));
+					String nuevaDescripcion = JOptionPane.showInputDialog("Ingrese la nueva descripcion:",incentivoAModificar.getDescripcion());
+					
+					incentivoAModificar.setCosto(nuevoCosto);
+					incentivoAModificar.setDescripcion(nuevaDescripcion);
+					
+					JOptionPane.showMessageDialog(null,"Incentivo modificad exitosamente! :)");
+				} else {
+					JOptionPane.showMessageDialog(null,"Incentivo no encontrada: ");
+				}
+			}
+			// mostrar incentivo
+			 public static void mostrarIncentivo() {
+				 IncentivoControlador controlador = new IncentivoControlador();
+				 LinkedList<Incentivo> listaincentivo = controlador.getAllIncentivo();
+			     StringBuilder nota = new StringBuilder("Lista:\n");
+			        
+			        for (Incentivo incentivo : listaincentivo) {
+			            nota.append(incentivo.toString()).append("\n");
+			        }
+			        
+			        JOptionPane.showMessageDialog(null, nota.toString());
+			    }
+			 //borrar incentivo
+			public static void borrarIncentivo() {
+				IncentivoControlador controlador = new IncentivoControlador();
+				LinkedList<Incentivo> listaincentivo = controlador.getAllIncentivo();
+				int ID_Incentivo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el incentivo que desee borrar: "));
+				Incentivo IncentivoABorrar = null;
+				
+				for (Incentivo incentivo : listaincentivo) {
+					if (incentivo.getID_Incentivo() == ID_Incentivo) {
+					IncentivoABorrar = incentivo;
+					break;
+				  }
+				}
+
+				if (IncentivoABorrar != null) {
+					listaincentivo.remove(IncentivoABorrar);
+					JOptionPane.showMessageDialog(null,"borrado exitosamente! :)");
+				}else {
+					JOptionPane.showMessageDialog(null,"no encontrado :(");
+				}
+			 
+		}
+			
+			
 
 	@Override
 	public void Menu() {
@@ -895,7 +968,7 @@ do {
 
              switch (Elegida) {
                  case "Crear":
-<<<<<<< HEAD
+
                  	CrearEntrenadores();
                      break;
 
@@ -909,18 +982,9 @@ do {
 
                  case "Borrar":
                  	BorrarEntrenador();
-=======
+
                      break;
 
-                 case "Modificar":
-                     break;
-
-                 case "Mostrar":
-                     break;
-
-                 case "Borrar":
->>>>>>> parent of 272dda6 (incentivos)
-                     break;
                  case "Asignar":
                  	AsignarEntrenador();
                  	break;
@@ -969,15 +1033,19 @@ do {
 
          	 switch (Elegida) {
               case "Crear":
+            	  crearIncentivo();
                   break;
 
               case "Modificar":
+            	  modificarIncentivo();
                   break;
 
               case "Mostrar":
+            	  mostrarIncentivo();
                   break;
 
               case "Borrar":
+            	  borrarIncentivo();
                   break;
           }
              break;

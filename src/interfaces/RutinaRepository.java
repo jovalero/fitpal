@@ -7,12 +7,14 @@ public interface RutinaRepository {
 	
     List<Rutina> getAllRutinas();
     
-    Rutina getRutinaById(int id);
+    Rutina getRutinaByid(int id);
     
     void addRutina(Rutina rutina);
     
     void updateRutina(Rutina rutina);
     
-    void deleteRutina(int id);
+    void deleteRutina(int Rutina);
+
+	
 }
 

@@ -1,7 +1,6 @@
 package controlador;
 
 import java.sql.Connection;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,9 +8,8 @@ import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 import interfaces.RutinaRepository;
-import modelo.rutina;
 import modelo.Rutina;
-import modelo.Sucursal;
+
 
 public class RutinaControlador implements RutinaRepository {
     private final Connection connection;
@@ -25,7 +23,7 @@ public class RutinaControlador implements RutinaRepository {
 	}
 
 	@Override
-	public LinkedList<Rutina> getAllRutina() {
+	public LinkedList<Rutina> getAllRutinas() {
 		LinkedList<Rutina> rutinas= new LinkedList<Rutina>();
 		
 		try {
@@ -33,27 +31,27 @@ public class RutinaControlador implements RutinaRepository {
 			ResultSet resultset= statement.executeQuery();
 			
 			while (resultset.next()) {
-				Rutina Rutina=new Rutina(resultset.getString("ID_Rutina"),resultset.getString("Estado"),resultset.getInt("Descripcion"),resultset.getInt("Objetivo"));
-				Rutina.add(rutina);
+				Rutina rutina=new Rutina(resultset.getInt("ID_Rutina"),resultset.getString("Estado"),resultset.getString("Descripcion"),resultset.getString("Objetivo"));
+				rutinas.add(rutina);
 				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Ocurrio un error al mostrar");
 		}
-		return rutina;
+		return rutinas;
 	}
 
 	@Override
-	public Rutina getRutinabyID(int Rutina) {
-		Rutina Rutina1= null;
+	public Rutina getRutinaByid(int id) {
+		Rutina rutina= null;
 		try {
 			PreparedStatement statement= connection.prepareStatement("SELECT * FROM admistrador WHERE ID_rutinaistrador=?");
-			statement.setInt(1, Rutina);
+			statement.setInt(1, id);
 			
 			ResultSet resultset= statement.executeQuery();
 			if (resultset.next()) {
-				 Rutina=new rutina(resultset.getString("ID_Rutina"),resultset.getString("Estado"),resultset.getInt("Descripcion"),resultset.getInt("Objetivo"));
+				 rutina=new Rutina (resultset.getInt("ID_Rutina"),resultset.getString("Estado"),resultset.getString("Descripcion"),resultset.getString("Objetivo"));
 			}
 		} catch (SQLException e) {
 			  e.printStackTrace();
@@ -65,9 +63,9 @@ public class RutinaControlador implements RutinaRepository {
 	public void addRutina(Rutina Rutina) {
 		try {
 			PreparedStatement statement= connection.prepareStatement("INSERT INTO rutina (ID_Rutina, Estado, Descripcion, Objetivo) VALUES (?, ?, ?, ?)");
-			statement.setInt(1, rutina.getId_Rutina());
-			statement.setInt(2, Rutina.getEstado());
-			statement.setInt(3, Rutina.getDescripcion());
+			statement.setInt(1, Rutina.getIdRutina());
+			statement.setString(2, Rutina.getEstado());
+			statement.setString(3, Rutina.getDescripcion());
 			statement.setString(4, Rutina.getObjetivo());
 			
 			
@@ -83,13 +81,13 @@ public class RutinaControlador implements RutinaRepository {
 	}
 
 	@Override
-	public void updaterutina(rutina rutina) {
+	public void updateRutina(Rutina rutina) {
         try {
             PreparedStatement statement = connection.prepareStatement("UPDATE rutina SET ID_Rutina = ?, Estado = ?, Descripcion = ?, Objetivo WHERE id = ?");
-			statement.setInt(1, rutina.getId_sucursal());
-			statement.setInt(2, rutina.getTelefono());
-			statement.setString(3, rutina.getApellido());
-			statement.setInt(4,rutina.getDNI());
+			statement.setInt(1, rutina.getIdRutina());
+			statement.setString(2, rutina.getEstado());
+			statement.setString(3, rutina.getDescripcion());
+			statement.setString(4,rutina.getObjetivo());
 			
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {

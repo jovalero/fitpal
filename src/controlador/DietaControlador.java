@@ -63,9 +63,9 @@ public class DietaControlador implements DietaRepository {
 	public void addDieta(Dieta Dieta) {
 		try {
 			PreparedStatement statement= connection.prepareStatement("INSERT TO Dieta (ID_Dieta, Nombre_Dieta, Descripcion_Dieta) VALUES (?, ?, ?)");
-			statement.setInt(1, Dieta.getID_Dieta());
-			statement.setString(2, Dieta.getNombre_Dieta());
-			statement.setString(3,Dieta.getDescripcion_Dieta());
+			statement.setInt(1, Dieta.getIdDieta());
+			statement.setString(2, Dieta.getNombreDieta());
+			statement.setString(3,Dieta.getDescripcionDieta());
 			
 			int resultset = statement.executeUpdate();
 			
@@ -84,9 +84,9 @@ public class DietaControlador implements DietaRepository {
 	public void updateDieta(Dieta Dieta) {
 		try {
 			PreparedStatement statement= connection.prepareStatement("UPDATE Dieta  SET Nombre_Dieta= ?, Descripcion_Dieta = ?  WHERE ID_Dieta= ?");
-			statement.setString(1, Dieta.getNombre_Dieta());
-			statement.setString(2, Dieta.getDescripcion_Dieta());
-			statement.setInt(3, Dieta.getID_Dieta());
+			statement.setString(1, Dieta.getNombreDieta());
+			statement.setString(2, Dieta.getDescripcionDieta());
+			statement.setInt(3, Dieta.getIdDieta());
 			
 			int resultset = statement.executeUpdate();
 			
