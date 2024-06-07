@@ -1,5 +1,4 @@
 
-<<<<<<< HEAD
 import java.util.LinkedList;
 =======
 public interface EjercicioRepository {
