@@ -67,6 +67,7 @@ CREATE TABLE administrador (
   Telefono VARCHAR(255) NOT NULL,
   Apellido VARCHAR(255) NOT NULL,
   DNI VARCHAR(255) NOT NULL,
+  Usuario VARCHAR(255) NOT NULL,
   Contrasenia VARCHAR(255) NOT NULL,
   Nombre VARCHAR(255) NOT NULL,
   FOREIGN KEY (ID_Sucursal) REFERENCES sucursal(ID_Sucursal)  -- Corrected typo here

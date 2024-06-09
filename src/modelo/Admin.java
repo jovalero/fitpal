@@ -14,6 +14,7 @@ import controlador.IncentivoControlador;
 import controlador.ProgresoControlador;
 import controlador.RutinaControlador;
 import interfaces.VerificacionesRepository;
+import vistas.HomeAdmin;
 
 
 public class Admin extends Persona implements VerificacionesRepository{
@@ -966,7 +967,8 @@ do {
 
 	@Override
 	public void Menu() {
-        String[] opciones = {"Clientes", "Entrenadores", "Rutinas", "Incentivos", "Dietas", "Areas","Comida","Ejercicios"};
+		HomeAdmin admin=new HomeAdmin(this);
+        /*/String[] opciones = {"Clientes", "Entrenadores", "Rutinas", "Incentivos", "Dietas", "Areas","Comida","Ejercicios"};
         String[] op_acciones = {"Crear", "Modificar", "Mostrar", "Borrar"};
         String[] op_acciones2 = {"Crear", "Modificar", "Mostrar", "Borrar","Asignar"};
         String[] op_acciones3 = {"Mostrar", "Borrar"};
@@ -1145,6 +1147,6 @@ do {
      }
      otraaccion=VerificacionesRepository.solicitarConfirmacion("Desea hacer otra accion?");
 } while (otraaccion.equalsIgnoreCase("Si"));
-       
+       /*/
 	}
 }

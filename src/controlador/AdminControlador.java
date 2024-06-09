@@ -85,7 +85,7 @@ public class AdminControlador implements AdminRepository {
 	@Override
 	public void addAdmin(Admin Admin) {
 		try {
-			PreparedStatement statement= connection.prepareStatement("INSERT INTO administrador (ID_Admnistrador, ID_Sucursal, Telefono, Apellido, DNI, Contrasenia, Nombre) VALUES (?, ?, ?, ?, ?, ?, ?)");
+			PreparedStatement statement= connection.prepareStatement("INSERT INTO administrador (ID_Admnistrador, ID_Sucursal, Telefono, Apellido, DNI, Contrasenia, Nombre,Usuario) VALUES (?, ?, ?, ?, ?, ?, ?,?)");
 			statement.setInt(1, Admin.getId_admin());
 			statement.setInt(2, Admin.getId_sucursal());
 			statement.setInt(3, Admin.getTelefono());
@@ -93,6 +93,7 @@ public class AdminControlador implements AdminRepository {
 			statement.setInt(5,Admin.getDNI());
 			statement.setString(6, Admin.getContrasena());
 			statement.setString(7, Admin.getNombre());
+			statement.setString(8, Admin.getUsuario());
 			
 			int rowsinsert= statement.executeUpdate();
 			if (rowsinsert>0) {
