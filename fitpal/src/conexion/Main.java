@@ -32,8 +32,7 @@ public class Main {
     	Persona[] arraypersona=personas.toArray(new Persona[0]);  
     	 indice=Persona.Iniciarsesion(VerificacionesRepository.Sololetras("Ingresa mail"),JOptionPane.showInputDialog("Ingresa contraseña"), personas);
     	if (indice!=-1) {
-    		arraypersona[indice].Menu();;
-		}
-
+    		arraypersona[indice].Menu();
     }
+    	}
 }

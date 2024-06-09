@@ -135,7 +135,24 @@ public interface VerificacionesRepository {
              }
 		} while (!emailvalido);
          return email;
+     }
+     static boolean MailInicio(String email) {
+         final String EMAIL_PATTERN = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+         boolean emailvalido=true;
+             if (email != null) {  
+                 Matcher matcher = pattern.matcher(email);
+                 if (!matcher.matches() && !email.equalsIgnoreCase("Admin")) {          
+                     emailvalido=false;
+                     JOptionPane.showMessageDialog(null, "Email invalido");
+                 }
   
+             } else {
+                 JOptionPane.showMessageDialog(null, "No se ingresó ningún email.");
+                 emailvalido=false;
+                 
+             }
+         return emailvalido;
      }
      static boolean MailExistente(String email) {
     	 ClienteControlador clientecontrolador= new ClienteControlador();
