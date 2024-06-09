@@ -37,6 +37,9 @@ public class HomeAdmin extends JFrame {
 		JButton ClienteButton = new JButton("Seccion Clientes");
 		ClienteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				TablaClientes cliente= new TablaClientes(administrador);
+				dispose();
 			}
 		});
 		ClienteButton.setBounds(52, 60, 143, 43);

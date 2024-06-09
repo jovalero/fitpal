@@ -18,6 +18,9 @@ public class Cliente extends Persona{
 	private double peso;
 	private double altura;
 	
+	public Cliente() {
+		super("", "", 0,0, 0, "", "");
+	}
 	public Cliente(String nombre, String apellido, int telefono, int id_sucursal, int dNI, int id_cliente, String email, String contrasena, String Objetivo, double peso, double altura) {
 		super(nombre, apellido, telefono, id_sucursal, dNI,contrasena,email);
 		this.id_cliente= id_cliente;
