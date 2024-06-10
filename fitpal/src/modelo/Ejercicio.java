@@ -90,4 +90,8 @@ public class Ejercicio {
 	
 	
 }
+<<<<<<< HEAD:fitpal/src/modelo/Ejercicio.java
+=======
+	
+>>>>>>> Ehizer:src/modelo/Ejercicio.java
 

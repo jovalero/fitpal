@@ -72,9 +72,9 @@ public class EjercicioRutinaControlador implements EjercicioRutinaRepository {
     public void addEjercicioRutina(EjercicioRutina ejercicioRutina) {
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO ejercicio_rutina (ID_Ejercicio, ID_Rutina, Num_Series, Repeticiones) VALUES (?, ?, ?, ?)");
-            statement.setInt(1, ejercicioRutina.getIdEjercicio());
-            statement.setInt(2, ejercicioRutina.getIdRutina());
-            statement.setInt(3, ejercicioRutina.getNumSeries());
+            statement.setInt(1, ejercicioRutina.getID_Ejercicio());
+            statement.setInt(2, ejercicioRutina.getID_Rutina());
+            statement.setInt(3, ejercicioRutina.getNum_Series());
             statement.setInt(4, ejercicioRutina.getRepeticiones());
             
             int rowsInserted = statement.executeUpdate();
@@ -91,11 +91,11 @@ public class EjercicioRutinaControlador implements EjercicioRutinaRepository {
     public void updateEjercicioRutina(EjercicioRutina ejercicioRutina) {
         try {
             PreparedStatement statement = connection.prepareStatement("UPDATE ejercicio_rutina SET ID_Ejercicio = ?, ID_Rutina = ?, Num_Series = ?, Repeticiones = ? WHERE ID_Ejercicio_Rutina = ?");
-            statement.setInt(1, ejercicioRutina.getIdEjercicio());
-            statement.setInt(2, ejercicioRutina.getIdRutina());
-            statement.setInt(3, ejercicioRutina.getNumSeries());
+            statement.setInt(1, ejercicioRutina.getID_Ejercicio());
+            statement.setInt(2, ejercicioRutina.getID_Rutina());
+            statement.setInt(3, ejercicioRutina.getNum_Series());
             statement.setInt(4, ejercicioRutina.getRepeticiones());
-            statement.setInt(5, ejercicioRutina.getIdEjercicioRutina());
+            statement.setInt(5, ejercicioRutina.getID_Ejercicio_Rutina());
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
