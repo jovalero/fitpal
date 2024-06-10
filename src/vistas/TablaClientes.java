@@ -21,7 +21,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.table.TableModel;
 
-import Vista.Editar;
 
 
 public class TablaClientes extends JFrame {
@@ -63,6 +62,7 @@ public class TablaClientes extends JFrame {
 		String [] columnames= {"ID","Nombre","Apellido","DNI","Mail"};
 		model= new DefaultTableModel(columnames,0);
 		table = new JTable(model);
+		actualizarTabla(administrador.getId_sucursal());
 		table.setBounds(10, 37, 532, 204);
 		contentPane.setLayout(null);
 		
