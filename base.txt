@@ -161,9 +161,9 @@ INSERT INTO dieta_comida (ID_Dieta, ID_Comida, Cantidad) VALUES
 (2, 2, 300.00);
 
 -- Tabla administrador
-INSERT INTO administrador (ID_Sucursal, Telefono, Apellido, DNI, Contrasenia, Nombre) VALUES 
-(1, '123-456-7890', 'Admin', '12345678', 'adminpass1', 'Juan'),
-(2, '987-654-3210', 'Admin', '87654321', 'adminpass2', 'Ana');
+INSERT INTO administrador (ID_Sucursal, Telefono, Apellido, DNI, Contrasenia, Nombre, Usuario) VALUES 
+(1, '123-456-7890', 'Valero', '12345678', 'adminpass1', 'Juan','Admin'),
+(2, '987-654-3210', 'Valero', '87654321', 'adminpass2', 'Ana', 'Admin');
 
 -- Tabla entrenador
 INSERT INTO entrenador (Telefono, Nombre, Apellido, Contrasenia, ID_Sucursal, Num_Entrenados, DNI, email) VALUES 
