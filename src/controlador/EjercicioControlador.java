@@ -1,7 +1,6 @@
 package controlador;
 
 import java.sql.Connection;
-<<<<<<< HEAD
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,7 +48,7 @@ public class EjercicioControlador implements EjercicioRepository{
 	
 
 	@Override
-	public Ejercicio getEjercicioByID(int id) {
+	public Ejercicio getEjercicioByid(int id) {
 		 Ejercicio ejercicio = null;
 	        try {
 	            PreparedStatement statement = connection.prepareStatement("SELECT * FROM ejercicio WHERE ID_Ejercicio = ?");
