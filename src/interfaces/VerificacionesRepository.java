@@ -57,12 +57,12 @@ public interface VerificacionesRepository {
          return valido;
      }
      static boolean SoloDoubles(String input) {
-         int numero = 0;
+         double numero = 0;
          boolean valido;
          valido=true;
              try {
                  if (!input.isEmpty() ) {
-                     numero=Double.parseInt(input);
+                     numero=Double.parseDouble(input);
          		}
                  else {
                 	 valido=false;

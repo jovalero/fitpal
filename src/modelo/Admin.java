@@ -53,7 +53,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 	
 	
 	
-	public void RegistrarCliente(int sucursal,String Nombre, String Apellido, String Email,int DNI, int Telefono,String Contrasena,double Peso,double Altura) {
+	public boolean RegistrarCliente(int sucursal,String Nombre, String Apellido, String Email,int DNI, int Telefono,String Contrasena,double Peso,double Altura) {
 		ClienteControlador controlador;
 		Cliente nuevocliente=null;
 
@@ -61,17 +61,18 @@ public class Admin extends Persona implements VerificacionesRepository{
 	        controlador = new ClienteControlador();
 	    } catch (Exception e) {
 	        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
-	        return;  
+	        return false;  
 	    }
 
 	    if (controlador.getConnection() == null) {
 	        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
-	        return; 
+	        return false; 
 	    }
 		
 			
 		nuevocliente= new Cliente(Nombre,Apellido,Telefono,sucursal,DNI,Email,Contrasena,"Nuevo",Peso,Altura);
 		controlador.addCliente(nuevocliente);
+		return true;
 									
 		}
 			

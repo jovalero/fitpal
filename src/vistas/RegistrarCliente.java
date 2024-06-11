@@ -10,6 +10,8 @@ import interfaces.VerificacionesRepository;
 import modelo.Admin;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -137,9 +139,10 @@ public class RegistrarCliente extends JFrame {
 				double Peso=0;
 				double Altura=0;
 				boolean flag=true;
-				
+				int sucursal=administrador.getId_sucursal();
 				if (!VerificacionesRepository.Sololetras(NombreInput.getText())) {
 					flag=false;
+			
 				}
 				else {
 					Nombre=NombreInput.getText();
@@ -152,22 +155,27 @@ public class RegistrarCliente extends JFrame {
 				}
 				if (!VerificacionesRepository.Mail(MailInput.getText())) {
 					flag=false;
+				
 				}
 				else {
 					Mail=MailInput.getText();
 				}
 				if (!VerificacionesRepository.SoloEnteros(TelefonoInput.getText())) {
 					flag=false;
+					
+				
 				}
 				else {
 					Telefono=Integer.parseInt(TelefonoInput.getText());
 				}
 				if (!VerificacionesRepository.SoloEnteros(DNIInput.getText())) {
 					flag=false;
+					
 				}
 				else {
-					if (!VerificacionesRepository.DNIExistente(Integer.parseInt(DNIInput.getText()))) {
+					if (VerificacionesRepository.DNIExistente(Integer.parseInt(DNIInput.getText()))) {
 						flag=false;
+				
 					}
 					else {
 						 DNI=Integer.parseInt(DNIInput.getText());
@@ -175,25 +183,38 @@ public class RegistrarCliente extends JFrame {
 				}
 				if (ContrasenaInput.getText().isEmpty()) {
 					flag=false;
+					
 				}
 				else {
 					Contrasena=ContrasenaInput.getText();
 				}
 				if (!VerificacionesRepository.SoloDoubles(PesoInput.getText())) {
 					flag=false;
+					
 				}
 				else {
 					 Peso=Double.parseDouble(PesoInput.getText());
 				}
 				if (!VerificacionesRepository.SoloDoubles(AlturaInput.getText())) {
 					flag=false;
+					
 				}
 				else {
 					Altura=Double.parseDouble(AlturaInput.getText());
 				}
 				
 				if (flag) {
-					administrador.RegistrarCliente(administrador.getId_sucursal(),Nombre,Apellido,Mail,DNI,Telefono,Contrasena,Peso,Altura);
+					boolean registro=administrador.RegistrarCliente(sucursal,Nombre,Apellido,Mail,DNI,Telefono,Contrasena,Peso,Altura);
+					if (registro) {
+						TablaClientes nuevatabla= new TablaClientes(administrador);
+						dispose();
+					}
+					else {
+						JOptionPane.showMessageDialog(null,"Ocurrio un error");    
+					}
+				}
+				else {
+					JOptionPane.showMessageDialog(RegistrarButton, "No funciona");
 				}
 			}
 		});

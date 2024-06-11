@@ -126,7 +126,7 @@ public class TablaClientes extends JFrame {
         JButton Registrarbutton = new JButton("Registrar nuevo");
         Registrarbutton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		RegistrarCliente registrar=new RegistrarCliente(administrador.getId_sucursal());
+        		RegistrarCliente registrar=new RegistrarCliente(administrador);
         	}
         });
         Registrarbutton.setBounds(571, 257, 166, 58);
