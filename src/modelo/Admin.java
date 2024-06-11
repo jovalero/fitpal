@@ -53,7 +53,7 @@ public class Admin extends Persona implements VerificacionesRepository{
 	
 	
 	
-	public void RegistrarCliente() {
+	public void RegistrarCliente(int sucursal,String Nombre, String Apellido, String Email,int DNI, int Telefono,String Contrasena,double Peso,double Altura) {
 		ClienteControlador controlador;
 		Cliente nuevocliente=null;
 
@@ -69,37 +69,10 @@ public class Admin extends Persona implements VerificacionesRepository{
 	        return; 
 	    }
 		
-			int DNI;
-			String Nombre=VerificacionesRepository.Sololetras("Escribe el nombre del cliente: ");
-			if (Nombre != null) {
-				String Apellido=VerificacionesRepository.Sololetras("Escribe el apellido del cliente");
-				if (Apellido !=null) {
-					String Email=VerificacionesRepository.Mail();
-					if (Email!=null) {
-						int Telefono=VerificacionesRepository.SoloEnteros("Ingresa el telefono del cliente: ");
-						if (Telefono!=-1) {
-							int sucursal= this.getId_sucursal();
-							do {
-								DNI=VerificacionesRepository.SoloEnteros("Ingrese DNI del cliente");
-							} while (VerificacionesRepository.DNIExistente(DNI));
-							if (DNI!=-1) {
-								String Contrasena= "Primeracontrasena!";
-								Double Peso=VerificacionesRepository.SoloDoubles("Ingresa peso: ");
-								if (Peso!=-1) {
-									Double Altura=VerificacionesRepository.SoloDoubles("Ingresa altura: ");
-									if (Altura!=-1) {
-										nuevocliente= new Cliente(Nombre,Apellido,Telefono,sucursal,DNI,Email,Contrasena,"Nuevo",Peso,Altura);
-										controlador.addCliente(nuevocliente);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			if (nuevocliente==null) {
-				JOptionPane.showMessageDialog(null, "Cancelaron la operacion");
-			}
+			
+		nuevocliente= new Cliente(Nombre,Apellido,Telefono,sucursal,DNI,Email,Contrasena,"Nuevo",Peso,Altura);
+		controlador.addCliente(nuevocliente);
+									
 		}
 			
 	

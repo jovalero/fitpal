@@ -5,6 +5,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import interfaces.VerificacionesRepository;
+import modelo.Admin;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -31,7 +35,7 @@ public class RegistrarCliente extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public RegistrarCliente(int sucursal) {
+	public RegistrarCliente(Admin administrador) {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 542, 465);
@@ -94,6 +98,7 @@ public class RegistrarCliente extends JFrame {
 		ContrasenaInput = new JTextField();
 		ContrasenaInput.setColumns(10);
 		ContrasenaInput.setBounds(198, 224, 86, 20);
+		ContrasenaInput.setText("PrimeraContraseña!");
 		contentPane.add(ContrasenaInput);
 		
 		JLabel ContrasenaLabel = new JLabel("Contraseña: ");
@@ -103,6 +108,7 @@ public class RegistrarCliente extends JFrame {
 		PesoInput = new JTextField();
 		PesoInput.setColumns(10);
 		PesoInput.setBounds(198, 255, 86, 20);
+		PesoInput.setText("0");
 		contentPane.add(PesoInput);
 		
 		JLabel PesoLabel = new JLabel("Peso: ");
@@ -116,11 +122,79 @@ public class RegistrarCliente extends JFrame {
 		AlturaInput = new JTextField();
 		AlturaInput.setColumns(10);
 		AlturaInput.setBounds(198, 286, 86, 20);
+		AlturaInput.setText("0");
 		contentPane.add(AlturaInput);
 		
 		JButton RegistrarButton = new JButton("Registrar Cliente");
 		RegistrarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String Nombre="";
+				String Apellido="";
+				String Mail="";
+				String Contrasena="";
+				int Telefono=0;
+				int DNI=0;
+				double Peso=0;
+				double Altura=0;
+				boolean flag=true;
+				
+				if (!VerificacionesRepository.Sololetras(NombreInput.getText())) {
+					flag=false;
+				}
+				else {
+					Nombre=NombreInput.getText();
+				}
+				if (!VerificacionesRepository.Sololetras(ApellidoInput.getText())) {
+					flag=false;
+				}
+				else {
+					Apellido=ApellidoInput.getText();
+				}
+				if (!VerificacionesRepository.Mail(MailInput.getText())) {
+					flag=false;
+				}
+				else {
+					Mail=MailInput.getText();
+				}
+				if (!VerificacionesRepository.SoloEnteros(TelefonoInput.getText())) {
+					flag=false;
+				}
+				else {
+					Telefono=Integer.parseInt(TelefonoInput.getText());
+				}
+				if (!VerificacionesRepository.SoloEnteros(DNIInput.getText())) {
+					flag=false;
+				}
+				else {
+					if (!VerificacionesRepository.DNIExistente(Integer.parseInt(DNIInput.getText()))) {
+						flag=false;
+					}
+					else {
+						 DNI=Integer.parseInt(DNIInput.getText());
+					}
+				}
+				if (ContrasenaInput.getText().isEmpty()) {
+					flag=false;
+				}
+				else {
+					Contrasena=ContrasenaInput.getText();
+				}
+				if (!VerificacionesRepository.SoloDoubles(PesoInput.getText())) {
+					flag=false;
+				}
+				else {
+					 Peso=Double.parseDouble(PesoInput.getText());
+				}
+				if (!VerificacionesRepository.SoloDoubles(AlturaInput.getText())) {
+					flag=false;
+				}
+				else {
+					Altura=Double.parseDouble(AlturaInput.getText());
+				}
+				
+				if (flag) {
+					administrador.RegistrarCliente(administrador.getId_sucursal(),Nombre,Apellido,Mail,DNI,Telefono,Contrasena,Peso,Altura);
+				}
 			}
 		});
 		RegistrarButton.setBounds(179, 338, 113, 23);
