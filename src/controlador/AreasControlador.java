@@ -125,26 +125,28 @@ public class AreasControlador implements AreasRepository {
 	public List<Areas> getallAreasbySucursal(int Sucursal) {
 
 	       List<Areas> areaList = new LinkedList<>();
-	        String query = "SELECT * FROM areas WHERE ID_Sucursal =? "; 
+	        
+	        try {
+	PreparedStatement statement = connection.prepareStatement("SELECT * FROM areas WHERE ID_Sucursal =? " );
+	statement.setInt(1, Sucursal);
+	ResultSet resultSet = statement.executeQuery() ;
 
-	         PreparedStatement statement = connection.prepareStatement("SELECT * FROM areas WHERE ID_Sucursal =? " );
-	        		statement.setInt(1, Sucursal);
-	        		ResultSet resultSet = statement.executeQuery() ;{
-
-	            while (resultSet.next()) {
-	                Areas area = new Areas(
-	                    resultSet.getInt("ID_Area"),
-	                    resultSet.getString("Nombre"),
-	                    resultSet.getInt("ID_Sucursal"),
-	                    resultSet.getString("Ubicacion")
-	                );
-	                areaList.add(area);
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	            JOptionPane.showMessageDialog(null, "Ocurrió un error al mostrar las áreas");
-	        }
-	        return areaList;
+		while (resultSet.next()) {
+			Areas area = new Areas(
+        resultSet.getInt("ID_Area"),
+        resultSet.getString("Nombre"),
+        resultSet.getInt("ID_Sucursal"),
+        resultSet.getString("Ubicacion")
+					);
+			areaList.add(area);
+		}
+		}
+	 catch (SQLException e) {
+	JOptionPane.showMessageDialog(null, "ERROR PARCE");
+	}
+	         
+	       
+	  return areaList;
 	    
 		
 	}
