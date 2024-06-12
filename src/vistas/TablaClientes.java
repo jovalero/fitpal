@@ -9,13 +9,18 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ClienteControlador;
+import controlador.ProgresoControlador;
 import modelo.Admin;
 import modelo.Cliente;
+import modelo.Progreso;
 
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -30,6 +35,7 @@ public class TablaClientes extends JFrame {
 	private JTable table;
 	private DefaultTableModel model;
 	private ClienteControlador controlador;
+	private ProgresoControlador progreso;
 
 
 
@@ -48,6 +54,7 @@ public class TablaClientes extends JFrame {
 		
 		   try {
 		        controlador = new ClienteControlador();
+		        progreso=new ProgresoControlador();
 		    } catch (Exception e) {
 		        JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
 		        return;  
@@ -81,7 +88,12 @@ public class TablaClientes extends JFrame {
         	public void actionPerformed(ActionEvent e) {
         		
         		if (seleccionado.getId_cliente()!=0) {
-					
+    				LinkedList<Progreso> progresoscliente= progreso.getAllProgresos();
+					for (Progreso progresoc : progresoscliente) {
+						if (progresoc.getIdCliente()==seleccionado.getId_cliente()) {
+							progreso.deleteProgreso(progresoc.getIdProgreso());
+						}
+					}
         			controlador.deleteCliente(seleccionado.getId_cliente());;
         			JOptionPane.showMessageDialog(null, "Elimnado");
         			 actualizarTabla(administrador.getId_sucursal());
@@ -108,8 +120,43 @@ public class TablaClientes extends JFrame {
         		
         	}
         });
-        Editar.setBounds(334, 257, 166, 58);
+        Editar.setBounds(308, 257, 166, 58);
         contentPane.add(Editar);
+        
+        JButton Registrarbutton = new JButton("Registrar nuevo");
+        Registrarbutton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		RegistrarCliente registrar=new RegistrarCliente(administrador);
+        	}
+        });
+        Registrarbutton.setBounds(571, 257, 166, 58);
+        contentPane.add(Registrarbutton);
+        
+        ListSelectionModel selectionModel = table.getSelectionModel();
+        selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        
+        selectionModel.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedRow = table.getSelectedRow();
+                    if (selectedRow != -1) {
+                        int id = (int) table.getValueAt(selectedRow, 0);
+                        String nombre = (String) table.getValueAt(selectedRow, 1);
+                        String apellido = (String) table.getValueAt(selectedRow, 2);
+                        int DNI = (int) table.getValueAt(selectedRow, 3);
+                        String mail = (String) table.getValueAt(selectedRow, 4);
+                        Seleccionadolabel.setText("Seleccionado: ID=" + id + ", Nombre=" + nombre + ", Mail=" + mail + ", Apellido=" + apellido+ ", DNI=" + DNI );
+                        seleccionado.setUsuario(mail);
+                        seleccionado.setNombre(nombre);
+                        seleccionado.setId_cliente(id);
+                        seleccionado.setApellido(apellido);
+                        seleccionado.setDNI(DNI);
+                    }
+                }
+            }
+        });
 	}
 	public void actualizarTabla(int sucursal) {
 		

@@ -16,22 +16,15 @@ import modelo.Entrenador;
 
 public interface VerificacionesRepository {
 
-     static String Sololetras(String texto) {
-    	String Texto="";
-    	boolean seguro;
-    	
-    	do {
+     static Boolean Sololetras(String textoaverificar) {
+    	boolean seguro;    	
     		seguro=true;
-			Texto=JOptionPane.showInputDialog(texto);
-			if (Texto==null) {
-				return null;
-			}
-			if (!Texto.isEmpty()) {
-			    for (int i = 0; i < Texto.length(); i++) {
-		            char caracter = Texto.charAt(i);
+			if (!textoaverificar.isEmpty()) {
+			    for (int i = 0; i < textoaverificar.length(); i++) {
+		            char caracter = textoaverificar.charAt(i);
 		            if (!Character.isLetter(caracter)) {
 		                seguro=false;
-		                i=Texto.length();
+		                i=textoaverificar.length();
 		            }
 		        }
 			}
@@ -40,52 +33,46 @@ public interface VerificacionesRepository {
 				seguro=false;
 				
 			}
-		} while (!seguro);	
+
     
-        return Texto;
+        return seguro;
     }
     
-     static int SoloEnteros(String texto) {
+     static boolean SoloEnteros(String input) {
          int numero = 0;
-         boolean valido = false;
-
-         do {
+         boolean valido;
+         valido=true;
              try {
-                 String input =JOptionPane.showInputDialog(texto) ;
-                 if (input!=null && !input.isEmpty() ) {
+                 if (!input.isEmpty() ) {
                      numero=Integer.parseInt(input);
-                     valido = true;
          		}
                  else {
-					JOptionPane.showMessageDialog(null, "No se ingreso ningun numero");
-					return  -1;
+                	 valido=false;
 				}
              
              } catch (NumberFormatException e) {
-                 JOptionPane.showMessageDialog(null, "Error: Ingresa solo números enteros.");
+            	 return false;
              }
-         } while (!valido);
-         return numero;
+         
+         return valido;
      }
-     static double SoloDoubles(String texto) {
+     static boolean SoloDoubles(String input) {
          double numero = 0;
-         boolean valido = false;
-
-         do {
+         boolean valido;
+         valido=true;
              try {
-                 String input = JOptionPane.showInputDialog(texto);
-                 if (input != null && !input.isEmpty()) {
-                     numero = Double.parseDouble(input);
-                     valido = true;
-                 } else {
-                     JOptionPane.showMessageDialog(null, "No se ingresó ningún número.");
-                     return -1;
-                 }
+                 if (!input.isEmpty() ) {
+                     numero=Double.parseDouble(input);
+         		}
+                 else {
+                	 valido=false;
+				}
+             
              } catch (NumberFormatException e) {
-                 JOptionPane.showMessageDialog(null, "Error: Ingresa solo números decimales.");
+            	 return false;
              }
-         } while (!valido);
-         return numero;
+         
+         return valido;
      }
      
      static LocalDate pedirFecha(String texto) {
@@ -111,30 +98,24 @@ public interface VerificacionesRepository {
      }
     
 
-     static String Mail() {
+     static boolean Mail(String email) {
          final String EMAIL_PATTERN = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
          Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-         boolean emailvalido=false;
-         String email;
-         do {
-             email = JOptionPane.showInputDialog("Ingrese su email:");
+         boolean emailvalido;
              emailvalido=true;
-             if (email != null) {  
+             if (!email.isEmpty()) {  
                  Matcher matcher = pattern.matcher(email);
                  if (!matcher.matches()) {          
                      emailvalido=false;
-                     JOptionPane.showMessageDialog(null, "Email invalido");
                  }
                  else if (MailExistente(email)) {
 					emailvalido=false;
 					JOptionPane.showMessageDialog(null, "Ya existe una cuenta con ese correo");
 				}
              } else {
-                 JOptionPane.showMessageDialog(null, "No se ingresó ningún email.");
-                 return null;
+                 emailvalido=false;
              }
-		} while (!emailvalido);
-         return email;
+         return emailvalido;
      }
      static boolean MailInicio(String email) {
          final String EMAIL_PATTERN = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";

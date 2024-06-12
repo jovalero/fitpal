@@ -43,7 +43,13 @@ public class ClienteControlador implements ClienteRepository {
        
             while (resultSet.next()) {
             	Cliente user = new Cliente(resultSet.getString("Nombre"),resultSet.getString("Apellido"),resultSet.getInt("Telefono"),resultSet.getInt("ID_sucursal"),resultSet.getInt("DNI"),resultSet.getInt("ID_cliente"),resultSet.getString("Correo_electronico"),resultSet.getString("Contrasenia"),resultSet.getString("Objetivo"),resultSet.getDouble("Peso"),resultSet.getDouble("Altura"));
-            	user.setFechavenc(resultSet.getDate("Fecha_venc_sus").toLocalDate());
+            	java.sql.Date fecha=resultSet.getDate("Fecha_venc_sus");
+            	if (fecha!=null) {
+                	user.setFechavenc(resultSet.getDate("Fecha_venc_sus").toLocalDate());
+				}
+            	else {
+					user.setFechavenc(null);
+				}
                user.setId_entrenador(resultSet.getInt("ID_Entrenador"));
                user.setId_dieta(resultSet.getInt("ID_Dieta"));
                user.setEstado_sus(resultSet.getString("Estado_sus"));
@@ -79,9 +85,9 @@ public class ClienteControlador implements ClienteRepository {
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO cliente (ID_Entrenador, ID_Dieta, ID_sucursal, DNI, Objetivo, Puntos, Estado_sus, Peso, Altura, Contrasenia, Fecha_venc_sus, Telefono, Correo_electronico, Apellido, Nombre ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
             
-            statement.setString(1, null);
-            statement.setInt(2, cliente.getId_sucursal());
-            statement.setString(3, null);
+            statement.setNull(1, java.sql.Types.INTEGER);
+            statement.setNull(2, java.sql.Types.INTEGER);
+            statement.setInt(3, cliente.getId_sucursal());
             statement.setInt(4, cliente.getDNI());
             statement.setString(5, cliente.getObjetivo());
             statement.setInt(6, cliente.getPuntos());
@@ -92,8 +98,8 @@ public class ClienteControlador implements ClienteRepository {
             statement.setDate(11,null);
             statement.setInt(12, cliente.getTelefono());
             statement.setString(13,cliente.getUsuario());
-            statement.setString(14,cliente.getNombre());
-            statement.setString(15,cliente.getApellido());
+            statement.setString(14,cliente.getApellido());
+            statement.setString(15,cliente.getNombre());
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("Usuario insertado exitosamente");
