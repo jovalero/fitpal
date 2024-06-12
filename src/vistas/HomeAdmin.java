@@ -56,6 +56,8 @@ public class HomeAdmin extends JFrame {
 		JButton AreasButton = new JButton("Seccion Areas");
 		AreasButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				AreasTabla area= new AreasTabla(administrador);
+				dispose();
 			}
 		});
 		AreasButton.setBounds(52, 218, 201, 38);

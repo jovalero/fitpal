@@ -17,6 +17,11 @@ public class Areas {
         this.Nombre = Nombre;
         this.ID_Sucursal = ID_Sucursal;
         this.Ubicacion = Ubicacion;
+        
+    }  public Areas() {
+        
+       
+        
     }
 
     public int getIdArea() {
