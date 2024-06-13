@@ -22,6 +22,7 @@ public class AgregarProgreso extends JFrame {
     private TablaProgreso tablaProgreso;
 
     public AgregarProgreso(ProgresoControlador controlador, TablaProgreso tablaProgreso) {
+    	this.setVisible(true);
         this.controlador = controlador;
         this.tablaProgreso = tablaProgreso;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

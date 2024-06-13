@@ -100,7 +100,8 @@ public class TablaProgreso extends JFrame {
         JButton btnAgregar = new JButton("Agregar");
         btnAgregar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new AgregarProgreso(controlador, TablaProgreso.this).setVisible(true);
+            	 AgregarProgreso pantalla =  new AgregarProgreso(controlador, TablaProgreso.this);
+            	 dispose();
             }
         });
         btnAgregar.setBounds(91, 257, 166, 58);
