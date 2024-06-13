@@ -60,7 +60,18 @@ public class HomeAdmin extends JFrame {
 				dispose();
 			}
 		});
-		AreasButton.setBounds(52, 218, 201, 38);
+		AreasButton.setBounds(52, 193, 201, 38);
 		contentPane.add(AreasButton);
+		
+		JButton btnSeccionProgreso = new JButton("Seccion Progreso");
+		btnSeccionProgreso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TablaProgreso area= new TablaProgreso(administrador);
+				dispose();
+			}
+		});
+		btnSeccionProgreso.setBounds(52, 255, 201, 38);
+		contentPane.add(btnSeccionProgreso);
+		
 	}
 }
