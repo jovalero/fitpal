@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import controlador.ComidaControlador;
+import modelo.Admin;
 import modelo.Comida;
 
 import javax.swing.*;
@@ -21,7 +22,7 @@ public class EditarComida extends JFrame {
     private Comida comida;
 	
 	
-	public EditarComida(Comida comida) {
+	public EditarComida(Comida comida , Admin Administrador) {
 		 this.comida = comida;
 		 this.setVisible(true);
 	        controlador = new ComidaControlador();
@@ -65,6 +66,7 @@ public class EditarComida extends JFrame {
 	                     controlador.updateComida(comida);
 	                     JOptionPane.showMessageDialog(null, "Comida actualizada exitosamente");
 	                     dispose();
+	                     ComidaTabla tabla = new ComidaTabla(Administrador);
 	                 }
 	             }
 	         });
