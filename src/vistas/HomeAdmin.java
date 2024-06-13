@@ -48,6 +48,8 @@ public class HomeAdmin extends JFrame {
 		JButton SeccionEntrenadores = new JButton("Seccion Entrenadores");
 		SeccionEntrenadores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				TablaEntrenadores entrenadores= new TablaEntrenadores(administrador);
+				dispose();
 			}
 		});
 		SeccionEntrenadores.setBounds(52, 127, 201, 43);
