@@ -1,5 +1,3 @@
 /vistas/
-/interfaces/
-/modelo/
 /controlador/
-/conexion/
+/modelo/

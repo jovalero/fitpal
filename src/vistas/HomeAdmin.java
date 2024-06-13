@@ -50,7 +50,7 @@ public class HomeAdmin extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		SeccionEntrenadores.setBounds(52, 127, 201, 43);
+		SeccionEntrenadores.setBounds(52, 114, 201, 43);
 		contentPane.add(SeccionEntrenadores);
 		
 		JButton AreasButton = new JButton("Seccion Areas");
@@ -60,7 +60,17 @@ public class HomeAdmin extends JFrame {
 				dispose();
 			}
 		});
-		AreasButton.setBounds(52, 218, 201, 38);
+		AreasButton.setBounds(52, 222, 201, 38);
 		contentPane.add(AreasButton);
+		
+		JButton SeccionComidas = new JButton("Seccion Comidas");
+		SeccionComidas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			ComidaTabla comida = new ComidaTabla(administrador);
+			dispose();
+			}
+		});
+		SeccionComidas.setBounds(52, 168, 201, 43);
+		contentPane.add(SeccionComidas);
 	}
 }
