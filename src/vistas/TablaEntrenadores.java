@@ -15,7 +15,6 @@ import javax.swing.table.DefaultTableModel;
 import controlador.EntrenadorControlador;
 import modelo.Admin;
 import modelo.Entrenador;
-
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
@@ -73,7 +72,7 @@ public class TablaEntrenadores extends JFrame {
         btnEliminar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getId_entrenador() != 0) {
-                    // Aquí podrías implementar la lógica para eliminar un entrenador
+              
                     controlador.deleteEntrenador(seleccionado.getId_entrenador());
                     JOptionPane.showMessageDialog(null, "Eliminado");
                     actualizarTabla(administrador.getId_sucursal());
@@ -89,10 +88,7 @@ public class TablaEntrenadores extends JFrame {
         Editar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getId_entrenador() != 0) {
-                    // Aquí podrías implementar la lógica para editar un entrenador
-                    // Por ejemplo, abrir una ventana para editar detalles del entrenador seleccionado
-                    // EditarEntrenador editar = new EditarEntrenador(seleccionado);
-                    // dispose();
+                  
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione un entrenador");
                 }
@@ -104,9 +100,9 @@ public class TablaEntrenadores extends JFrame {
         JButton Registrarbutton = new JButton("Registrar nuevo");
         Registrarbutton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Aquí podrías implementar la lógica para registrar un nuevo entrenador
-                // Por ejemplo, abrir una ventana para registrar un nuevo entrenador
-                // RegistrarEntrenador registrar = new RegistrarEntrenador(administrador);
+                
+                RegistrarEntrenador registrar = new RegistrarEntrenador(administrador);
+                dispose();
             }
         });
         Registrarbutton.setBounds(571, 257, 166, 58);
@@ -154,3 +150,4 @@ public class TablaEntrenadores extends JFrame {
         }
     }
 }
+
