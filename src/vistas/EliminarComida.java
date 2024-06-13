@@ -1,7 +1,11 @@
 package vistas;
 
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import controlador.ComidaControlador;
-import modelo.Admin;
 import modelo.Comida;
 
 import javax.swing.*;
@@ -13,29 +17,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
-public class ComidaTabla extends JFrame {
+public class EliminarComida extends JFrame {
 
-    private static final long serialVersionUID = 1L;
-    private JPanel contentPane;
-    private JTable table;
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTable table;
     private DefaultTableModel model;
     private ComidaControlador controlador;
     private Comida comidaSeleccionada;
-	private Object administrador;
-
-    /**
-     * Create the frame.
-     */
-    public ComidaTabla(Admin Administrador) {
-    	this.administrador = administrador;
+	
+    
+    public EliminarComida() {
         this.setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 945, 365);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
-        
+
         try {
             controlador = new ComidaControlador();
         } catch (Exception e) {
@@ -47,16 +47,16 @@ public class ComidaTabla extends JFrame {
             JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
             return;
         }
-        
+
         String[] columnNames = {"ID", "Nombre", "Descripción"};
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
         actualizarTabla();
         table.setBounds(10, 37, 532, 204);
 
-        JScrollPane comidatabla = new JScrollPane(table);
-        comidatabla.setBounds(0, 37, 911, 190);
-        contentPane.add(comidatabla);
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(0, 37, 911, 190);
+        contentPane.add(scrollPane);
 
         JLabel seleccionadoLabel = new JLabel("Seleccionado: ");
         seleccionadoLabel.setBounds(5, 5, 911, 14);
@@ -69,8 +69,6 @@ public class ComidaTabla extends JFrame {
                     controlador.deleteComida(comidaSeleccionada.getID_Comida());
                     JOptionPane.showMessageDialog(null, "Comida eliminada");
                     actualizarTabla();
-                    comidaSeleccionada = null;
-                    seleccionadoLabel.setText("Seleccionado: ");
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione una comida");
                 }
@@ -79,30 +77,6 @@ public class ComidaTabla extends JFrame {
         btnEliminar.setBounds(55, 257, 187, 58);
         contentPane.add(btnEliminar);
 
-        JButton btnEditar = new JButton("Editar");
-        btnEditar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (comidaSeleccionada != null) {
-                    EditarComida editar = new EditarComida(comidaSeleccionada);
-                    editar.setVisible(true);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Seleccione una comida");
-                }
-            }
-        });
-        btnEditar.setBounds(308, 257, 166, 58);
-        contentPane.add(btnEditar);
-
-        JButton seccomidas = new JButton("Registrar nuevo");
-        seccomidas.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                RegistrarComida registrar = new RegistrarComida(ComidaTabla.this);
-                registrar.setVisible(true);
-            }
-        });
-        seccomidas.setBounds(571, 257, 166, 58);
-        contentPane.add(seccomidas);
-         
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 

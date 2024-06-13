@@ -19,11 +19,11 @@ public class EditarComida extends JFrame {
     private JTextArea descripcionArea;
     private ComidaControlador controlador;
     private Comida comida;
-
 	
 	
-	public EditarComida(Comida comida, ComidaTabla comidaTabla) {
+	public EditarComida(Comida comida) {
 		 this.comida = comida;
+		 this.setVisible(true);
 	        controlador = new ComidaControlador();
 	        setTitle("Editar Comida");
 	        setSize(400, 300);

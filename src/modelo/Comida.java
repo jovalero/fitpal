@@ -13,16 +13,11 @@ public class Comida {
 	  // Lista estática para almacenar las comidas
     private static LinkedList<Comida> listacomidas = new LinkedList<>();
 	
-	public Comida(String Nombre, String Descripcion, int ID_comida) {
+	public Comida(String Nombre, String Descripcion, int ID_Comida) {
 		this.Nombre = Nombre;
 		this.Descripcion = Descripcion;
 		this.ID_Comida = ID_Comida;
 	}
-
-	public Comida() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public String getNombre() {
 		return Nombre;
 	}
