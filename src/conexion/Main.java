@@ -33,6 +33,8 @@ public class Main {
     	 indice=Persona.Iniciarsesion(VerificacionesRepository.Sololetras("Ingresa mail"),JOptionPane.showInputDialog("Ingresa contraseña"), personas);
     	if (indice!=-1) {
     		arraypersona[indice].Menu();
+    		
     }
+    	
     	}
 }

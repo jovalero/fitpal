@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 import interfaces.RutinaRepository;
@@ -13,7 +15,6 @@ import modelo.Rutina;
 
 public class RutinaControlador implements RutinaRepository {
     private final Connection connection;
-	private Object rutina;
 
     public RutinaControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
@@ -113,4 +114,33 @@ public class RutinaControlador implements RutinaRepository {
             JOptionPane.showMessageDialog(null, "No se pudo eliminar la rutina");
         }
     }
+    public List<Rutina> getallRutinabySucursal(int Sucursal) {
+
+	       List<Rutina> RutinaList = new LinkedList<>();
+	        
+	        try {
+	PreparedStatement statement = connection.prepareStatement("SELECT * FROM areas WHERE ID_Sucursal =? " );
+	statement.setInt(1, Sucursal);
+	ResultSet resultSet = statement.executeQuery() ;
+
+		while (resultSet.next()) {
+			Rutina rutina = new Rutina(
+     resultSet.getInt("ID_Rutina"),
+     resultSet.getString("Estado"),
+     resultSet.getString("Descripcion"),
+     resultSet.getString("Objetivo")
+					);
+			RutinaList.add(rutina);
+		}
+		}
+	 catch (SQLException e) {
+	JOptionPane.showMessageDialog(null, "ERROR PARCE");
+	}
+	         
+	       
+	  return RutinaList;
+	    
+		
+	}
 }
+

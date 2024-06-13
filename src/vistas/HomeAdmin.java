@@ -42,16 +42,31 @@ public class HomeAdmin extends JFrame {
 				dispose();
 			}
 		});
-		ClienteButton.setBounds(52, 60, 143, 43);
+		ClienteButton.setBounds(52, 60, 201, 43);
 		contentPane.add(ClienteButton);
 		
 		JButton SeccionEntrenadores = new JButton("Seccion Entrenadores");
 		SeccionEntrenadores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				TablaEntrenadores entrenadores= new TablaEntrenadores(administrador);
+				dispose();
 			}
 		});
 		SeccionEntrenadores.setBounds(52, 127, 201, 43);
 		contentPane.add(SeccionEntrenadores);
+		
+		JButton AreasButton = new JButton("Seccion Areas");
+		AreasButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AreasTabla area= new AreasTabla(administrador);
+				dispose();
+			}
+		});
+		AreasButton.setBounds(52, 218, 201, 38);
+		contentPane.add(AreasButton);
+		
+		JButton RutinasButton = new JButton("Seccion Rutinas");
+		RutinasButton.setBounds(52, 272, 201, 38);
+		contentPane.add(RutinasButton);
 	}
-
 }

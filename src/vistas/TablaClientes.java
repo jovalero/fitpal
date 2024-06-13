@@ -127,6 +127,7 @@ public class TablaClientes extends JFrame {
         Registrarbutton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		RegistrarCliente registrar=new RegistrarCliente(administrador);
+        		dispose();
         	}
         });
         Registrarbutton.setBounds(571, 257, 166, 58);
