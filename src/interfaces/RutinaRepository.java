@@ -6,6 +6,7 @@ import modelo.Rutina;
 public interface RutinaRepository {
 	
     List<Rutina> getAllRutinas();
+    List<Rutina> getallRutinabySucursal(int Sucursal);
     
     Rutina getRutinaByid(int id);
     
