@@ -58,7 +58,7 @@ public class RegistrarCliente extends JFrame {
 		NombreInput.setColumns(10);
 		
 		JLabel ApellidoLabel = new JLabel("Apellido: ");
-		ApellidoLabel.setBounds(150, 113, 46, 14);
+		ApellidoLabel.setBounds(150, 113, 66, 14);
 		contentPane.add(ApellidoLabel);
 		
 		ApellidoInput = new JTextField();
@@ -67,7 +67,7 @@ public class RegistrarCliente extends JFrame {
 		contentPane.add(ApellidoInput);
 		
 		JLabel NombreLabel = new JLabel("Nombre: ");
-		NombreLabel.setBounds(150, 76, 46, 14);
+		NombreLabel.setBounds(150, 76, 66, 14);
 		contentPane.add(NombreLabel);
 		
 		MailInput = new JTextField();
@@ -76,11 +76,11 @@ public class RegistrarCliente extends JFrame {
 		contentPane.add(MailInput);
 		
 		JLabel MailLabel = new JLabel("Mail: ");
-		MailLabel.setBounds(170, 144, 46, 14);
+		MailLabel.setBounds(160, 144, 66, 14);
 		contentPane.add(MailLabel);
 		
 		JLabel TelefonoLabel = new JLabel("Telefono: ");
-		TelefonoLabel.setBounds(150, 172, 66, 14);
+		TelefonoLabel.setBounds(140, 172, 86, 14);
 		contentPane.add(TelefonoLabel);
 		
 		TelefonoInput = new JTextField();
@@ -94,7 +94,7 @@ public class RegistrarCliente extends JFrame {
 		contentPane.add(DNIInput);
 		
 		JLabel DNILabel = new JLabel("DNI:");
-		DNILabel.setBounds(170, 200, 66, 14);
+		DNILabel.setBounds(164, 200, 86, 14);
 		contentPane.add(DNILabel);
 		
 		ContrasenaInput = new JTextField();
@@ -104,7 +104,7 @@ public class RegistrarCliente extends JFrame {
 		contentPane.add(ContrasenaInput);
 		
 		JLabel ContrasenaLabel = new JLabel("Contraseña: ");
-		ContrasenaLabel.setBounds(130, 227, 66, 14);
+		ContrasenaLabel.setBounds(122, 227, 104, 14);
 		contentPane.add(ContrasenaLabel);
 		
 		PesoInput = new JTextField();
@@ -114,11 +114,11 @@ public class RegistrarCliente extends JFrame {
 		contentPane.add(PesoInput);
 		
 		JLabel PesoLabel = new JLabel("Peso: ");
-		PesoLabel.setBounds(165, 255, 51, 14);
+		PesoLabel.setBounds(150, 255, 76, 14);
 		contentPane.add(PesoLabel);
 		
 		JLabel AlturaLabel = new JLabel("Altura: ");
-		AlturaLabel.setBounds(150, 287, 51, 14);
+		AlturaLabel.setBounds(150, 286, 81, 14);
 		contentPane.add(AlturaLabel);
 		
 		AlturaInput = new JTextField();
