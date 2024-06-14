@@ -101,7 +101,7 @@ public class EntrenadorControlador implements EntrenadorRepository {
 	@Override
 	public void updateEntrenador(Entrenador entrenador) {
 	    try {
-	        PreparedStatement statement = connection.prepareStatement("UPDATE Entrenador SET ID_Sucursal = ?, DNI = ?, Contrasenia = ?, Telefono = ?, Correo_electronico = ?, Apellido = ?, Nombre = ? WHERE ID_Entrenador = ?");
+	        PreparedStatement statement = connection.prepareStatement("UPDATE Entrenador SET ID_Sucursal = ?, DNI = ?, Contrasenia = ?, Telefono = ?, Email = ?, Apellido = ?, Nombre = ? WHERE ID_Entrenador = ?");
 	        
 	        statement.setInt(1, entrenador.getId_sucursal());
 	        statement.setInt(2, entrenador.getDNI());
