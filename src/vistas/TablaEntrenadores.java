@@ -88,13 +88,14 @@ public class TablaEntrenadores extends JFrame {
         Editar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getId_entrenador() != 0) {
-                  
+                	EditarEntrenador editar = new EditarEntrenador(administrador,seleccionado);
+                    dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione un entrenador");
                 }
             }
         });
-        Editar.setBounds(308, 257, 166, 58);
+        Editar.setBounds(271, 257, 166, 58);
         contentPane.add(Editar);
 
         JButton Registrarbutton = new JButton("Registrar nuevo");
@@ -105,8 +106,16 @@ public class TablaEntrenadores extends JFrame {
                 dispose();
             }
         });
-        Registrarbutton.setBounds(571, 257, 166, 58);
+        Registrarbutton.setBounds(461, 257, 166, 58);
         contentPane.add(Registrarbutton);
+        
+        JButton btnClientes = new JButton("Clientes ");
+        btnClientes.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        btnClientes.setBounds(659, 257, 187, 58);
+        contentPane.add(btnClientes);
 
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
