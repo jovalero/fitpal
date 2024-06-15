@@ -218,7 +218,11 @@ public class RegistrarCliente extends JFrame {
 				}
 			}
 		});
-		RegistrarButton.setBounds(179, 338, 113, 23);
+		RegistrarButton.setBounds(107, 339, 113, 23);
 		contentPane.add(RegistrarButton);
+		
+		JButton Volverbutton = new JButton("Cancelar");
+		Volverbutton.setBounds(274, 339, 113, 23);
+		contentPane.add(Volverbutton);
 	}
 }

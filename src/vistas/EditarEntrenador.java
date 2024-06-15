@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.toedter.calendar.JDateChooser;
+
 import modelo.Admin;
 import modelo.Entrenador;
 import controlador.EntrenadorControlador;
@@ -105,6 +108,8 @@ public class EditarEntrenador extends JFrame {
         JLabel NumEntrenadosLabel = new JLabel("Num Entrenados: ");
         NumEntrenadosLabel.setBounds(100, 255, 100, 14);
         contentPane.add(NumEntrenadosLabel);
+        
+ 
 
         JButton EditarButton = new JButton("Guardar Cambios");
         EditarButton.addActionListener(new ActionListener() {

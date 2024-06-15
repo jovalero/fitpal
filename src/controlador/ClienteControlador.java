@@ -131,7 +131,13 @@ public class ClienteControlador implements ClienteRepository {
             statement.setDate(7,Date.valueOf(cliente.getFechavenc()));
             statement.setInt(8,cliente.getPuntos());
             statement.setString(9,cliente.getEstado_sus());
-            statement.setInt(10,cliente.getId_entrenador());
+            if (cliente.getId_entrenador()==0) {
+				statement.setNull(10, java.sql.Types.INTEGER);
+			}
+            else {
+            	statement.setInt(10,cliente.getId_entrenador());
+			}
+        
             statement.setInt(11,cliente.getId_dieta());
             
             
