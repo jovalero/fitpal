@@ -91,18 +91,22 @@ public class AsignarClienteEntrenador extends JFrame {
         btnEditar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getId_cliente() != 0) {
+                    
+                    if (entrenador.getNumentrenados() >= 50) {
+                        JOptionPane.showMessageDialog(null, "El entrenador ya ha alcanzado el límite máximo de 50 clientes.");
+                        return; 
+                    }
+
                     seleccionado.setId_entrenador(entrenador.getId_entrenador());
                     controlador.updateCliente(seleccionado);
 
-                    // Incrementar el número de clientes entrenados
+                   
                     entrenador.setNumentrenados(entrenador.getNumentrenados() + 1);
                     EntrenadorControlador entrenadorControlador = new EntrenadorControlador();
-                    entrenadorControlador.updateEntrenador(entrenador);
-
+                    entrenadorControlador.updateEntrenador(entrenador); 
                     JOptionPane.showMessageDialog(null, "Cliente asignado correctamente");
                     actualizarTabla(administrador.getId_sucursal());
 
-                    // Actualizar la tabla de entrenadores y cerrar la ventana de asignación
                     new TablaEntrenadores(administrador).setVisible(true);
                     dispose();
                 } else {
@@ -167,7 +171,7 @@ public class AsignarClienteEntrenador extends JFrame {
         LinkedList<Cliente> clientes = controlador.getAllClientesBySucursal(sucursal);
 
         for (Cliente cliente : clientes) {
-            // Filtrar por clientes del entrenador actual o con suscripción activa
+        
             if (cliente.getId_entrenador() == 0 && cliente.getEstado_sus().equalsIgnoreCase("Activa")) {
                 model.addRow(new Object[]{
                     cliente.getId_entrenador(), cliente.getId_cliente(), cliente.getId_dieta(), cliente.getId_sucursal(),
@@ -179,5 +183,4 @@ public class AsignarClienteEntrenador extends JFrame {
         }
     }
 }
-
 
