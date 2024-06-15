@@ -222,6 +222,13 @@ public class RegistrarCliente extends JFrame {
 		contentPane.add(RegistrarButton);
 		
 		JButton Volverbutton = new JButton("Cancelar");
+		Volverbutton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new TablaClientes(administrador);
+				dispose();
+
+			}
+		});
 		Volverbutton.setBounds(274, 339, 113, 23);
 		contentPane.add(Volverbutton);
 	}

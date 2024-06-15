@@ -137,10 +137,13 @@ public class ClienteControlador implements ClienteRepository {
             else {
             	statement.setInt(10,cliente.getId_entrenador());
 			}
-        
-            statement.setInt(11,cliente.getId_dieta());
-            
-            
+            if (cliente.getId_dieta()==0) {
+        				statement.setNull(11, java.sql.Types.INTEGER);
+        			}
+             else {
+                    	statement.setInt(11,cliente.getId_dieta());
+        			}
+
             statement.setInt(12,cliente.getId_cliente());
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
