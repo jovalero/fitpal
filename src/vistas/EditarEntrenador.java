@@ -4,9 +4,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import com.toedter.calendar.JDateChooser;
-
 import modelo.Admin;
 import modelo.Entrenador;
 import controlador.EntrenadorControlador;
@@ -29,7 +26,6 @@ public class EditarEntrenador extends JFrame {
     private JTextField DniInput;
     private JTextField ContrasenaInput;
     private JTextField NumEntrenadosInput;
-
 
     public EditarEntrenador(Admin administrador, Entrenador entrenador) {
   
@@ -100,7 +96,8 @@ public class EditarEntrenador extends JFrame {
         ContrasenaLabel.setBounds(130, 227, 66, 14);
         contentPane.add(ContrasenaLabel);
 
-        NumEntrenadosInput = new JTextField(String.valueOf(entrenador.getNumentrenados()));
+        // Modificación: Se asegura de que el campo de NumEntrenados no sea nulo
+        NumEntrenadosInput = new JTextField(String.valueOf(entrenador.getNumentrenados() >= 0 ? entrenador.getNumentrenados() : 0));
         NumEntrenadosInput.setColumns(10);
         NumEntrenadosInput.setBounds(198, 255, 86, 20);
         contentPane.add(NumEntrenadosInput);
@@ -108,8 +105,6 @@ public class EditarEntrenador extends JFrame {
         JLabel NumEntrenadosLabel = new JLabel("Num Entrenados: ");
         NumEntrenadosLabel.setBounds(100, 255, 100, 14);
         contentPane.add(NumEntrenadosLabel);
-        
- 
 
         JButton EditarButton = new JButton("Guardar Cambios");
         EditarButton.addActionListener(new ActionListener() {
@@ -124,6 +119,7 @@ public class EditarEntrenador extends JFrame {
                 boolean flag = true;
 
                 try {
+                    // Modificación: Asegurar la validación numérica
                     telefono = Integer.parseInt(TelefonoInput.getText());
                     dni = Integer.parseInt(DniInput.getText());
                     numEntrenados = Integer.parseInt(NumEntrenadosInput.getText());

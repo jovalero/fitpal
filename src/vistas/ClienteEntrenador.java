@@ -88,9 +88,20 @@ public class ClienteEntrenador extends JFrame {
         btnAtras.setBounds(805, 498, 283, 52);
         contentPane.add(btnAtras);
         
-        JButton btnEditar = new JButton("Editar");
-        btnEditar.setBounds(72, 498, 268, 52);
-        contentPane.add(btnEditar);
+        JButton btnEliminar = new JButton("Eliminar");
+        btnEliminar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (seleccionado.getId_cliente() != 0) {
+                    
+                    seleccionado.setId_entrenador(0);
+                    controlador.updateCliente(seleccionado);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Seleccione un usuario");
+                }
+            }
+        });
+        btnEliminar.setBounds(72, 498, 268, 52);
+        contentPane.add(btnEliminar);
         
         JButton btnAsignarCliente = new JButton("Asignar Cliente Nuevo");
         btnAsignarCliente.addActionListener(new ActionListener() {
