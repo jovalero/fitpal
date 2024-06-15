@@ -81,7 +81,7 @@ public class TablaEntrenadores extends JFrame {
                 }
             }
         });
-        btnEliminar.setBounds(55, 257, 187, 58);
+        btnEliminar.setBounds(49, 257, 150, 58);
         contentPane.add(btnEliminar);
 
         JButton Editar = new JButton("Editar");
@@ -95,7 +95,7 @@ public class TablaEntrenadores extends JFrame {
                 }
             }
         });
-        Editar.setBounds(271, 257, 166, 58);
+        Editar.setBounds(209, 257, 150, 58);
         contentPane.add(Editar);
 
         JButton Registrarbutton = new JButton("Registrar nuevo");
@@ -106,16 +106,29 @@ public class TablaEntrenadores extends JFrame {
                 dispose();
             }
         });
-        Registrarbutton.setBounds(461, 257, 166, 58);
+        Registrarbutton.setBounds(369, 257, 150, 58);
         contentPane.add(Registrarbutton);
         
         JButton btnClientes = new JButton("Clientes ");
         btnClientes.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		ClienteEntrenador clientes = new ClienteEntrenador(administrador,seleccionado);
+        		dispose();
+ 
         	}
         });
-        btnClientes.setBounds(659, 257, 187, 58);
+        btnClientes.setBounds(529, 257, 150, 58);
         contentPane.add(btnClientes);
+        
+        JButton btnAtras = new JButton("Atras");
+        btnAtras.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+                new HomeAdmin (administrador);
+                dispose();
+        	}
+        });
+        btnAtras.setBounds(689, 257, 150, 58);
+        contentPane.add(btnAtras);
 
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

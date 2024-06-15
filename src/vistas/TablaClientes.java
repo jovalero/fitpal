@@ -165,6 +165,7 @@ public class TablaClientes extends JFrame {
 		
 		LinkedList<Cliente> clientes=controlador.getAllClientesBySucursal(sucursal);
 		
+		
 		for (Cliente cliente : clientes) {
 			model.addRow(new Object[] {cliente.getId_cliente(),cliente.getNombre(),cliente.getApellido(),cliente.getDNI(),cliente.getUsuario()});
 		}

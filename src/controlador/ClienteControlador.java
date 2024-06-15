@@ -35,6 +35,7 @@ public class ClienteControlador implements ClienteRepository {
 
 	@Override
 	public LinkedList<Cliente> getAllClientesBySucursal(int sucursal) {
+		Integer seguridad=0;
 		LinkedList<Cliente> users = new LinkedList<Cliente>();
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM cliente WHERE ID_sucursal = ?");
@@ -50,7 +51,13 @@ public class ClienteControlador implements ClienteRepository {
             	else {
 					user.setFechavenc(null);
 				}
-               user.setId_entrenador(resultSet.getInt("ID_Entrenador"));
+            	seguridad=resultSet.getInt("ID_Entrenador");
+            	if (seguridad==null) {
+            		user.setId_entrenador(0);
+				}
+            	else {
+            		user.setId_entrenador(seguridad);
+				}
                user.setId_dieta(resultSet.getInt("ID_Dieta"));
                user.setEstado_sus(resultSet.getString("Estado_sus"));
                user.setPuntos(resultSet.getInt("Puntos"));
