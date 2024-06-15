@@ -31,7 +31,7 @@ public class HomeAdmin extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Bienvenido " + administrador.getNombre()+" " + administrador.getApellido() + " Que desea hacer: ");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel.setBounds(10, 11, 599, 38);
+		lblNewLabel.setBounds(99, 11, 599, 38);
 		contentPane.add(lblNewLabel);
 		
 		JButton ClienteButton = new JButton("Seccion Clientes");
@@ -42,7 +42,7 @@ public class HomeAdmin extends JFrame {
 				dispose();
 			}
 		});
-		ClienteButton.setBounds(52, 60, 201, 43);
+		ClienteButton.setBounds(52, 81, 201, 43);
 		contentPane.add(ClienteButton);
 		
 		JButton SeccionEntrenadores = new JButton("Seccion Entrenadores");
@@ -52,7 +52,7 @@ public class HomeAdmin extends JFrame {
 				dispose();
 			}
 		});
-		SeccionEntrenadores.setBounds(52, 127, 201, 43);
+		SeccionEntrenadores.setBounds(52, 144, 201, 43);
 		contentPane.add(SeccionEntrenadores);
 		
 		JButton AreasButton = new JButton("Seccion Areas");

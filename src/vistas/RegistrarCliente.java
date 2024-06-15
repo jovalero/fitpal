@@ -226,7 +226,6 @@ public class RegistrarCliente extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				new TablaClientes(administrador);
 				dispose();
-
 			}
 		});
 		Volverbutton.setBounds(274, 339, 113, 23);
