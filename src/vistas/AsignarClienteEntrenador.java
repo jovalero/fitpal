@@ -25,7 +25,7 @@ import modelo.Cliente;
 import modelo.Entrenador;
 import modelo.Progreso;
 
-public class ClienteEntrenador extends JFrame {
+public class AsignarClienteEntrenador extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -36,7 +36,7 @@ public class ClienteEntrenador extends JFrame {
     private Cliente seleccionado;
     private Entrenador entrenador;
 
-    public ClienteEntrenador(Admin administrador, Entrenador entrenador) {
+    public AsignarClienteEntrenador(Admin administrador, Entrenador entrenador) {
         this.entrenador = entrenador;
         this.setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,23 +85,25 @@ public class ClienteEntrenador extends JFrame {
                 dispose();
             }
         });
-        btnAtras.setBounds(805, 498, 283, 52);
+        btnAtras.setBounds(676, 498, 345, 52);
         contentPane.add(btnAtras);
         
         JButton btnEditar = new JButton("Editar");
-        btnEditar.setBounds(72, 498, 268, 52);
-        contentPane.add(btnEditar);
-        
-        JButton btnAsignarCliente = new JButton("Asignar Cliente Nuevo");
-        btnAsignarCliente.addActionListener(new ActionListener() {
+        btnEditar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		new AsignarClienteEntrenador(administrador, entrenador);
-                dispose();
+        		 if (seleccionado.getId_cliente() != 0) {
+        	            // Crear instancia de EditarAsignarClienteEntrenador con el entrenador actual
+        			 	seleccionado.setId_entrenador(entrenador.getId_entrenador());
+        			 	controlador.updateCliente(seleccionado);
+        	            dispose();
+        	        } else {
+        	            JOptionPane.showMessageDialog(null, "Seleccione un usuario");
+        	        }
+        		
         	}
         });
-        btnAsignarCliente.setBounds(410, 498, 268, 52);
-        contentPane.add(btnAsignarCliente);
-     
+        btnEditar.setBounds(130, 498, 345, 52);
+        contentPane.add(btnEditar);
 
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -158,7 +160,7 @@ public class ClienteEntrenador extends JFrame {
 
         for (Cliente cliente : clientes) {
             // Filtrar por clientes del entrenador actual o con suscripción activa
-            if (cliente.getId_entrenador() == entrenador.getId_entrenador()) {
+            if (cliente.getId_entrenador() ==0 && cliente.getEstado_sus().equalsIgnoreCase("Activa")) {
                 model.addRow(new Object[]{
                     cliente.getId_entrenador(), cliente.getId_cliente(), cliente.getId_dieta(), cliente.getId_sucursal(),
                     cliente.getPeso(), cliente.getAltura(), cliente.getObjetivo(), cliente.getNombre(), 
@@ -169,5 +171,3 @@ public class ClienteEntrenador extends JFrame {
         }
     }
 }
-
-
