@@ -5,6 +5,9 @@ import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
 
+import controlador.ClienteControlador;
+import vistas.HomeCliente;
+
 public class Cliente extends Persona{
 	
 	private int id_cliente;
@@ -148,55 +151,22 @@ public class Cliente extends Persona{
 
 	@Override
 	public void Menu() {
-		 String[] opciones = {"Rutinas", "Dieta","Suscripcion", "Incentivo","Salir"};
-	        String[] op_suscripcion = {"Suscribirme", "Quitar suscripcion"};
-	        String Elegida = ""; 
-	        int contador=0,pt=0+contador;
-	  
-	        do {
-
-	        Elegida = (String) JOptionPane.showInputDialog(null, "Que seccion deseas acceder:", "Menu secciones", JOptionPane.DEFAULT_OPTION, null, opciones, opciones[0]);
-	        
-	        switch (Elegida) {
-	        case "Rutinas":
-	        
-	        JOptionPane.showMessageDialog(null, " Lunes: Piernas / Abs "
-	        +"\n Martes: Pecho"
-	        +"\n Miercoles: Espalda/ Abs"
-	        +"\n Jueves: Descanso"
-	        +"\n Viernes: Brazos"
-	        +"\n Sabado: Descanso");
-	        break;
-	        
-	        case "Dieta":
-	        JOptionPane.showMessageDialog(null, " Lunes: Batido de frutas con leche desnatada o yogur griego bajo en grasa."
-	        +"\n Martes: Tazón de avena con rodajas de plátano y un puñado de nueces."
-	        +"\n Miercoles: Tortilla de claras de huevo con espinacas y tomates."
-	        +"\n Jueves: Batido de proteínas con espinacas, plátano y leche de almendras."
-	        +"\n Viernes: Yogur griego bajo en grasa con frutas frescas y un puñado de almendras."
-	        +"\n Sabado: Tostadas integrales con aguacate y huevos revueltos.");
-	        break;
-	        
-	        case "Suscripcion":
-	        Elegida = (String) JOptionPane.showInputDialog(null, "Que seccion deseas acceder:", "Menu secciones", JOptionPane.DEFAULT_OPTION, null, op_suscripcion, op_suscripcion[0]);
-	        switch (Elegida) {
-	        case "Suscribirme":
-	        contador=0+100;
-	        JOptionPane.showMessageDialog(null, " Ganaste 100 puntos por haberte suscripto:"+"\n Puntos: "+contador);
-	        break;
-	        
-	        case "Quitar suscripcion":
-	        JOptionPane.showMessageDialog(null, " DESEO QUE VUELVAS PRONTO");
-	        
-	        break;
-	        
-	        }
-	        case "Incentivo":
-	        JOptionPane.showMessageDialog(null, "Tus puntos: "+pt);
-	        break;
-	        
-	        }
-	} while (!Elegida.equalsIgnoreCase("Salir"));
+		ClienteControlador controlador= new ClienteControlador();
+		
+		if (this.getEstado_sus().equalsIgnoreCase("Activa") && this.getFechavenc().isBefore(LocalDate.now())) {
+			JOptionPane.showMessageDialog(null, "Su suscripcion esta vencida");
+			this.setEstado_sus("Desactivada");
+			controlador.updateCliente(this);
+			new HomeCliente(this);
+		}
+		else {
+			if (this.getEstado_sus().equalsIgnoreCase("Activa")) {
+				
+			}
+			else {
+				new HomeCliente(this);
+			}
+		}
 	}
 }
 	
