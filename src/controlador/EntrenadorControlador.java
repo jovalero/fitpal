@@ -73,8 +73,8 @@ public class EntrenadorControlador implements EntrenadorRepository {
 	public void addEntrenador(Entrenador entrenador) {
 		try {
             PreparedStatement statement = connection.prepareStatement
-            		("INSERT INTO entrenador ( ID_Sucursal, DNI, Contrasenia, Telefono, Correo_electronico, Apellido, Nombre ) "
-            				+ "VALUES (?, ?, ?, ?, ?, ?, ?)");
+            		("INSERT INTO entrenador ( ID_Sucursal, DNI, contrasenia, Telefono, email, Apellido, Nombre,Num_Entrenados ) "
+            				+ "VALUES (?, ?, ?, ?, ?, ?, ?,?)");
           
             
             statement.setInt(1, entrenador.getId_sucursal());
@@ -84,6 +84,7 @@ public class EntrenadorControlador implements EntrenadorRepository {
             statement.setString(5,entrenador.getUsuario());
             statement.setString(7,entrenador.getNombre());
             statement.setString(6,entrenador.getApellido());
+            statement.setInt(8, 0);
  
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -98,28 +99,28 @@ public class EntrenadorControlador implements EntrenadorRepository {
 	
 
 	@Override
-	public void updateEntrenador(Entrenador Entrenador) {
-		try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE Entrenador SET ID_Sucursal= ? ID_Entrenador= ?, DNI= ?, Contrasenia= ?, Telefono= ?, Correo_electronico= ?, Apellido= ?, Nombre= ?  WHERE id = ?");
-            
-            statement.setString(1,Entrenador.getNombre());
-            statement.setString(2,Entrenador.getApellido());
-            statement.setString(3,Entrenador.getContrasena());
-            statement.setInt(4,Entrenador.getTelefono());     
-            statement.setInt(5,Entrenador.getId_entrenador());
-            statement.setInt(6, Entrenador.getDNI());
-            statement.setInt(7, Entrenador.getId_sucursal());
-            statement.setString(8,Entrenador.getUsuario());
-            
-            int rowsUpdated = statement.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("Usuario actualizado exitosamente");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-		
+	public void updateEntrenador(Entrenador entrenador) {
+	    try {
+	        PreparedStatement statement = connection.prepareStatement("UPDATE Entrenador SET ID_Sucursal = ?, DNI = ?, Contrasenia = ?, Telefono = ?, Email = ?, Apellido = ?, Nombre = ? WHERE ID_Entrenador = ?");
+	        
+	        statement.setInt(1, entrenador.getId_sucursal());
+	        statement.setInt(2, entrenador.getDNI());
+	        statement.setString(3, entrenador.getContrasena());
+	        statement.setInt(4, entrenador.getTelefono());
+	        statement.setString(5, entrenador.getEmail());
+	        statement.setString(6, entrenador.getApellido());
+	        statement.setString(7, entrenador.getNombre());
+	        statement.setInt(8, entrenador.getId_entrenador());
+	        
+	        int rowsUpdated = statement.executeUpdate();
+	        if (rowsUpdated > 0) {
+	            System.out.println("Entrenador actualizado exitosamente");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 	}
+
 
 	@Override
 	public void deleteEntrenador(int Entrenador) {
@@ -152,7 +153,10 @@ public class EntrenadorControlador implements EntrenadorRepository {
 		}
 		return entrenadores;
 	}
+
+	
+}
 		
-	}
+
 
 

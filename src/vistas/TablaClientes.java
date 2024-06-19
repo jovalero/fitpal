@@ -36,6 +36,7 @@ public class TablaClientes extends JFrame {
 	private DefaultTableModel model;
 	private ClienteControlador controlador;
 	private ProgresoControlador progreso;
+	private Cliente clienteaeditar;
 
 
 
@@ -103,7 +104,7 @@ public class TablaClientes extends JFrame {
         	
         	}
         });
-        btnEliminar.setBounds(55, 257, 187, 58);
+        btnEliminar.setBounds(31, 257, 187, 58);
         contentPane.add(btnEliminar);
         
         JButton Editar = new JButton("Editar");
@@ -111,8 +112,13 @@ public class TablaClientes extends JFrame {
         	public void actionPerformed(ActionEvent e) {
         		
         		if (seleccionado.getId_cliente()!=0) {
-					
-        			EditarCliente editar = new EditarCliente(seleccionado);
+        			LinkedList<Cliente> clientes=controlador.getAllClientesBySucursal(administrador.getId_sucursal());
+        			for (Cliente cliente : clientes) {
+						if (seleccionado.getId_cliente()==cliente.getId_cliente()) {
+							clienteaeditar=cliente;
+						}
+					}
+        			EditarCliente editar = new EditarCliente(clienteaeditar,administrador);
         			dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Seleccione un usuario");
@@ -120,17 +126,28 @@ public class TablaClientes extends JFrame {
         		
         	}
         });
-        Editar.setBounds(308, 257, 166, 58);
+        Editar.setBounds(256, 257, 166, 58);
         contentPane.add(Editar);
         
         JButton Registrarbutton = new JButton("Registrar nuevo");
         Registrarbutton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		RegistrarCliente registrar=new RegistrarCliente(administrador);
+        		dispose();
         	}
         });
-        Registrarbutton.setBounds(571, 257, 166, 58);
+        Registrarbutton.setBounds(465, 257, 166, 58);
         contentPane.add(Registrarbutton);
+        
+        JButton Volverbutton = new JButton("Volver a menu");
+        Volverbutton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		new HomeAdmin(administrador);
+        		dispose();
+        	}
+        });
+        Volverbutton.setBounds(667, 257, 166, 58);
+        contentPane.add(Volverbutton);
         
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -163,6 +180,7 @@ public class TablaClientes extends JFrame {
 		model.setRowCount(0);
 		
 		LinkedList<Cliente> clientes=controlador.getAllClientesBySucursal(sucursal);
+		
 		
 		for (Cliente cliente : clientes) {
 			model.addRow(new Object[] {cliente.getId_cliente(),cliente.getNombre(),cliente.getApellido(),cliente.getDNI(),cliente.getUsuario()});

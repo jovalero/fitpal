@@ -35,6 +35,7 @@ public class ClienteControlador implements ClienteRepository {
 
 	@Override
 	public LinkedList<Cliente> getAllClientesBySucursal(int sucursal) {
+		Integer seguridad=0;
 		LinkedList<Cliente> users = new LinkedList<Cliente>();
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM cliente WHERE ID_sucursal = ?");
@@ -50,7 +51,13 @@ public class ClienteControlador implements ClienteRepository {
             	else {
 					user.setFechavenc(null);
 				}
-               user.setId_entrenador(resultSet.getInt("ID_Entrenador"));
+            	seguridad=resultSet.getInt("ID_Entrenador");
+            	if (seguridad==null) {
+            		user.setId_entrenador(0);
+				}
+            	else {
+            		user.setId_entrenador(seguridad);
+				}
                user.setId_dieta(resultSet.getInt("ID_Dieta"));
                user.setEstado_sus(resultSet.getString("Estado_sus"));
                user.setPuntos(resultSet.getInt("Puntos"));
@@ -124,10 +131,19 @@ public class ClienteControlador implements ClienteRepository {
             statement.setDate(7,Date.valueOf(cliente.getFechavenc()));
             statement.setInt(8,cliente.getPuntos());
             statement.setString(9,cliente.getEstado_sus());
-            statement.setInt(10,cliente.getId_entrenador());
-            statement.setInt(11,cliente.getId_dieta());
-            
-            
+            if (cliente.getId_entrenador()==0) {
+				statement.setNull(10, java.sql.Types.INTEGER);
+			}
+            else {
+            	statement.setInt(10,cliente.getId_entrenador());
+			}
+            if (cliente.getId_dieta()==0) {
+        				statement.setNull(11, java.sql.Types.INTEGER);
+        			}
+             else {
+                    	statement.setInt(11,cliente.getId_dieta());
+        			}
+
             statement.setInt(12,cliente.getId_cliente());
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
