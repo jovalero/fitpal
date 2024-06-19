@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.LinkedList;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,8 +16,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ClienteControlador;
+import controlador.EntrenadorControlador;
 import controlador.ProgresoControlador;
 import modelo.Admin;
 import modelo.Cliente;
@@ -88,19 +87,32 @@ public class AsignarClienteEntrenador extends JFrame {
         btnAtras.setBounds(676, 498, 345, 52);
         contentPane.add(btnAtras);
         
-        JButton btnEditar = new JButton("Editar");
+        JButton btnEditar = new JButton("Asignar Cliente");
         btnEditar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		 if (seleccionado.getId_cliente() != 0) {
-        	            // Crear instancia de EditarAsignarClienteEntrenador con el entrenador actual
-        			 	seleccionado.setId_entrenador(entrenador.getId_entrenador());
-        			 	controlador.updateCliente(seleccionado);
-        	            dispose();
-        	        } else {
-        	            JOptionPane.showMessageDialog(null, "Seleccione un usuario");
-        	        }
-        		
-        	}
+            public void actionPerformed(ActionEvent e) {
+                if (seleccionado.getId_cliente() != 0) {
+                    
+                    if (entrenador.getNumentrenados() >= 50) {
+                        JOptionPane.showMessageDialog(null, "El entrenador ya ha alcanzado el límite máximo de 50 clientes.");
+                        return; 
+                    }
+
+                    seleccionado.setId_entrenador(entrenador.getId_entrenador());
+                    controlador.updateCliente(seleccionado);
+
+                   
+                    entrenador.setNumentrenados(entrenador.getNumentrenados() + 1);
+                    EntrenadorControlador entrenadorControlador = new EntrenadorControlador();
+                    entrenadorControlador.updateEntrenador(entrenador); 
+                    JOptionPane.showMessageDialog(null, "Cliente asignado correctamente");
+                    actualizarTabla(administrador.getId_sucursal());
+
+                    new TablaEntrenadores(administrador).setVisible(true);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Seleccione un usuario");
+                }
+            }
         });
         btnEditar.setBounds(130, 498, 345, 52);
         contentPane.add(btnEditar);
@@ -124,14 +136,14 @@ public class AsignarClienteEntrenador extends JFrame {
                         String nombre = (String) table.getValueAt(selectedRow, 7);
                         String apellido = (String) table.getValueAt(selectedRow, 8);
                         String correoElectronico = (String) table.getValueAt(selectedRow, 9);
-                        int telefono = (int)(table.getValueAt(selectedRow, 10));
+                        int telefono = (int) table.getValueAt(selectedRow, 10);
                         LocalDate Fechavenc = (LocalDate) table.getValueAt(selectedRow, 11);
                         String contrasena = (String) table.getValueAt(selectedRow, 12);
                         String estadoSus = (String) table.getValueAt(selectedRow, 13);
-                        int dni = (int)(table.getValueAt(selectedRow, 14));
-                        
+                        int dni = (int) table.getValueAt(selectedRow, 14);
+
                         Seleccionadolabel.setText("Seleccionado: ID=" + idCliente + ", Nombre=" + nombre + ", Apellido=" + apellido + ", Correo Electrónico=" + correoElectronico);
-                        
+
                         seleccionado.setId_entrenador(idEntrenador);
                         seleccionado.setId_cliente(idCliente);
                         seleccionado.setNombre(nombre);
@@ -159,8 +171,8 @@ public class AsignarClienteEntrenador extends JFrame {
         LinkedList<Cliente> clientes = controlador.getAllClientesBySucursal(sucursal);
 
         for (Cliente cliente : clientes) {
-            // Filtrar por clientes del entrenador actual o con suscripción activa
-            if (cliente.getId_entrenador() ==0 && cliente.getEstado_sus().equalsIgnoreCase("Activa")) {
+        
+            if (cliente.getId_entrenador() == 0 && cliente.getEstado_sus().equalsIgnoreCase("Activa")) {
                 model.addRow(new Object[]{
                     cliente.getId_entrenador(), cliente.getId_cliente(), cliente.getId_dieta(), cliente.getId_sucursal(),
                     cliente.getPeso(), cliente.getAltura(), cliente.getObjetivo(), cliente.getNombre(), 
@@ -171,3 +183,4 @@ public class AsignarClienteEntrenador extends JFrame {
         }
     }
 }
+

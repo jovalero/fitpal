@@ -19,6 +19,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ClienteControlador;
+import controlador.EntrenadorControlador;
 import controlador.ProgresoControlador;
 import modelo.Admin;
 import modelo.Cliente;
@@ -88,9 +89,28 @@ public class ClienteEntrenador extends JFrame {
         btnAtras.setBounds(805, 498, 283, 52);
         contentPane.add(btnAtras);
         
-        JButton btnEditar = new JButton("Editar");
-        btnEditar.setBounds(72, 498, 268, 52);
-        contentPane.add(btnEditar);
+        JButton btnEliminar = new JButton("Desasignar Cliente");
+        btnEliminar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (seleccionado.getId_cliente() != 0) {
+                    seleccionado.setId_entrenador(0); // Desasignar el cliente del entrenador
+                    controlador.updateCliente(seleccionado);
+
+                    // Reducir el número de clientes entrenados del entrenador
+                    entrenador.setNumentrenados(entrenador.getNumentrenados() - 1);
+                    EntrenadorControlador entrenadorControlador = new EntrenadorControlador();
+                    entrenadorControlador.updateEntrenador(entrenador);
+
+                    JOptionPane.showMessageDialog(null, "Cliente desasignado correctamente");
+                    actualizarTabla(administrador.getId_sucursal());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Seleccione un usuario");
+                }
+            }
+        });
+        
+        btnEliminar.setBounds(72, 498, 268, 52);
+        contentPane.add(btnEliminar);
         
         JButton btnAsignarCliente = new JButton("Asignar Cliente Nuevo");
         btnAsignarCliente.addActionListener(new ActionListener() {
