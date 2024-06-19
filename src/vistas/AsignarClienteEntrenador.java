@@ -23,6 +23,7 @@ import modelo.Admin;
 import modelo.Cliente;
 import modelo.Entrenador;
 import modelo.Progreso;
+import javax.swing.JTextField;
 
 public class AsignarClienteEntrenador extends JFrame {
 
@@ -34,6 +35,7 @@ public class AsignarClienteEntrenador extends JFrame {
     private ProgresoControlador progreso;
     private Cliente seleccionado;
     private Entrenador entrenador;
+    private JTextField textBuscar;
 
     public AsignarClienteEntrenador(Admin administrador, Entrenador entrenador) {
         this.entrenador = entrenador;
@@ -67,10 +69,10 @@ public class AsignarClienteEntrenador extends JFrame {
         };
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
-        actualizarTabla(administrador.getId_sucursal());
+        actualizarTabla(administrador.getId_sucursal(), "");
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(0, 37, 1180, 450);
+        scrollPane.setBounds(0, 55, 1180, 432);
         contentPane.add(scrollPane);
 
         JLabel Seleccionadolabel = new JLabel("Seleccionado: ");
@@ -105,7 +107,7 @@ public class AsignarClienteEntrenador extends JFrame {
                     EntrenadorControlador entrenadorControlador = new EntrenadorControlador();
                     entrenadorControlador.updateEntrenador(entrenador); 
                     JOptionPane.showMessageDialog(null, "Cliente asignado correctamente");
-                    actualizarTabla(administrador.getId_sucursal());
+                    actualizarTabla(administrador.getId_sucursal(), "");
 
                     new TablaEntrenadores(administrador).setVisible(true);
                     dispose();
@@ -116,6 +118,25 @@ public class AsignarClienteEntrenador extends JFrame {
         });
         btnEditar.setBounds(130, 498, 345, 52);
         contentPane.add(btnEditar);
+        
+        JLabel lblBuscar = new JLabel("Buscador:");
+        lblBuscar.setBounds(15, 25, 58, 14);
+        contentPane.add(lblBuscar);
+        
+        textBuscar = new JTextField();
+        textBuscar.setBounds(83, 22, 204, 20);
+        contentPane.add(textBuscar);
+        textBuscar.setColumns(10);
+        
+        JButton btnbuscar = new JButton("Buscar");
+        btnbuscar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+                String criterio = textBuscar.getText();
+                actualizarTabla(administrador.getId_sucursal(), criterio);
+        	}
+        });
+        btnbuscar.setBounds(308, 21, 89, 23);
+        contentPane.add(btnbuscar);
 
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -165,7 +186,7 @@ public class AsignarClienteEntrenador extends JFrame {
         });
     }
 
-    public void actualizarTabla(int sucursal) { 
+    public void actualizarTabla(int sucursal, String criterio) { 
         model.setRowCount(0);
 
         LinkedList<Cliente> clientes = controlador.getAllClientesBySucursal(sucursal);
@@ -173,12 +194,14 @@ public class AsignarClienteEntrenador extends JFrame {
         for (Cliente cliente : clientes) {
         
             if (cliente.getId_entrenador() == 0 && cliente.getEstado_sus().equalsIgnoreCase("Activa")) {
-                model.addRow(new Object[]{
-                    cliente.getId_entrenador(), cliente.getId_cliente(), cliente.getId_dieta(), cliente.getId_sucursal(),
-                    cliente.getPeso(), cliente.getAltura(), cliente.getObjetivo(), cliente.getNombre(), 
-                    cliente.getApellido(), cliente.getUsuario(), cliente.getTelefono(), 
-                    cliente.getFechavenc(), cliente.getContrasena(), cliente.getEstado_sus(), cliente.getDNI()
-                });
+                if (criterio.isEmpty() || cliente.getNombre().toLowerCase().contains(criterio.toLowerCase()) || cliente.getApellido().toLowerCase().contains(criterio.toLowerCase()) || cliente.getUsuario().toLowerCase().contains(criterio.toLowerCase())) {
+                    model.addRow(new Object[]{
+                        cliente.getId_entrenador(), cliente.getId_cliente(), cliente.getId_dieta(), cliente.getId_sucursal(),
+                        cliente.getPeso(), cliente.getAltura(), cliente.getObjetivo(), cliente.getNombre(), 
+                        cliente.getApellido(), cliente.getUsuario(), cliente.getTelefono(), 
+                        cliente.getFechavenc(), cliente.getContrasena(), cliente.getEstado_sus(), cliente.getDNI()
+                    });
+                }
             }
         }
     }
