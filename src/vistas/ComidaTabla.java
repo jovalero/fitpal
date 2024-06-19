@@ -83,8 +83,11 @@ public class ComidaTabla extends JFrame {
         btnEditar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (comidaSeleccionada != null) {
-                    EditarComida editar = new EditarComida(comidaSeleccionada);
+                    EditarComida editar = new EditarComida(comidaSeleccionada,  Administrador);
                     editar.setVisible(true);
+                    actualizarTabla();
+                    dispose();
+                    
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione una comida");
                 }
@@ -96,8 +99,9 @@ public class ComidaTabla extends JFrame {
         JButton seccomidas = new JButton("Registrar nuevo");
         seccomidas.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                RegistrarComida registrar = new RegistrarComida(ComidaTabla.this);
+                RegistrarComida registrar = new RegistrarComida(ComidaTabla.this, Administrador);
                 registrar.setVisible(true);
+                dispose();
             }
         });
         seccomidas.setBounds(571, 257, 166, 58);

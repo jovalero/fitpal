@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import controlador.ComidaControlador;
+import modelo.Admin;
 import modelo.Comida;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +19,7 @@ public class RegistrarComida extends JFrame {
 	 private JTextArea descripcionArea;
 	 private ComidaControlador controlador;
 
-	public RegistrarComida(ComidaTabla comidaTabla) {
+	public RegistrarComida(ComidaTabla comidaTabla , Admin Administrador) {
 		 controlador = new ComidaControlador();
 	        setTitle("Registrar Nueva Comida");
 	        setSize(400, 300);
@@ -59,6 +60,7 @@ public class RegistrarComida extends JFrame {
 	                      controlador.addComida(nuevaComida);
 	                      JOptionPane.showMessageDialog(null, "Comida registrada exitosamente");
 	                      dispose();
+	                      ComidaTabla tabla = new ComidaTabla(Administrador);
 	                  }
 	        	  }
 	        	});
