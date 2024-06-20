@@ -159,4 +159,8 @@ public class Inicio extends JFrame {
 		
 
 	}
+
+	public Inicio(Admin administrador) {
+		// TODO Auto-generated constructor stub
+	}
 }

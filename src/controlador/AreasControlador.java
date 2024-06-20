@@ -85,7 +85,7 @@ public class AreasControlador implements AreasRepository {
     }
 
     @Override
-    public void updateArea(Areas area) {
+    public boolean updateArea(Areas area) {
         String query = "UPDATE areas SET Nombre = ?, ID_Sucursal = ?, Ubicacion = ? WHERE ID_Area = ?";
         
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -97,12 +97,17 @@ public class AreasControlador implements AreasRepository {
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
                 JOptionPane.showMessageDialog(null, "Área actualizada");
+                return true;  // Devuelve verdadero si se actualizó al menos una fila
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el área a actualizar");
             }
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "No se pudo actualizar el área");
         }
+        return false;  // Devuelve falso si ocurrió una excepción o no se actualizaron filas
     }
+
 
     @Override
     public void deleteArea(int id) {

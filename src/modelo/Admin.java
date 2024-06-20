@@ -33,6 +33,8 @@ public class Admin extends Persona implements VerificacionesRepository{
 		
 	}
 
+	
+
 	public int getId_admin() {
 		return id_admin;
 	}
@@ -517,7 +519,10 @@ do {
                   break;
           }
              break;
-         	
+         	public boolean RegistrarAreas(String idArea, String name, String idSucursal, String location) {
+    // Implementación para registrar un área.
+}
+
 
          case "Dietas":
          	Elegida = (String) JOptionPane.showInputDialog(null, "Que Accion desea hacer: ", "Menu Acciones", JOptionPane.DEFAULT_OPTION, null, op_acciones3, op_acciones3[0]);
@@ -575,5 +580,10 @@ do {
      otraaccion=VerificacionesRepository.solicitarConfirmacion("Desea hacer otra accion?");
 } while (otraaccion.equalsIgnoreCase("Si"));
        /*/
+	}
+
+	public boolean RegistrarAreas(String idArea, String name, String idSucursal, String location) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -1,4 +1,4 @@
-package Vista;
+package vistas;
 
 import com.toedter.calendar.JDateChooser;
 
