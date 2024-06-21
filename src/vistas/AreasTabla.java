@@ -29,6 +29,7 @@ public class AreasTabla extends JFrame {
     private JTable table;
     private DefaultTableModel model;
     private AreasControlador controlador;
+    private Areas seleccionado;
 
     public AreasTabla(Admin administrador) {
         this.setVisible(true);
@@ -39,7 +40,7 @@ public class AreasTabla extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
-        Areas seleccionado = new Areas();
+        seleccionado = new Areas();
 
         model = new DefaultTableModel(
             new String[] {
@@ -64,21 +65,21 @@ public class AreasTabla extends JFrame {
                 dispose();
             }
         });
-        btnAdd.setBounds(56, 345, 150, 30);
+        btnAdd.setBounds(32, 345, 150, 30); // Adjusted position
         contentPane.add(btnAdd);
 
         JButton btnEdit = new JButton("Editar Área");
         btnEdit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getIdArea() != 0) {
-                    new EditarAreas(seleccionado, administrador); // Asegúrate de tener la clase EditarAreas
+                    new EditarAreas(seleccionado, administrador);
                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione un área");
                 }
             }
         });
-        btnEdit.setBounds(227, 345, 150, 30);
+        btnEdit.setBounds(192, 345, 150, 30); // Adjusted position
         contentPane.add(btnEdit);
 
         JButton btnDelete = new JButton("Borrar Área");
@@ -93,8 +94,18 @@ public class AreasTabla extends JFrame {
                 }
             }
         });
-        btnDelete.setBounds(406, 345, 150, 30);
+        btnDelete.setBounds(352, 345, 150, 30); // Adjusted position
         contentPane.add(btnDelete);
+
+        JButton btnHome = new JButton("Volver a Home");
+        btnHome.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new HomeAdmin(administrador);
+                dispose();
+            }
+        });
+        btnHome.setBounds(512, 345, 150, 30); // Adjusted position
+        contentPane.add(btnHome);
 
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -110,7 +121,7 @@ public class AreasTabla extends JFrame {
                         int idSucursal = (int) table.getValueAt(selectedRow, 2);
                         String ubicacion = (String) table.getValueAt(selectedRow, 3);
 
-                        seleccionadolabel.setText("Seleccionado: ID Area=" + id + ", Nombre=" + nombre + ", ID Sucursal=" + idSucursal + ", Ubicación=" + ubicacion);
+                        seleccionadolabel.setText("Seleccionado: ID Área=" + id + ", Nombre=" + nombre + ", ID Sucursal=" + idSucursal + ", Ubicación=" + ubicacion);
                         seleccionado.setIdArea(id);
                         seleccionado.setNombre(nombre);
                         seleccionado.setIdSucursal(idSucursal);
