@@ -1,21 +1,22 @@
 package vistas;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import controlador.RutinaControlador;
 import modelo.Admin;
-import modelo.Rutina;
 
 public class RegistrarRutina extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    private JTextField textEstado;
-    private JTextField textDescripcion;
-    private JTextField textObjetivo;
+    private JTextField txtEstado;
+    private JTextField txtDescripcion;
+    private JTextField txtObjetivo;
     private RutinaControlador controlador;
 
     public RegistrarRutina(Admin administrador) {
@@ -28,61 +29,47 @@ public class RegistrarRutina extends JFrame {
         contentPane.setLayout(null);
 
         JLabel lblEstado = new JLabel("Estado:");
-        lblEstado.setBounds(30, 30, 80, 14);
+        lblEstado.setBounds(10, 11, 86, 14);
         contentPane.add(lblEstado);
 
-        textEstado = new JTextField();
-        textEstado.setBounds(120, 27, 200, 20);
-        contentPane.add(textEstado);
-        textEstado.setColumns(10);
+        txtEstado = new JTextField();
+        txtEstado.setBounds(106, 8, 318, 20);
+        contentPane.add(txtEstado);
+        txtEstado.setColumns(10);
 
-        JLabel lblDescripcion = new JLabel("Descripción:");
-        lblDescripcion.setBounds(30, 70, 80, 14);
+        JLabel lblDescripcion = new JLabel("Descripcion:");
+        lblDescripcion.setBounds(10, 42, 86, 14);
         contentPane.add(lblDescripcion);
 
-        textDescripcion = new JTextField();
-        textDescripcion.setBounds(120, 67, 200, 20);
-        contentPane.add(textDescripcion);
-        textDescripcion.setColumns(10);
+        txtDescripcion = new JTextField();
+        txtDescripcion.setBounds(106, 39, 318, 20);
+        contentPane.add(txtDescripcion);
+        txtDescripcion.setColumns(10);
 
         JLabel lblObjetivo = new JLabel("Objetivo:");
-        lblObjetivo.setBounds(30, 110, 80, 14);
+        lblObjetivo.setBounds(10, 73, 86, 14);
         contentPane.add(lblObjetivo);
 
-        textObjetivo = new JTextField();
-        textObjetivo.setBounds(120, 107, 200, 20);
-        contentPane.add(textObjetivo);
-        textObjetivo.setColumns(10);
+        txtObjetivo = new JTextField();
+        txtObjetivo.setBounds(106, 70, 318, 20);
+        contentPane.add(txtObjetivo);
+        txtObjetivo.setColumns(10);
 
-        JButton btnGuardar = new JButton("Guardar");
-        btnGuardar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Rutina rutina = new Rutina(administrador);
-                rutina.setEstado(textEstado.getText());
-                rutina.setDescripcion(textDescripcion.getText());
-                rutina.setObjetivo(textObjetivo.getText());
-                rutina.setIdSucursal(administrador.getId_sucursal());
+        JButton btnRegistrar = new JButton("Registrar");
+        btnRegistrar.addActionListener(e -> {
+            String estado = txtEstado.getText();
+            String descripcion = txtDescripcion.getText();
+            String objetivo = txtObjetivo.getText();
 
-                if (controlador.addRutina(rutina)) {
-                    JOptionPane.showMessageDialog(null, "Rutina registrada");
-                    new RutinaTabla(administrador);
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al registrar la rutina");
-                }
-            }
-        });
-        btnGuardar.setBounds(120, 150, 100, 23);
-        contentPane.add(btnGuardar);
-
-        JButton btnCancelar = new JButton("Cancelar");
-        btnCancelar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            if (controlador.RegistrarRutina(estado, descripcion, objetivo)) {
+                JOptionPane.showMessageDialog(null, "Rutina registrada exitosamente");
                 new RutinaTabla(administrador);
                 dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al registrar rutina");
             }
         });
-        btnCancelar.setBounds(230, 150, 100, 23);
-        contentPane.add(btnCancelar);
+        btnRegistrar.setBounds(335, 227, 89, 23);
+        contentPane.add(btnRegistrar);
     }
 }

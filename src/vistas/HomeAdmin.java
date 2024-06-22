@@ -64,9 +64,17 @@ public class HomeAdmin extends JFrame {
 		});
 		AreasButton.setBounds(52, 218, 201, 38);
 		contentPane.add(AreasButton);
-		
-		JButton RutinasButton = new JButton("Seccion Rutinas");
-		RutinasButton.setBounds(52, 272, 201, 38);
-		contentPane.add(RutinasButton);
+
+
+        JButton RutinasButton = new JButton("Seccion Rutinas");
+        RutinasButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                RutinaTabla rutina = new RutinaTabla(administrador);
+                dispose();
+            }
+        });
+        RutinasButton.setBounds(52, 272, 201, 38);
+        contentPane.add(RutinasButton);
+    }
 	}
-}
+

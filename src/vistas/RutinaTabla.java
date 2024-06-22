@@ -1,10 +1,8 @@
 package vistas;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,7 +15,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.RutinaControlador;
 import modelo.Admin;
 import modelo.Rutina;
@@ -40,7 +37,7 @@ public class RutinaTabla extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
-        seleccionado = new Rutina(administrador);
+        seleccionado = new Rutina();  
 
         model = new DefaultTableModel(
             new String[] {
@@ -58,9 +55,12 @@ public class RutinaTabla extends JFrame {
         seleccionadolabel.setBounds(5, 5, 911, 14);
         contentPane.add(seleccionadolabel);
 
-        JButton btnAdd = new JButton("Agregar Rutina");
+        JButton btnAdd = new JButton("Registrar Rutina");
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                // Mensaje de depuración
+                JOptionPane.showMessageDialog(null, "Botón Registrar Rutina presionado");
+                // Llamada a la nueva ventana
                 new RegistrarRutina(administrador);
                 dispose();
             }
@@ -72,7 +72,7 @@ public class RutinaTabla extends JFrame {
         btnEdit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getIdRutina() != 0) {
-                    new EditarRutina();
+                    new EditarRutina(seleccionado, administrador);
                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione una rutina");
@@ -137,7 +137,8 @@ public class RutinaTabla extends JFrame {
         List<Rutina> rutinas = controlador.getallRutinabySucursal(sucursal);
 
         for (Rutina rutina : rutinas) {
-            model.addRow(new Object[] {rutina.getIdRutina(), rutina.getEstado(), rutina.getDescripcion(), rutina.getObjetivo()});
+            model.addRow(new Object[] { rutina.getIdRutina(), rutina.getEstado(), rutina.getDescripcion(), rutina.getObjetivo() });
         }
     }
 }
+
