@@ -14,7 +14,11 @@ public class Rutina {
         this.objetivo = objetivo;
     }
 
-    public int getIdRutina() {
+    public Rutina(Admin administrador) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public int getIdRutina() {
         return idRutina;
     }
 
@@ -50,5 +54,6 @@ public class Rutina {
     public String toString() {
         return "Rutina [idRutina=" + idRutina + ", estado=" + estado + ", descripcion=" + descripcion + ", objetivo=" + objetivo + "]";
     }
+    
  
 }
