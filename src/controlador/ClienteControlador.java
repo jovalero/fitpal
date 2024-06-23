@@ -58,6 +58,13 @@ public class ClienteControlador implements ClienteRepository {
             	else {
             		user.setId_entrenador(seguridad);
 				}
+            	seguridad=resultSet.getInt("ID_Dieta");
+            	if (seguridad==null) {
+            		user.setId_dieta(0);
+				}
+            	else {
+            		user.setId_dieta(seguridad);
+				}
                user.setId_dieta(resultSet.getInt("ID_Dieta"));
                user.setEstado_sus(resultSet.getString("Estado_sus"));
                user.setPuntos(resultSet.getInt("Puntos"));
@@ -128,7 +135,12 @@ public class ClienteControlador implements ClienteRepository {
             statement.setString(4,cliente.getContrasena());
             statement.setInt(5,cliente.getTelefono());
             statement.setString(6,cliente.getUsuario());
-            statement.setDate(7,Date.valueOf(cliente.getFechavenc()));
+            if (cliente.getFechavenc()!=null) {
+            	statement.setDate(7,Date.valueOf(cliente.getFechavenc()));
+			}
+            else {
+                statement.setNull(7,java.sql.Types.DATE);
+			}
             statement.setInt(8,cliente.getPuntos());
             statement.setString(9,cliente.getEstado_sus());
             if (cliente.getId_entrenador()==0) {

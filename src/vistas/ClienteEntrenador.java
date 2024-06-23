@@ -19,11 +19,14 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import controlador.ClienteControlador;
+import controlador.EntrenadorControlador;
 import controlador.ProgresoControlador;
 import modelo.Admin;
 import modelo.Cliente;
 import modelo.Entrenador;
 import modelo.Progreso;
+
+import javax.swing.JTextField;
 
 public class ClienteEntrenador extends JFrame {
 
@@ -35,6 +38,7 @@ public class ClienteEntrenador extends JFrame {
     private ProgresoControlador progreso;
     private Cliente seleccionado;
     private Entrenador entrenador;
+    private JTextField textBuscar;
 
     public ClienteEntrenador(Admin administrador, Entrenador entrenador) {
         this.entrenador = entrenador;
@@ -71,7 +75,7 @@ public class ClienteEntrenador extends JFrame {
         actualizarTabla(administrador.getId_sucursal());
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(0, 37, 1180, 450);
+        scrollPane.setBounds(0, 55, 1180, 432);
         contentPane.add(scrollPane);
 
         JLabel Seleccionadolabel = new JLabel("Seleccionado: ");
@@ -85,23 +89,59 @@ public class ClienteEntrenador extends JFrame {
                 dispose();
             }
         });
-        btnAtras.setBounds(805, 498, 283, 52);
+        btnAtras.setBounds(747, 498, 345, 52);
         contentPane.add(btnAtras);
-        
-        JButton btnEditar = new JButton("Editar");
-        btnEditar.setBounds(72, 498, 268, 52);
-        contentPane.add(btnEditar);
-        
+
+        JButton btnEliminar = new JButton("Desasignar Cliente");
+        btnEliminar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (seleccionado.getId_cliente() != 0) {
+                    seleccionado.setId_entrenador(0); // Desasignar el cliente del entrenador
+                    controlador.updateCliente(seleccionado);
+
+                    // Reducir el número de clientes entrenados del entrenador
+                    entrenador.setNumentrenados(entrenador.getNumentrenados() - 1);
+                    EntrenadorControlador entrenadorControlador = new EntrenadorControlador();
+                    entrenadorControlador.updateEntrenador(entrenador);
+
+                    JOptionPane.showMessageDialog(null, "Cliente desasignado correctamente");
+                    actualizarTabla(administrador.getId_sucursal());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Seleccione un usuario");
+                }
+            }
+        });
+
+        btnEliminar.setBounds(72, 498, 268, 52);
+        contentPane.add(btnEliminar);
+
         JButton btnAsignarCliente = new JButton("Asignar Cliente Nuevo");
         btnAsignarCliente.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		new AsignarClienteEntrenador(administrador, entrenador);
+            public void actionPerformed(ActionEvent e) {
+                new AsignarClienteEntrenador(administrador, entrenador);
                 dispose();
-        	}
+            }
         });
         btnAsignarCliente.setBounds(410, 498, 268, 52);
         contentPane.add(btnAsignarCliente);
-     
+
+        JLabel lblBuscar = new JLabel("Buscador:");
+        lblBuscar.setBounds(15, 25, 58, 14);
+        contentPane.add(lblBuscar);
+
+        textBuscar = new JTextField();
+        textBuscar.setBounds(83, 22, 204, 20);
+        contentPane.add(textBuscar);
+        textBuscar.setColumns(10);
+
+        JButton btnBuscar = new JButton("Buscar");
+        btnBuscar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                buscarClientes(textBuscar.getText(), administrador.getId_sucursal());
+            }
+        });
+        btnBuscar.setBounds(308, 21, 89, 23);
+        contentPane.add(btnBuscar);
 
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -122,14 +162,14 @@ public class ClienteEntrenador extends JFrame {
                         String nombre = (String) table.getValueAt(selectedRow, 7);
                         String apellido = (String) table.getValueAt(selectedRow, 8);
                         String correoElectronico = (String) table.getValueAt(selectedRow, 9);
-                        int telefono = (int)(table.getValueAt(selectedRow, 10));
+                        int telefono = (int) table.getValueAt(selectedRow, 10);
                         LocalDate Fechavenc = (LocalDate) table.getValueAt(selectedRow, 11);
                         String contrasena = (String) table.getValueAt(selectedRow, 12);
                         String estadoSus = (String) table.getValueAt(selectedRow, 13);
-                        int dni = (int)(table.getValueAt(selectedRow, 14));
-                        
+                        int dni = (int) table.getValueAt(selectedRow, 14);
+
                         Seleccionadolabel.setText("Seleccionado: ID=" + idCliente + ", Nombre=" + nombre + ", Apellido=" + apellido + ", Correo Electrónico=" + correoElectronico);
-                        
+
                         seleccionado.setId_entrenador(idEntrenador);
                         seleccionado.setId_cliente(idCliente);
                         seleccionado.setNombre(nombre);
@@ -151,18 +191,35 @@ public class ClienteEntrenador extends JFrame {
         });
     }
 
-    public void actualizarTabla(int sucursal) { 
+    public void actualizarTabla(int sucursal) {
         model.setRowCount(0);
 
         LinkedList<Cliente> clientes = controlador.getAllClientesBySucursal(sucursal);
 
         for (Cliente cliente : clientes) {
-            // Filtrar por clientes del entrenador actual o con suscripción activa
             if (cliente.getId_entrenador() == entrenador.getId_entrenador()) {
                 model.addRow(new Object[]{
                     cliente.getId_entrenador(), cliente.getId_cliente(), cliente.getId_dieta(), cliente.getId_sucursal(),
-                    cliente.getPeso(), cliente.getAltura(), cliente.getObjetivo(), cliente.getNombre(), 
-                    cliente.getApellido(), cliente.getUsuario(), cliente.getTelefono(), 
+                    cliente.getPeso(), cliente.getAltura(), cliente.getObjetivo(), cliente.getNombre(),
+                    cliente.getApellido(), cliente.getUsuario(), cliente.getTelefono(),
+                    cliente.getFechavenc(), cliente.getContrasena(), cliente.getEstado_sus(), cliente.getDNI()
+                });
+            }
+        }
+    }
+
+    private void buscarClientes(String termino, int sucursal) {
+        model.setRowCount(0);
+        LinkedList<Cliente> clientes = controlador.getAllClientesBySucursal(sucursal);
+
+        for (Cliente cliente : clientes) {
+            if ((cliente.getNombre().toLowerCase().contains(termino.toLowerCase()) ||
+                 cliente.getApellido().toLowerCase().contains(termino.toLowerCase())) &&
+                cliente.getId_entrenador() == entrenador.getId_entrenador()) {
+                model.addRow(new Object[]{
+                    cliente.getId_entrenador(), cliente.getId_cliente(), cliente.getId_dieta(), cliente.getId_sucursal(),
+                    cliente.getPeso(), cliente.getAltura(), cliente.getObjetivo(), cliente.getNombre(),
+                    cliente.getApellido(), cliente.getUsuario(), cliente.getTelefono(),
                     cliente.getFechavenc(), cliente.getContrasena(), cliente.getEstado_sus(), cliente.getDNI()
                 });
             }

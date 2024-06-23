@@ -1,10 +1,8 @@
 package vistas;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -36,11 +34,10 @@ public class TablaEntrenadores extends JFrame {
         setBounds(100, 100, 945, 365);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
         setContentPane(contentPane);
 
         try {
-            controlador = new EntrenadorControlador(); // Controlador para manejar la lógica de los entrenadores
+            controlador = new EntrenadorControlador();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
             return;
@@ -72,7 +69,6 @@ public class TablaEntrenadores extends JFrame {
         btnEliminar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getId_entrenador() != 0) {
-              
                     controlador.deleteEntrenador(seleccionado.getId_entrenador());
                     JOptionPane.showMessageDialog(null, "Eliminado");
                     actualizarTabla(administrador.getId_sucursal());
@@ -88,7 +84,7 @@ public class TablaEntrenadores extends JFrame {
         Editar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getId_entrenador() != 0) {
-                	EditarEntrenador editar = new EditarEntrenador(administrador,seleccionado);
+                    new EditarEntrenador(administrador, seleccionado).setVisible(true);
                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione un entrenador");
@@ -101,31 +97,29 @@ public class TablaEntrenadores extends JFrame {
         JButton Registrarbutton = new JButton("Registrar nuevo");
         Registrarbutton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
-                RegistrarEntrenador registrar = new RegistrarEntrenador(administrador);
+                new RegistrarEntrenador(administrador).setVisible(true);
                 dispose();
             }
         });
         Registrarbutton.setBounds(369, 257, 150, 58);
         contentPane.add(Registrarbutton);
-        
+
         JButton btnClientes = new JButton("Clientes ");
         btnClientes.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		ClienteEntrenador clientes = new ClienteEntrenador(administrador,seleccionado);
-        		dispose();
- 
-        	}
+            public void actionPerformed(ActionEvent e) {
+                new ClienteEntrenador(administrador, seleccionado).setVisible(true);
+                dispose();
+            }
         });
         btnClientes.setBounds(529, 257, 150, 58);
         contentPane.add(btnClientes);
-        
+
         JButton btnAtras = new JButton("Atras");
         btnAtras.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-                new HomeAdmin (administrador);
+            public void actionPerformed(ActionEvent e) {
+                new HomeAdmin(administrador).setVisible(true);
                 dispose();
-        	}
+            }
         });
         btnAtras.setBounds(689, 257, 150, 58);
         contentPane.add(btnAtras);
@@ -148,7 +142,9 @@ public class TablaEntrenadores extends JFrame {
                         int numEntrenados = (int) table.getValueAt(selectedRow, 6);
                         int dni = (int) table.getValueAt(selectedRow, 7);
                         String email = (String) table.getValueAt(selectedRow, 8);
+
                         Seleccionadolabel.setText("Seleccionado: ID_Entrenador=" + idEntrenador + ", Nombre=" + nombre + ", Email=" + email + ", Apellido=" + apellido + ", DNI=" + dni);
+
                         seleccionado.setId_entrenador(idEntrenador);
                         seleccionado.setTelefono(telefono);
                         seleccionado.setNombre(nombre);
@@ -168,7 +164,11 @@ public class TablaEntrenadores extends JFrame {
         model.setRowCount(0);
         LinkedList<Entrenador> entrenadores = controlador.getAllEntrenadoresBySucursal(idSucursal);
         for (Entrenador entrenador : entrenadores) {
-            model.addRow(new Object[]{entrenador.getId_entrenador(), entrenador.getTelefono(), entrenador.getNombre(), entrenador.getApellido(), entrenador.getContrasena(), entrenador.getId_sucursal(), entrenador.getNumentrenados(), entrenador.getDNI(), entrenador.getEmail()});
+            model.addRow(new Object[]{
+                entrenador.getId_entrenador(), entrenador.getTelefono(), entrenador.getNombre(), entrenador.getApellido(),
+                entrenador.getContrasena(), entrenador.getId_sucursal(), entrenador.getNumentrenados(),
+                entrenador.getDNI(), entrenador.getEmail()
+            });
         }
     }
 }
