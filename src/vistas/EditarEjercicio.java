@@ -102,5 +102,4 @@ public class EditarEjercicio extends JFrame {
         btnGuardar.setBounds(320, 210, 100, 25);
         getContentPane().add(btnGuardar);
 	}
-
 }

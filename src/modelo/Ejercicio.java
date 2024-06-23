@@ -23,6 +23,7 @@ public class Ejercicio {
 		this.Descripcion = Descripcion;
 		this.Video = Video;
 		this.ID_Area = ID_Area;
+		this.Nombre = Nombre;
 	}
 
 	public int getID_Ejercicio() {

@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
+import java.util.List;
 
 public class ComidaTabla extends JFrame {
 
@@ -21,11 +22,11 @@ public class ComidaTabla extends JFrame {
     private DefaultTableModel model;
     private ComidaControlador controlador;
     private Comida comidaSeleccionada;
-	private Object administrador;
+    private Admin administrador;
+    private JTextField textField;
 
-    
-    public ComidaTabla(Admin Administrador) {
-    	this.administrador = administrador;
+    public ComidaTabla(Admin administrador) {
+        this.administrador = administrador;
         this.setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 945, 365);
@@ -33,7 +34,7 @@ public class ComidaTabla extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
-        
+
         try {
             controlador = new ComidaControlador();
         } catch (Exception e) {
@@ -45,7 +46,7 @@ public class ComidaTabla extends JFrame {
             JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
             return;
         }
-        
+
         String[] columnNames = {"ID", "Nombre", "Descripción"};
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
@@ -53,11 +54,11 @@ public class ComidaTabla extends JFrame {
         table.setBounds(10, 37, 532, 204);
 
         JScrollPane comidatabla = new JScrollPane(table);
-        comidatabla.setBounds(0, 37, 911, 190);
+        comidatabla.setBounds(0, 73, 921, 173);
         contentPane.add(comidatabla);
 
         JLabel seleccionadoLabel = new JLabel("Seleccionado: ");
-        seleccionadoLabel.setBounds(5, 5, 911, 14);
+        seleccionadoLabel.setBounds(10, 11, 911, 14);
         contentPane.add(seleccionadoLabel);
 
         JButton btnEliminar = new JButton("Eliminar");
@@ -74,7 +75,7 @@ public class ComidaTabla extends JFrame {
                 }
             }
         });
-        btnEliminar.setBounds(55, 257, 187, 58);
+        btnEliminar.setBounds(36, 257, 187, 58);
         contentPane.add(btnEliminar);
 
         JButton btnEditar = new JButton("Editar");
@@ -88,7 +89,7 @@ public class ComidaTabla extends JFrame {
                 }
             }
         });
-        btnEditar.setBounds(308, 257, 166, 58);
+        btnEditar.setBounds(292, 257, 166, 58);
         contentPane.add(btnEditar);
 
         JButton seccomidas = new JButton("Registrar nuevo");
@@ -98,9 +99,27 @@ public class ComidaTabla extends JFrame {
                 registrar.setVisible(true);
             }
         });
-        seccomidas.setBounds(571, 257, 166, 58);
+        seccomidas.setBounds(496, 257, 166, 58);
         contentPane.add(seccomidas);
-         
+
+        textField = new JTextField();
+        textField.setBounds(97, 36, 86, 20);
+        contentPane.add(textField);
+        textField.setColumns(10);
+
+        JLabel filtro = new JLabel("Buscador:");
+        filtro.setBounds(20, 36, 67, 14);
+        contentPane.add(filtro);
+
+        JButton filtrar = new JButton("Filtrar");
+        filtrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Filtrar(textField.getText());
+            }
+        });
+        filtrar.setBounds(206, 36, 89, 23);
+        contentPane.add(filtrar);
+
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -126,6 +145,18 @@ public class ComidaTabla extends JFrame {
         LinkedList<Comida> comidas = controlador.getAllComidas();
         for (Comida comida : comidas) {
             model.addRow(new Object[]{comida.getID_Comida(), comida.getNombre(), comida.getDescripcion()});
+        }
+    }
+
+    private void Filtrar(String criterio) {
+        model.setRowCount(0);
+        List<Comida> comidas = controlador.getAllComidas();
+        String criterioLower = criterio.toLowerCase();
+
+        for (Comida comida : comidas) {
+            if (comida.getNombre().toLowerCase().contains(criterioLower)) {
+                model.addRow(new Object[]{comida.getID_Comida(), comida.getNombre(), comida.getDescripcion()});
+            }
         }
     }
 }
