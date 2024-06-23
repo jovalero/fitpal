@@ -1,6 +1,5 @@
 package vistas;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,7 +17,6 @@ public class RegistrarEjercicio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private EjercicioControlador controlador;
-
     private JTextField txtNombre;
     private JTextField txtMaquina;
     private JTextField txtMusculo;
@@ -30,11 +28,6 @@ public class RegistrarEjercicio extends JFrame {
 		this.controlador = new EjercicioControlador();
 	
 		setTitle("Registrar Ejercicio");
-        setBounds(100, 100, 450, 300);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        getContentPane().setLayout(null);
-
-        setTitle("Registrar Ejercicio");
         setBounds(100, 100, 450, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);

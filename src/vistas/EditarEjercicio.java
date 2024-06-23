@@ -1,6 +1,5 @@
 package vistas;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -94,7 +93,6 @@ public class EditarEjercicio extends JFrame {
                 ejercicio.setDescripcion(txtDescripcion.getText());
                 ejercicio.setVideo(txtVideo.getText());
                 ejercicio.setID_Area(Integer.parseInt(txtIdArea.getText()));
-                EjercicioControlador controlador = new EjercicioControlador();
                 controlador.updateEjercicio(ejercicio);
                 new EjercicioTabla(administrador).setVisible(true);
                 dispose();

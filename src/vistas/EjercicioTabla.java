@@ -33,10 +33,10 @@ public class EjercicioTabla extends JFrame {
 	private EjercicioControlador controlador;
     private Ejercicio ejercicioSeleccionado;
     private Object administrador;
+    private JLabel seleccionadoLabel;
 
 	public EjercicioTabla(Admin administrador) {
 		this.administrador = administrador;
-		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 945, 365);
 		contentPane = new JPanel();
@@ -45,7 +45,7 @@ public class EjercicioTabla extends JFrame {
 		contentPane.setLayout(null);
 		
 		try {
-		controlador = new EjercicioControlador();
+			controlador = new EjercicioControlador();
 		}catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
             return;
@@ -53,7 +53,7 @@ public class EjercicioTabla extends JFrame {
 		 if (controlador.getConnection() == null) {
 	            JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
 	            return;
-	        }
+	    }
 		 String[] columnNames = {"ID", "Nombre", "Maquina", "Musculo", "Descripcion", "Video", "ID_Area"};
 	        model = new DefaultTableModel(columnNames, 0);
 	        table = new JTable(model);
@@ -89,8 +89,9 @@ public class EjercicioTabla extends JFrame {
 	        btnEditar.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
 	                if (ejercicioSeleccionado != null) {
-	                    EditarEjercicio editar = new EditarEjercicio(ejercicioSeleccionado);
+	                    EditarEjercicio editar = new EditarEjercicio(ejercicioSeleccionado, (Admin) administrador);
 	                    editar.setVisible(true);
+	                    dispose();
 	                } else {
 	                    JOptionPane.showMessageDialog(null, "Seleccione un ejercicio");
 	                }
@@ -104,6 +105,7 @@ public class EjercicioTabla extends JFrame {
 	            public void actionPerformed(ActionEvent e) {
 	                RegistrarEjercicio registrar = new RegistrarEjercicio(EjercicioTabla.this);
 	                registrar.setVisible(true);
+	                dispose();
 	            }
 	        });
 	        secEjercicios.setBounds(575, 257, 166, 58);
@@ -131,6 +133,7 @@ public class EjercicioTabla extends JFrame {
 	                }
 	            }
 	        });
+	        setVisible(true);
 	    }
 	public void actualizarTabla() {
         model.setRowCount(0);

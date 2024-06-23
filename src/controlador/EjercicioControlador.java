@@ -38,8 +38,7 @@ public class EjercicioControlador implements EjercicioRepository{
 	                Ejercicio ejercicio = new Ejercicio(id, nombre, maquina, musculo, descripcion, video, idArea);
 	                ejercicios.add(ejercicio);
 	            }
-	            resultSet.close();
-	            statement.close();
+	           
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
@@ -87,10 +86,16 @@ public class EjercicioControlador implements EjercicioRepository{
 	            int rowsInserted = statement.executeUpdate();
 	            if (rowsInserted > 0) {
 	                System.out.println("Ejercicio insertado exitosamente");
+	                connection.commit(); // Confirmar la transacción
 	            }
-	            statement.close();
+	            
 	        } catch (SQLException e) {
 	            e.printStackTrace();
+	            try {
+	                connection.rollback(); // Deshacer la transacción en caso de error
+	            } catch (SQLException rollbackEx) {
+	                rollbackEx.printStackTrace();
+	            }
 	        }
 	    }
 
@@ -110,10 +115,16 @@ public class EjercicioControlador implements EjercicioRepository{
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("Ejercicio actualizado exitosamente");
+                connection.commit(); // Confirmar la transacción
             }
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback(); // Deshacer la transacción en caso de error
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
         }
     }
 
@@ -126,10 +137,16 @@ public class EjercicioControlador implements EjercicioRepository{
 	            int rowsDeleted = statement.executeUpdate();
 	            if (rowsDeleted > 0) {
 	                System.out.println("Ejercicio eliminado exitosamente");
+	                connection.commit(); // Confirmar la transacción
 	            }
-	            statement.close();
+	            
 	        } catch (SQLException e) {
 	            e.printStackTrace();
+	            try {
+	                connection.rollback(); // Deshacer la transacción en caso de error
+	            } catch (SQLException rollbackEx) {
+	                rollbackEx.printStackTrace();
+	            }
 	        }
 		}
 
