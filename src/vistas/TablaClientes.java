@@ -20,6 +20,7 @@ import modelo.Cliente;
 import modelo.Progreso;
 
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -37,6 +38,7 @@ public class TablaClientes extends JFrame {
 	private ClienteControlador controlador;
 	private ProgresoControlador progreso;
 	private Cliente clienteaeditar;
+	 private JTextField textBuscar;
 
 
 
@@ -174,6 +176,22 @@ public class TablaClientes extends JFrame {
                 }
             }
         });
+        JLabel lblBuscar = new JLabel("Buscador:");
+        lblBuscar.setBounds(15, 25, 58, 14);
+        contentPane.add(lblBuscar);
+
+        textBuscar = new JTextField();
+        textBuscar.setBounds(83, 22, 204, 20);
+        contentPane.add(textBuscar);
+        textBuscar.setColumns(10);
+        JButton btnBuscar = new JButton("Buscar");
+        btnBuscar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                buscarClientes(textBuscar.getText(), administrador.getId_sucursal());
+            }
+        });
+        btnBuscar.setBounds(308, 21, 89, 23);
+        contentPane.add(btnBuscar);
 	}
 	public void actualizarTabla(int sucursal) {
 		
@@ -187,4 +205,16 @@ public class TablaClientes extends JFrame {
 		}
 		
 	}
+	 private void buscarClientes(String termino, int sucursal) {
+	        model.setRowCount(0);
+	        LinkedList<Cliente> clientes = controlador.getAllClientesBySucursal(sucursal);
+
+	        for (Cliente cliente : clientes) {
+	            if ((cliente.getNombre().toLowerCase().contains(termino.toLowerCase()) ||
+	                 cliente.getApellido().toLowerCase().contains(termino.toLowerCase())) && String.valueOf(cliente.getDNI()).contains(termino.toLowerCase())) 
+	                {
+	    			model.addRow(new Object[] {cliente.getId_cliente(),cliente.getNombre(),cliente.getApellido(),cliente.getDNI(),cliente.getUsuario()});
+	            }
+	        }
+	    }
 }
