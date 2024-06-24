@@ -68,7 +68,7 @@ public class ClienteControlador implements ClienteRepository {
                user.setId_dieta(resultSet.getInt("ID_Dieta"));
                user.setEstado_sus(resultSet.getString("Estado_sus"));
                user.setPuntos(resultSet.getInt("Puntos"));
-            	users.add(user);
+               users.add(user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -187,6 +187,7 @@ public class ClienteControlador implements ClienteRepository {
 
 	@Override
 	public LinkedList<Cliente> getAllClientes() {
+		Integer seguridad=0;
 		LinkedList<Cliente> users = new LinkedList<Cliente>();
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM cliente");
@@ -195,7 +196,31 @@ public class ClienteControlador implements ClienteRepository {
        
             while (resultSet.next()) {
             	Cliente user = new Cliente(resultSet.getString("Nombre"),resultSet.getString("Apellido"),resultSet.getInt("Telefono"),resultSet.getInt("ID_sucursal"),resultSet.getInt("DNI"),resultSet.getInt("ID_cliente"),resultSet.getString("Correo_electronico"),resultSet.getString("Contrasenia"),resultSet.getString("Objetivo"),resultSet.getDouble("Peso"),resultSet.getDouble("Altura"));
-                users.add(user);
+               	java.sql.Date fecha=resultSet.getDate("Fecha_venc_sus");
+            	if (fecha!=null) {
+                	user.setFechavenc(resultSet.getDate("Fecha_venc_sus").toLocalDate());
+				}
+            	else {
+					user.setFechavenc(null);
+				}
+            	seguridad=resultSet.getInt("ID_Entrenador");
+            	if (seguridad==null) {
+            		user.setId_entrenador(0);
+				}
+            	else {
+            		user.setId_entrenador(seguridad);
+				}
+            	seguridad=resultSet.getInt("ID_Dieta");
+            	if (seguridad==null) {
+            		user.setId_dieta(0);
+				}
+            	else {
+            		user.setId_dieta(seguridad);
+				}
+               user.setId_dieta(resultSet.getInt("ID_Dieta"));
+               user.setEstado_sus(resultSet.getString("Estado_sus"));
+               user.setPuntos(resultSet.getInt("Puntos"));
+               users.add(user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
