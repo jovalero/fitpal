@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.LinkedList;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,11 +11,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-
 import controlador.ProgresoControlador;
 import modelo.Admin;
 import modelo.Progreso;
@@ -28,6 +27,7 @@ public class TablaProgreso extends JFrame {
     private JTable table;
     private DefaultTableModel model;
     private ProgresoControlador controlador;
+    private JTextField textFieldFiltro;
 
     public TablaProgreso(Admin administrador) {
         this.setVisible(true);
@@ -58,9 +58,27 @@ public class TablaProgreso extends JFrame {
         actualizarTabla();
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(0, 37, 911, 190);
+        scrollPane.setBounds(5, 56, 911, 190);
         contentPane.setLayout(null);
         contentPane.add(scrollPane);
+        
+        JLabel lblFiltro = new JLabel("Buscador:");
+        lblFiltro.setBounds(20, 36, 67, 14);
+        contentPane.add(lblFiltro);
+
+        textFieldFiltro = new JTextField();
+        textFieldFiltro.setBounds(97, 33, 100, 20);
+        contentPane.add(textFieldFiltro);
+        textFieldFiltro.setColumns(10);
+
+        JButton btnFiltrar = new JButton("Filtrar");
+        btnFiltrar.setBounds(207, 32, 89, 23);
+        btnFiltrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                filtrar(textFieldFiltro.getText());
+            }
+        });
+        contentPane.add(btnFiltrar);
 
         JLabel seleccionadoLabel = new JLabel("Seleccionado:");
         seleccionadoLabel.setBounds(5, 5, 911, 14);
@@ -100,13 +118,13 @@ public class TablaProgreso extends JFrame {
         JButton btnAgregar = new JButton("Agregar");
         btnAgregar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	 AgregarProgreso pantalla =  new AgregarProgreso(controlador, TablaProgreso.this);
-            	 dispose();
+                AgregarProgreso agregarProgreso = new AgregarProgreso(controlador, TablaProgreso.this);
+                agregarProgreso.setVisible(true); // Mostrar ventana emergente de agregar progreso
             }
         });
         btnAgregar.setBounds(91, 257, 166, 58);
         contentPane.add(btnAgregar);
-
+        
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -146,7 +164,25 @@ public class TablaProgreso extends JFrame {
             });
         }
     }
+    private void filtrar(String criterio) {
+        model.setRowCount(0);
+        LinkedList<Progreso> progresos = controlador.getAllProgresos();
+        String criterioLower = criterio.toLowerCase();
 
+        for (Progreso progreso : progresos) {
+            if (progreso.getFecha().toString().toLowerCase().contains(criterioLower) ||
+                progreso.getImagen().toLowerCase().contains(criterioLower) ||
+                String.valueOf(progreso.getIdProgreso()).contains(criterioLower) ||
+                String.valueOf(progreso.getIdCliente()).contains(criterioLower) ||
+                String.valueOf(progreso.getPeso()).contains(criterioLower)) {
+                model.addRow(new Object[] { 
+                    progreso.getIdProgreso(), 
+                    progreso.getIdCliente(), 
+                    progreso.getFecha().toString(), 
+                    progreso.getImagen(), 
+                    progreso.getPeso() 
+                });
+            }
+        }
+    }
 }
-
-

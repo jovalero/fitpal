@@ -3,30 +3,33 @@ package vistas;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.time.format.DateTimeParseException;
 import modelo.Progreso;
 import controlador.ProgresoControlador;
 
-public class AgregarProgreso extends JFrame {
+public class AgregarProgreso extends JDialog {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JTextField txtIdCliente;
-    private JFormattedTextField txtFecha;
+    private JDateChooser dateChooser;
     private JLabel lblRutaImagen;
     private ProgresoControlador controlador;
     private TablaProgreso tablaProgreso;
 
     public AgregarProgreso(ProgresoControlador controlador, TablaProgreso tablaProgreso) {
-    	this.setVisible(true);
         this.controlador = controlador;
         this.tablaProgreso = tablaProgreso;
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setModal(true);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setTitle("Agregar Progreso");
         setBounds(100, 100, 450, 300);
+        setLocationRelativeTo(tablaProgreso);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -41,19 +44,14 @@ public class AgregarProgreso extends JFrame {
         contentPane.add(txtIdCliente);
         txtIdCliente.setColumns(10);
 
-        JLabel lblFecha = new JLabel("Fecha (YYYY-MM-DD):");
+        JLabel lblFecha = new JLabel("Fecha:");
         lblFecha.setBounds(10, 52, 150, 14);
         contentPane.add(lblFecha);
 
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            txtFecha = new JFormattedTextField(formatter);
-        } catch (IllegalArgumentException e) {
-            txtFecha = new JFormattedTextField();
-        }
-        txtFecha.setBounds(160, 49, 120, 20);
-        contentPane.add(txtFecha);
-        txtFecha.setColumns(10);
+        dateChooser = new JDateChooser();
+        dateChooser.setDateFormatString("yyyy-MM-dd");
+        dateChooser.setBounds(160, 49, 120, 20);
+        contentPane.add(dateChooser);
 
         JLabel lblImagen = new JLabel("Imagen:");
         lblImagen.setBounds(10, 90, 80, 14);
@@ -92,22 +90,31 @@ public class AgregarProgreso extends JFrame {
         btnGuardar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    int idCliente = Integer.parseInt(txtIdCliente.getText());
-                    LocalDate fecha = LocalDate.parse(txtFecha.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    String imagen = lblRutaImagen.getText().substring("Ruta de la Imagen: ".length());
-                    double peso = Double.parseDouble(txtPeso.getText());
+                    // Validación de campos
+                    String idClienteStr = txtIdCliente.getText();
+                    String pesoStr = txtPeso.getText();
+                    LocalDate fecha = dateChooser.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    String rutaImagen = lblRutaImagen.getText().substring("Ruta de la Imagen: ".length());
 
-                    Progreso progreso = new Progreso(0, idCliente, fecha, imagen, peso);
+                    if (idClienteStr.isEmpty() || pesoStr.isEmpty() || rutaImagen.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    int idCliente = Integer.parseInt(idClienteStr);
+                    double peso = Double.parseDouble(pesoStr);
+
+                    Progreso progreso = new Progreso(0, idCliente, fecha, rutaImagen, peso);
                     controlador.addProgreso(progreso);
                     JOptionPane.showMessageDialog(null, "Progreso agregado correctamente");
                     tablaProgreso.actualizarTabla();
                     dispose();
-                } catch (DateTimeParseException ex) {
-                    JOptionPane.showMessageDialog(null, "Formato de fecha incorrecto. Use el formato YYYY-MM-DD");
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(null, "Error en el formato de número para el peso o ID de cliente");
+                    JOptionPane.showMessageDialog(null, "Error en el formato de número para el peso o ID de cliente", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (DateTimeParseException ex) {
+                    JOptionPane.showMessageDialog(null, "Formato de fecha incorrecto. Use el formato YYYY-MM-DD", "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Error al agregar progreso");
+                    JOptionPane.showMessageDialog(null, "Error al agregar progreso", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -115,3 +122,5 @@ public class AgregarProgreso extends JFrame {
         contentPane.add(btnGuardar);
     }
 }
+
+
