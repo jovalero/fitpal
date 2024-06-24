@@ -34,9 +34,9 @@ public class RegistrarAreas extends JFrame {
         registrarAreaLabel.setBounds(150, 10, 243, 62);
         contentPane.add(registrarAreaLabel);
 
-        JLabel idAreaLabel = new JLabel("ID Área:");
-        idAreaLabel.setBounds(150, 100, 66, 14);
-        contentPane.add(idAreaLabel);
+        JLabel ID_AreaLabel = new JLabel("ID Área:");
+        ID_AreaLabel.setBounds(150, 100, 66, 14);
+        contentPane.add(ID_AreaLabel);
 
         idAreaInput = new JTextField();
         idAreaInput.setBounds(250, 97, 150, 20);
@@ -91,13 +91,13 @@ public class RegistrarAreas extends JFrame {
     }
 
     private void registrarArea(Admin administrador) {
-        String idArea = idAreaInput.getText();
+        String ID_Area = idAreaInput.getText();
         String name = nameInput.getText();
-        String idSucursal = idSucursalInput.getText();
+        String ID_Sucursal = idSucursalInput.getText();
         String location = locationInput.getText();
         boolean flag = true;
 
-        if (!VerificacionesRepository.SoloEnteros(idArea)) {
+        if (!VerificacionesRepository.SoloEnteros(ID_Area)) {
             flag = false;
         }
 
@@ -105,7 +105,7 @@ public class RegistrarAreas extends JFrame {
             flag = false;
         }
 
-        if (!VerificacionesRepository.SoloEnteros(idSucursal)) {
+        if (!VerificacionesRepository.SoloEnteros(ID_Sucursal)) {
             flag = false;
         }
 
@@ -114,7 +114,7 @@ public class RegistrarAreas extends JFrame {
         }
 
         if (flag) {
-            boolean registro = administrador.RegistrarAreas(idArea, name, idSucursal, location);
+            boolean registro = administrador.RegistrarAreas(ID_Area, name, ID_Sucursal, location);
             if (registro) {
                 JOptionPane.showMessageDialog(this, "Área registrada exitosamente!");
                 new AreasTabla(administrador);

@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -27,6 +28,7 @@ public class RutinaTabla extends JFrame {
     private DefaultTableModel model;
     private RutinaControlador controlador;
     private Rutina seleccionado;
+    private JTextField txtFiltro;
 
     public RutinaTabla(Admin administrador) {
         this.setVisible(true);
@@ -37,7 +39,7 @@ public class RutinaTabla extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
-        seleccionado = new Rutina();  
+        seleccionado = new Rutina();
 
         model = new DefaultTableModel(
             new String[] {
@@ -48,8 +50,22 @@ public class RutinaTabla extends JFrame {
         table = new JTable(model);
         actualizarTabla(administrador.getId_sucursal());
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(32, 23, 587, 311); // Adjust for buttons
+        scrollPane.setBounds(32, 53, 587, 281); // Adjust for filter field and buttons
         contentPane.add(scrollPane);
+
+        txtFiltro = new JTextField();
+        txtFiltro.setBounds(32, 23, 200, 20);
+        contentPane.add(txtFiltro);
+        txtFiltro.setColumns(10);
+
+        JButton btnFiltrar = new JButton("Filtrar");
+        btnFiltrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Filtrar(txtFiltro.getText());
+            }
+        });
+        btnFiltrar.setBounds(242, 22, 100, 23);
+        contentPane.add(btnFiltrar);
 
         JLabel seleccionadolabel = new JLabel("Seleccionado: ");
         seleccionadolabel.setBounds(5, 5, 911, 14);
@@ -58,9 +74,7 @@ public class RutinaTabla extends JFrame {
         JButton btnAdd = new JButton("Registrar Rutina");
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Mensaje de depuración
                 JOptionPane.showMessageDialog(null, "Botón Registrar Rutina presionado");
-                // Llamada a la nueva ventana
                 new RegistrarRutina(administrador);
                 dispose();
             }
@@ -138,6 +152,16 @@ public class RutinaTabla extends JFrame {
 
         for (Rutina rutina : rutinas) {
             model.addRow(new Object[] { rutina.getIdRutina(), rutina.getEstado(), rutina.getDescripcion(), rutina.getObjetivo() });
+        }
+    }
+
+    private void Filtrar(String criterio) {
+        model.setRowCount(0);
+        List<Rutina> rutinas = controlador.getAllRutinas();
+        for (Rutina rutina : rutinas) {
+            if (rutina.getDescripcion().contains(criterio) || rutina.getEstado().contains(criterio) || rutina.getObjetivo().contains(criterio)) {
+                model.addRow(new Object[] { rutina.getIdRutina(), rutina.getEstado(), rutina.getDescripcion(), rutina.getObjetivo() });
+            }
         }
     }
 }

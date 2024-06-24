@@ -18,6 +18,7 @@ import modelo.Areas;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -30,6 +31,7 @@ public class AreasTabla extends JFrame {
     private DefaultTableModel model;
     private AreasControlador controlador;
     private Areas seleccionado;
+    private JTextField txtFiltro;
 
     public AreasTabla(Admin administrador) {
         this.setVisible(true);
@@ -51,8 +53,22 @@ public class AreasTabla extends JFrame {
         table = new JTable(model);
         actualizarTabla(administrador.getId_sucursal());
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(32, 23, 587, 311); // Adjust for buttons
+        scrollPane.setBounds(32, 53, 587, 281); // Adjust for filter field and buttons
         contentPane.add(scrollPane);
+
+        txtFiltro = new JTextField();
+        txtFiltro.setBounds(32, 23, 200, 20);
+        contentPane.add(txtFiltro);
+        txtFiltro.setColumns(10);
+
+        JButton btnFiltrar = new JButton("Filtrar");
+        btnFiltrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Filtrar(txtFiltro.getText());
+            }
+        });
+        btnFiltrar.setBounds(242, 22, 100, 23);
+        contentPane.add(btnFiltrar);
 
         JLabel seleccionadolabel = new JLabel("Seleccionado: ");
         seleccionadolabel.setBounds(5, 5, 911, 14);
@@ -138,6 +154,16 @@ public class AreasTabla extends JFrame {
 
         for (Areas area : areas) {
             model.addRow(new Object[] {area.getIdArea(), area.getNombre(), area.getIdSucursal(), area.getUbicacion()});
+        }
+    }
+
+    private void Filtrar(String criterio) {
+        model.setRowCount(0);
+        List<Areas> areas = controlador.getAllAreas();
+        for (Areas area : areas) {
+            if (area.getNombre().contains(criterio) || area.getUbicacion().contains(criterio)) {
+                model.addRow(new Object[] {area.getIdArea(), area.getNombre(), area.getIdSucursal(), area.getUbicacion()});
+            }
         }
     }
 }
