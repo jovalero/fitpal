@@ -387,7 +387,10 @@ public class Admin extends Persona implements VerificacionesRepository{
 				}else {
 					JOptionPane.showMessageDialog(null,"no encontrado :(");
 				}
-			 
+			
+				
+				
+				
 		}
 			
 			
