@@ -152,7 +152,7 @@ public class Cliente extends Persona{
 	@Override
 	public void Menu() {
 		ClienteControlador controlador= new ClienteControlador();
-		
+		JOptionPane.showMessageDialog(null, this.getEstado_sus());
 		if (this.getEstado_sus().equalsIgnoreCase("Activa") && this.getFechavenc().isBefore(LocalDate.now())) {
 			JOptionPane.showMessageDialog(null, "Su suscripcion esta vencida");
 			this.setEstado_sus("Desactivada");
@@ -161,10 +161,10 @@ public class Cliente extends Persona{
 		}
 		else {
 			if (this.getEstado_sus().equalsIgnoreCase("Activa")) {
-				
+				new HomeCliente(this);
 			}
 			else {
-				new HomeCliente(this);
+				
 			}
 		}
 	}
