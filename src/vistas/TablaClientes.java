@@ -177,11 +177,11 @@ public class TablaClientes extends JFrame {
             }
         });
         JLabel lblBuscar = new JLabel("Buscador:");
-        lblBuscar.setBounds(15, 25, 58, 14);
+        lblBuscar.setBounds(10, 237, 58, 14);
         contentPane.add(lblBuscar);
 
         textBuscar = new JTextField();
-        textBuscar.setBounds(83, 22, 204, 20);
+        textBuscar.setBounds(78, 234, 204, 20);
         contentPane.add(textBuscar);
         textBuscar.setColumns(10);
         JButton btnBuscar = new JButton("Buscar");
@@ -190,7 +190,7 @@ public class TablaClientes extends JFrame {
                 buscarClientes(textBuscar.getText(), administrador.getId_sucursal());
             }
         });
-        btnBuscar.setBounds(308, 21, 89, 23);
+        btnBuscar.setBounds(303, 233, 89, 23);
         contentPane.add(btnBuscar);
 	}
 	public void actualizarTabla(int sucursal) {

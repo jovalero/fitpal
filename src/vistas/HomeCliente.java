@@ -16,8 +16,9 @@ public class HomeCliente extends JFrame {
 	private JPanel contentPane;
 
 	public HomeCliente(Cliente cliente) {
-		if (cliente.getEstado_sus("Nuevo")) {
-			
+		if (cliente.getEstado_sus().equalsIgnoreCase("Nuevo")) {
+			new FormularioClienteNuevo(cliente);
+			dispose();
 		}
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
