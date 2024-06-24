@@ -22,11 +22,9 @@ public class ComidaTabla extends JFrame {
     private DefaultTableModel model;
     private ComidaControlador controlador;
     private Comida comidaSeleccionada;
-    private Admin administrador;
     private JTextField textField;
 
     public ComidaTabla(Admin administrador) {
-        this.administrador = administrador;
         this.setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 945, 365);
@@ -82,7 +80,7 @@ public class ComidaTabla extends JFrame {
         btnEditar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (comidaSeleccionada != null) {
-                    EditarComida editar = new EditarComida(comidaSeleccionada);
+                    EditarComida editar = new EditarComida(comidaSeleccionada,administrador);
                     editar.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione una comida");
@@ -95,7 +93,7 @@ public class ComidaTabla extends JFrame {
         JButton seccomidas = new JButton("Registrar nuevo");
         seccomidas.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                RegistrarComida registrar = new RegistrarComida(ComidaTabla.this);
+                RegistrarComida registrar = new RegistrarComida(administrador);
                 registrar.setVisible(true);
             }
         });

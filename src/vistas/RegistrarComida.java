@@ -19,7 +19,7 @@ public class RegistrarComida extends JFrame {
 	 private JTextArea descripcionArea;
 	 private ComidaControlador controlador;
 
-	public RegistrarComida(ComidaTabla comidaTabla , Admin Administrador) {
+	public RegistrarComida(Admin Administrador) {
 		 controlador = new ComidaControlador();
 	        setTitle("Registrar Nueva Comida");
 	        setSize(400, 300);
