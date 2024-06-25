@@ -106,7 +106,7 @@ public class RegistrarEntrenador extends JFrame {
         NumEntrenadosInput.setText("0");
         contentPane.add(NumEntrenadosInput);
 
-        JLabel NumEntrenadosLabel = new JLabel("Num Entrenados: ");
+        JLabel NumEntrenadosLabel = new JLabel("Núm. entrenados: ");
         NumEntrenadosLabel.setBounds(100, 255, 100, 14);
         contentPane.add(NumEntrenadosLabel);
 

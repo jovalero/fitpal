@@ -99,7 +99,7 @@ public class TablaProgreso extends JFrame {
             }
         });
 
-        btnEliminar.setBounds(626, 257, 187, 58);
+        btnEliminar.setBounds(475, 257, 187, 58);
         contentPane.add(btnEliminar);
 
         JButton btnEditar = new JButton("Editar");
@@ -112,7 +112,7 @@ public class TablaProgreso extends JFrame {
                 }
             }
         });
-        btnEditar.setBounds(366, 257, 166, 58);
+        btnEditar.setBounds(268, 257, 166, 58);
         contentPane.add(btnEditar);
 
         JButton btnAgregar = new JButton("Agregar");
@@ -122,8 +122,18 @@ public class TablaProgreso extends JFrame {
                 agregarProgreso.setVisible(true); // Mostrar ventana emergente de agregar progreso
             }
         });
-        btnAgregar.setBounds(91, 257, 166, 58);
+        btnAgregar.setBounds(60, 257, 166, 58);
         contentPane.add(btnAgregar);
+        
+        JButton Volverbutton = new JButton("Volver a menú");
+        Volverbutton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		new HomeAdmin(administrador);
+        		dispose();
+        	}
+        });
+        Volverbutton.setBounds(700, 257, 166, 58);
+        contentPane.add(Volverbutton);
         
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

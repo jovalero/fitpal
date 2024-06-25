@@ -42,7 +42,7 @@ public class RutinaTabla extends JFrame {
 		
 		model = new DefaultTableModel(
         		new String[] {
-                        "ID_Rutina", "Estado", "Descripcion", "Objetivo"
+                        "ID_Rutina", "Estado", "Descripción", "Objetivo"
                     },0     
         );
 		table = new JTable(model);
@@ -55,7 +55,7 @@ public class RutinaTabla extends JFrame {
 		Seleccionadolabel.setBounds(5, 5, 911, 14);
 		contentPane.add(Seleccionadolabel);
 
-        JButton btnAdd = new JButton("Agregar Area");
+        JButton btnAdd = new JButton("Agregar Área");
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 agregarSucursal();
@@ -66,7 +66,7 @@ public class RutinaTabla extends JFrame {
         btnAdd.setBounds(56, 345, 150, 30);
         contentPane.add(btnAdd);
 
-        JButton btnEdit = new JButton("Editar Area");
+        JButton btnEdit = new JButton("Editar Área");
         btnEdit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 editarSucursal();
@@ -76,7 +76,7 @@ public class RutinaTabla extends JFrame {
         btnEdit.setBounds(227, 345, 150, 30);
         contentPane.add(btnEdit);
 
-        JButton btnDelete = new JButton("Borrar Area");
+        JButton btnDelete = new JButton("Borrar Área");
         btnDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 borrarSucursal();

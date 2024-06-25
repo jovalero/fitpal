@@ -55,7 +55,7 @@ public class EjercicioTabla extends JFrame {
         }
 
         // Definición de las columnas de la tabla
-        String[] columnNames = {"ID", "Nombre", "Maquina", "Musculo", "Descripcion", "Video", "ID_Area"};
+        String[] columnNames = {"ID", "Nombre", "Máquina", "Músculo", "Descripción", "Video", "ID_Area"};
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
         actualizarTabla(); // Cargar los datos iniciales en la tabla

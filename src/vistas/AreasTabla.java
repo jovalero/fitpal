@@ -63,7 +63,7 @@ public class AreasTabla extends JFrame {
 		Seleccionadolabel.setBounds(5, 5, 911, 14);
 		contentPane.add(Seleccionadolabel);
 
-        JButton btnAdd = new JButton("Agregar Area");
+        JButton btnAdd = new JButton("Agregar");
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 agregarSucursal();
@@ -72,7 +72,7 @@ public class AreasTabla extends JFrame {
         btnAdd.setBounds(56, 345, 150, 30);
         contentPane.add(btnAdd);
 
-        JButton btnEdit = new JButton("Editar Area");
+        JButton btnEdit = new JButton("Editar");
         btnEdit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 editarSucursal();
@@ -81,7 +81,7 @@ public class AreasTabla extends JFrame {
         btnEdit.setBounds(227, 345, 150, 30);
         contentPane.add(btnEdit);
 
-        JButton btnDelete = new JButton("Borrar Area");
+        JButton btnDelete = new JButton("Eliminar");
         btnDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 borrarSucursal();
@@ -118,12 +118,12 @@ public class AreasTabla extends JFrame {
 
     private void agregarSucursal() {
         String id = JOptionPane.showInputDialog("Ingresa ID");
-        String nombre = JOptionPane.showInputDialog("Ingresa Nombre");
-        String ID_Sucursal= JOptionPane.showInputDialog("Ingresa la Sucursal"); 
-        String ubicacion = JOptionPane.showInputDialog("Ingresa Ubicacion");
+        String nombre = JOptionPane.showInputDialog("Ingresa el nombre");
+        String ID_Sucursal= JOptionPane.showInputDialog("Ingresa la sucursal"); 
+        String ubicacion = JOptionPane.showInputDialog("Ingresa la ubicación");
         
         if (id == null || id.trim().isEmpty() || nombre == null || nombre.trim().isEmpty() || ID_Sucursal == null || ID_Sucursal.trim().isEmpty() ||  ubicacion == null || ubicacion.trim().isEmpty() ) {
-            JOptionPane.showMessageDialog(this, "Error al agregar el Area: Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al agregar el área: Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             model.addRow(new Object[]{id, nombre,ID_Sucursal ,ubicacion});
         }
@@ -133,12 +133,12 @@ public class AreasTabla extends JFrame {
         int selectedRow = table.getSelectedRow();
         if (selectedRow >= 0) {
             String id = JOptionPane.showInputDialog("Editar ID", model.getValueAt(selectedRow, 0));
-            String nombre = JOptionPane.showInputDialog("Editar Nombre", model.getValueAt(selectedRow, 1));
-            String ID_Sucursal= JOptionPane.showInputDialog("Ingresa la Sucursal", model.getValueAt(selectedRow,2 )); 
-            String ubicacion = JOptionPane.showInputDialog("Editar Ubicacion", model.getValueAt(selectedRow, 3));
+            String nombre = JOptionPane.showInputDialog("Editar el nombre", model.getValueAt(selectedRow, 1));
+            String ID_Sucursal= JOptionPane.showInputDialog("Ingresa la sucursal", model.getValueAt(selectedRow,2 )); 
+            String ubicacion = JOptionPane.showInputDialog("Editar la ubicación", model.getValueAt(selectedRow, 3));
             
             if (id == null || id.trim().isEmpty() || nombre == null || nombre.trim().isEmpty() || ID_Sucursal == null || ID_Sucursal.trim().isEmpty() || ubicacion == null || ubicacion.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Error al editar sucursal: Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error al editar la sucursal: Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 model.setValueAt(id, selectedRow, 0);
                 model.setValueAt(nombre, selectedRow, 1);
