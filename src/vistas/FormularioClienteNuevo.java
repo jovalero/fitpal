@@ -8,10 +8,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import controlador.ClienteControlador;
+import interfaces.VerificacionesRepository;
 import modelo.Cliente;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.time.ZoneId;
+import java.awt.event.ActionEvent;
 
 public class FormularioClienteNuevo extends JFrame {
 
@@ -115,6 +121,89 @@ public class FormularioClienteNuevo extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
 		lblNewLabel.setBounds(64, 11, 308, 50);
 		contentPane.add(lblNewLabel);
-	}
+		
+		JButton btnNewButton = new JButton("Finalizar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nombre = "";
+				String apellido ="";
+				String mail = "";
+				String contrasena ="";
+				String estado_sus="";
+				int telefono = 0;
+				int dni = 0;
+				int puntos = 0;
+				boolean flag = true;
+				
 
+				if (!VerificacionesRepository.Sololetras(NombreInput.getText())) {
+					flag=false;
+			
+				}
+				else {
+					nombre=NombreInput.getText();
+				}
+				if (!VerificacionesRepository.Sololetras(ApellidoInput.getText())) {
+					flag=false;
+				}
+				else {
+					apellido=ApellidoInput.getText();
+				}
+				if (!Cliente.getUsuario().equalsIgnoreCase(MailInput.getText()) && !VerificacionesRepository.Mail(MailInput.getText())) {
+					flag=false;
+				}
+				else {
+					mail=MailInput.getText();
+				}
+				if (!VerificacionesRepository.SoloEnteros(TelefonoInput.getText())) {
+					flag=false;
+				}
+				else {
+					telefono=Integer.parseInt(TelefonoInput.getText());
+				}
+				if (!VerificacionesRepository.SoloEnteros(DNIInput.getText())) {
+					flag=false;
+					
+				}
+				else {
+					if (Cliente.getDNI()!=Integer.parseInt(DNIInput.getText()) && VerificacionesRepository.DNIExistente(Integer.parseInt(DNIInput.getText()))) {
+						flag=false;
+				
+					}
+					else {
+						 dni=Integer.parseInt(DNIInput.getText());
+					}
+				}
+				if (ContrasenaInput.getText().isEmpty()) {
+					flag=false;
+					
+				}
+				else {
+					contrasena=ContrasenaInput.getText();
+				}
+				
+				if (flag) {
+					estado_sus="Desactivada";
+
+							Cliente.setNombre(nombre);
+		                    Cliente.setApellido(apellido);
+		                    Cliente.setTelefono(telefono);
+		                    Cliente.setDNI(dni);
+		                    Cliente.setUsuario(mail);
+		                    Cliente.setContrasena(contrasena);
+		                    Cliente.setEstado_sus(estado_sus);
+		                    Cliente.setPuntos(puntos);
+
+		                    ClienteControlador controlador = new ClienteControlador();
+		                    controlador.updateCliente(Cliente);
+
+		                    new HomeCliente(Cliente);
+		                    dispose();
+		                }
+				
+				}
+		});
+		btnNewButton.setBounds(181, 339, 89, 23);
+		contentPane.add(btnNewButton);
+	}
 }

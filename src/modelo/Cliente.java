@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import controlador.ClienteControlador;
 import vistas.HomeCliente;
+import vistas.HomeClientePremium;
 
 public class Cliente extends Persona{
 	
@@ -152,7 +153,7 @@ public class Cliente extends Persona{
 	@Override
 	public void Menu() {
 		ClienteControlador controlador= new ClienteControlador();
-		
+		JOptionPane.showMessageDialog(null, this.getEstado_sus());
 		if (this.getEstado_sus().equalsIgnoreCase("Activa") && this.getFechavenc().isBefore(LocalDate.now())) {
 			JOptionPane.showMessageDialog(null, "Su suscripcion esta vencida");
 			this.setEstado_sus("Desactivada");
@@ -161,8 +162,11 @@ public class Cliente extends Persona{
 		}
 		else {
 			if (this.getEstado_sus().equalsIgnoreCase("Activa")) {
-				
+				new HomeClientePremium(this);
 			}
+			else if (this.getEstado_sus().equalsIgnoreCase("Suspendida")) {
+				JOptionPane.showMessageDialog(null, "Suscripcion suspendida comunicarse con administrador");
+			} 
 			else {
 				new HomeCliente(this);
 			}

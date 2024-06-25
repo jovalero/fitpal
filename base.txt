@@ -85,6 +85,7 @@ CREATE TABLE entrenador (
   FOREIGN KEY (ID_Sucursal) REFERENCES sucursal(ID_Sucursal) -- Corrected typo here
 );
 CREATE TABLE cliente (
+id_Rutina
   ID_cliente INT PRIMARY KEY AUTO_INCREMENT,
   ID_Entrenador INT,
   ID_Dieta INT,

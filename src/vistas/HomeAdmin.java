@@ -52,7 +52,7 @@ public class HomeAdmin extends JFrame {
 				dispose();
 			}
 		});
-		SeccionEntrenadores.setBounds(52, 144, 201, 43);
+		SeccionEntrenadores.setBounds(52, 135, 201, 43);
 		contentPane.add(SeccionEntrenadores);
 		
 		JButton AreasButton = new JButton("Seccion Areas");
@@ -62,19 +62,21 @@ public class HomeAdmin extends JFrame {
 				dispose();
 			}
 		});
-		AreasButton.setBounds(52, 218, 201, 38);
+		AreasButton.setBounds(52, 189, 201, 38);
 		contentPane.add(AreasButton);
-
-
-        JButton RutinasButton = new JButton("Seccion Rutinas");
-        RutinasButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                RutinaTabla rutina = new RutinaTabla(administrador);
-                dispose();
-            }
-        });
-        RutinasButton.setBounds(52, 272, 201, 38);
-        contentPane.add(RutinasButton);
-    }
+		
+		JButton btnSeccionProgreso = new JButton("Seccion Progreso");
+		btnSeccionProgreso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TablaProgreso area= new TablaProgreso(administrador);
+				dispose();
+			}
+		});
+		btnSeccionProgreso.setBounds(52, 287, 201, 38);
+		contentPane.add(btnSeccionProgreso);
+		
+		JButton RutinasButton = new JButton("Seccion Rutinas");
+		RutinasButton.setBounds(52, 238, 201, 38);
+		contentPane.add(RutinasButton);
 	}
-
+}

@@ -18,7 +18,6 @@ public class Comida {
 		this.Descripcion = Descripcion;
 		this.ID_Comida = ID_Comida;
 	}
-
 	public String getNombre() {
 		return Nombre;
 	}
