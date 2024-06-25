@@ -10,7 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import modelo.Entrenador;
 
-public class EntrenadorHome extends JFrame {
+public class HomeEntrenador extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -20,7 +20,7 @@ public class EntrenadorHome extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public EntrenadorHome(Entrenador entrenador) {
+	public HomeEntrenador(Entrenador entrenador) {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 683, 345);
@@ -28,7 +28,7 @@ public class EntrenadorHome extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
 		
-		JLabel Bienvenidolabel = new JLabel("Bienvenido " + entrenador.getNombre() + " " + entrenador.getApellido() +" Que deseas Hacer?");
+		JLabel Bienvenidolabel = new JLabel("Bienvenido " + entrenador.getNombre() + " " + entrenador.getApellido() +". ¿Qué desea hacer?");
 		Bienvenidolabel.setFont(new Font("Tahoma", Font.BOLD, 25));
 		Bienvenidolabel.setBounds(43, 10, 691, 31);
 		contentPane.add(Bienvenidolabel);
