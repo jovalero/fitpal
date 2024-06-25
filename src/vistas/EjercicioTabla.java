@@ -101,7 +101,7 @@ public class EjercicioTabla extends JFrame {
                 }
             }
         });
-        btnEditar.setBounds(308, 257, 166, 58);
+        btnEditar.setBounds(292, 257, 166, 58);
         contentPane.add(btnEditar);
 
         // Botón para registrar un nuevo ejercicio
@@ -113,8 +113,19 @@ public class EjercicioTabla extends JFrame {
                 dispose();
             }
         });
-        secEjercicios.setBounds(575, 257, 166, 58);
+        secEjercicios.setBounds(501, 257, 166, 58);
         contentPane.add(secEjercicios);
+        
+        JButton Volverbutton = new JButton("Volver a menú");
+        Volverbutton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new HomeAdmin(administrador);
+                dispose();
+            }
+        });
+        Volverbutton.setBounds(700, 257, 166, 58);
+        contentPane.add(Volverbutton);
+      
 
         // Manejador de selección de filas en la tabla
         ListSelectionModel selectionModel = table.getSelectionModel();

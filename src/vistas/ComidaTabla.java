@@ -87,7 +87,7 @@ public class ComidaTabla extends JFrame {
                 }
             }
         });
-        btnEditar.setBounds(292, 257, 166, 58);
+        btnEditar.setBounds(282, 257, 166, 58);
         contentPane.add(btnEditar);
 
         JButton seccomidas = new JButton("Registrar nuevo");
@@ -97,7 +97,7 @@ public class ComidaTabla extends JFrame {
                 registrar.setVisible(true);
             }
         });
-        seccomidas.setBounds(496, 257, 166, 58);
+        seccomidas.setBounds(490, 257, 166, 58);
         contentPane.add(seccomidas);
 
         textField = new JTextField();
@@ -117,7 +117,17 @@ public class ComidaTabla extends JFrame {
         });
         filtrar.setBounds(206, 36, 89, 23);
         contentPane.add(filtrar);
-
+        
+        JButton Volverbutton = new JButton("Volver a menú");
+        Volverbutton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new HomeAdmin(administrador);
+                dispose();
+            }
+        });
+        Volverbutton.setBounds(700, 257, 166, 58);
+        contentPane.add(Volverbutton);
+        
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
