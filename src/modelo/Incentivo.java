@@ -41,5 +41,5 @@ public class Incentivo {
                 ", descripcion='" + Descripcion + '\'' +
                 ", id_comida=" + ID_Incentivo +
                 '}';		
+		}	
 	}
-}

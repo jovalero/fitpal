@@ -18,26 +18,32 @@ public class DietaControlador implements DietaRepository {
     public DietaControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
-
-
-	@Override
-	public LinkedList<Dieta> getAllDieta() {
-		LinkedList<Dieta> dietas= new LinkedList<Dieta>();
-		try {
-			PreparedStatement statement= connection.prepareStatement("SELECT * FROM Dieta");
-			ResultSet resultset= statement.executeQuery();
-			 
-			while (resultset.next()) {
-				Dieta Dieta=new Dieta(resultset.getInt("ID_Dieta"),resultset.getString("Nombre_Dieta"),resultset.getString("Descripcion_Dieta"));
-				dietas.add(Dieta);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Ocurrio un error al mostrar");
-		}
-		return dietas;
-		
+	public Connection getConnection() {
+		return connection;
 	}
+
+    @Override
+    public LinkedList<Dieta> getAllDietas() {
+    	LinkedList<Dieta> dietaList = new LinkedList<>();
+        
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM dieta");
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {
+                Dieta dieta = new Dieta(
+                    resultSet.getInt("ID_Dieta"),
+                    resultSet.getString("Nombre_Dieta"),
+                    resultSet.getString("Descripcion_Dieta")
+                );
+                dietaList.add(dieta);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al mostrar las dietas");
+        }
+        return dietaList;
+    }
 
 	@Override
 	public Dieta getDietaById(int id) {
@@ -61,9 +67,9 @@ public class DietaControlador implements DietaRepository {
 	public void addDieta(Dieta Dieta) {
 		try {
 			PreparedStatement statement= connection.prepareStatement("INSERT TO Dieta (ID_Dieta, Nombre_Dieta, Descripcion_Dieta) VALUES (?, ?, ?)");
-			statement.setInt(1, Dieta.getID_Dieta());
-			statement.setString(2, Dieta.getNombre_Dieta());
-			statement.setString(3,Dieta.getDescripcion_Dieta());
+			statement.setInt(1, Dieta.getIdDieta());
+			statement.setString(2, Dieta.getNombreDieta());
+			statement.setString(3,Dieta.getDescripcionDieta());
 			
 			int resultset = statement.executeUpdate();
 			
@@ -82,9 +88,9 @@ public class DietaControlador implements DietaRepository {
 	public void updateDieta(Dieta Dieta) {
 		try {
 			PreparedStatement statement= connection.prepareStatement("UPDATE Dieta  SET Nombre_Dieta= ?, Descripcion_Dieta = ?  WHERE ID_Dieta= ?");
-			statement.setString(1, Dieta.getNombre_Dieta());
-			statement.setString(2, Dieta.getDescripcion_Dieta());
-			statement.setInt(3, Dieta.getID_Dieta());
+			statement.setString(1, Dieta.getNombreDieta());
+			statement.setString(2, Dieta.getDescripcionDieta());
+			statement.setInt(3, Dieta.getIdDieta());
 			
 			int resultset = statement.executeUpdate();
 			

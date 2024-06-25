@@ -1,5 +1,9 @@
 package modelo;
 
+import java.util.LinkedList;
+
+import javax.swing.JOptionPane;
+
 public class Ejercicio {
 		
 	private int ID_Ejercicio;
@@ -10,6 +14,8 @@ public class Ejercicio {
 	private String Video;
 	private int ID_Area;
 	
+	private static LinkedList<Ejercicio> listaEjercicios = new LinkedList<>();
+	
 	public Ejercicio(int ID_Ejercicio,String Nombre,String Maquina,String Musculo,String Descripcion,String Video,int ID_Area) {
 		this.ID_Ejercicio = ID_Ejercicio;
 		this.Maquina = Maquina;
@@ -17,6 +23,7 @@ public class Ejercicio {
 		this.Descripcion = Descripcion;
 		this.Video = Video;
 		this.ID_Area = ID_Area;
+		this.Nombre = Nombre;
 	}
 
 	public int getID_Ejercicio() {
@@ -82,4 +89,7 @@ public class Ejercicio {
 	}
 	
 	
+	
 }
+	
+

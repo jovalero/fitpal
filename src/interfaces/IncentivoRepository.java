@@ -1,19 +1,18 @@
 package interfaces;
 
 import java.util.LinkedList;
-
-import modelo.Entrenador;
+import modelo.Incentivo;
 
 public interface IncentivoRepository {
-LinkedList<Entrenador> getAllEntrenadores(); // llama a todos los Entrenadores de la bdd
+LinkedList<Incentivo> getAllIncentivo(); // llama a todos los Entrenadores de la bdd
     
-    Entrenador getEntrenadorByid(int id); //llama solo a uno, por su id
+	Incentivo getIncentivoByid(int id); //llama solo a uno, por su id
     
-    void addEntrenador(Entrenador cliente); //añade usuarios a la bdd
+    void addIncentivo(Incentivo cliente); //añade usuarios a la bdd
     
-    void updateEntrenador(Entrenador Entrenador); //actualiza los usuarios de la bdd
+    void updateIncentivo(Incentivo Incentivo); //actualiza los usuarios de la bdd
     
-    void deleteEntrenador(int Entrenador); //eliminar usuarios de la bdd
+    void deleteIncentivo(int Incentivo); //eliminar usuarios de la bdd
 }
 
 
