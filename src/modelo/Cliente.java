@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import controlador.ClienteControlador;
 import vistas.HomeCliente;
+import vistas.HomeClientePremium;
 
 public class Cliente extends Persona{
 	
@@ -161,10 +162,13 @@ public class Cliente extends Persona{
 		}
 		else {
 			if (this.getEstado_sus().equalsIgnoreCase("Activa")) {
-				new HomeCliente(this);
+				new HomeClientePremium(this);
 			}
+			else if (this.getEstado_sus().equalsIgnoreCase("Suspendida")) {
+				JOptionPane.showMessageDialog(null, "Suscripcion suspendida comunicarse con administrador");
+			} 
 			else {
-				
+				new HomeCliente(this);
 			}
 		}
 	}
