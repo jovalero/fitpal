@@ -78,5 +78,26 @@ public class HomeAdmin extends JFrame {
 		JButton RutinasButton = new JButton("Sección de Rutinas");
 		RutinasButton.setBounds(52, 238, 201, 38);
 		contentPane.add(RutinasButton);
+		
+		JButton SeccionComidaButton = new JButton("Sección de Comida");
+        SeccionComidaButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ComidaTabla comidaTabla = new ComidaTabla(administrador);
+                dispose();
+            }
+        });
+        SeccionComidaButton.setBounds(300, 81, 201, 43);
+        contentPane.add(SeccionComidaButton);
+		
+        JButton SeccionEjercicioButton = new JButton("Sección de Ejercicio");
+        SeccionEjercicioButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                EjercicioTabla ejercicioTabla = new EjercicioTabla(administrador);
+                dispose();
+            }
+        });
+        SeccionEjercicioButton.setBounds(300, 135, 201, 43);
+        contentPane.add(SeccionEjercicioButton);
+		
 	}
 }
