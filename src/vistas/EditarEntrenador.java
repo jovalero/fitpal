@@ -69,7 +69,7 @@ public class EditarEntrenador extends JFrame {
         MailLabel.setBounds(170, 144, 46, 14);
         contentPane.add(MailLabel);
 
-        JLabel TelefonoLabel = new JLabel("Telefono: ");
+        JLabel TelefonoLabel = new JLabel("Teléfono: ");
         TelefonoLabel.setBounds(150, 172, 66, 14);
         contentPane.add(TelefonoLabel);
 
@@ -102,11 +102,11 @@ public class EditarEntrenador extends JFrame {
         NumEntrenadosInput.setBounds(198, 255, 86, 20);
         contentPane.add(NumEntrenadosInput);
 
-        JLabel NumEntrenadosLabel = new JLabel("Num Entrenados: ");
+        JLabel NumEntrenadosLabel = new JLabel("Núm. entrenados: ");
         NumEntrenadosLabel.setBounds(100, 255, 100, 14);
         contentPane.add(NumEntrenadosLabel);
 
-        JButton EditarButton = new JButton("Guardar Cambios");
+        JButton EditarButton = new JButton("Guardar cambios");
         EditarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String nombre = NombreInput.getText();
@@ -125,7 +125,7 @@ public class EditarEntrenador extends JFrame {
                     numEntrenados = Integer.parseInt(NumEntrenadosInput.getText());
                 } catch (NumberFormatException ex) {
                     flag = false;
-                    JOptionPane.showMessageDialog(null, "Ingrese valores numéricos válidos en Telefono, DNI y Num Entrenados");
+                    JOptionPane.showMessageDialog(null, "Ingrese valores numéricos válidos en Telefono, DNI y Núm. entrenados");
                 }
 
                 if (nombre.isEmpty() || apellido.isEmpty() || mail.isEmpty() || contrasena.isEmpty()) {

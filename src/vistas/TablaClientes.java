@@ -141,7 +141,7 @@ public class TablaClientes extends JFrame {
         Registrarbutton.setBounds(465, 257, 166, 58);
         contentPane.add(Registrarbutton);
         
-        JButton Volverbutton = new JButton("Volver a menu");
+        JButton Volverbutton = new JButton("Volver a menú");
         Volverbutton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		new HomeAdmin(administrador);

@@ -79,7 +79,7 @@ public class RegistrarCliente extends JFrame {
 		MailLabel.setBounds(160, 144, 66, 14);
 		contentPane.add(MailLabel);
 		
-		JLabel TelefonoLabel = new JLabel("Telefono: ");
+		JLabel TelefonoLabel = new JLabel("Teléfono: ");
 		TelefonoLabel.setBounds(140, 172, 86, 14);
 		contentPane.add(TelefonoLabel);
 		

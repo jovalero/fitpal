@@ -29,12 +29,12 @@ public class HomeAdmin extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Bienvenido " + administrador.getNombre()+" " + administrador.getApellido() + " Que desea hacer: ");
+		JLabel lblNewLabel = new JLabel("Bienvenido " + administrador.getNombre()+" " + administrador.getApellido() + ". ¿Qué desea hacer?");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel.setBounds(99, 11, 599, 38);
 		contentPane.add(lblNewLabel);
 		
-		JButton ClienteButton = new JButton("Seccion Clientes");
+		JButton ClienteButton = new JButton("Sección de Clientes");
 		ClienteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -45,7 +45,7 @@ public class HomeAdmin extends JFrame {
 		ClienteButton.setBounds(52, 81, 201, 43);
 		contentPane.add(ClienteButton);
 		
-		JButton SeccionEntrenadores = new JButton("Seccion Entrenadores");
+		JButton SeccionEntrenadores = new JButton("Sección de Entrenadores");
 		SeccionEntrenadores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TablaEntrenadores entrenadores= new TablaEntrenadores(administrador);
@@ -55,7 +55,7 @@ public class HomeAdmin extends JFrame {
 		SeccionEntrenadores.setBounds(52, 135, 201, 43);
 		contentPane.add(SeccionEntrenadores);
 		
-		JButton AreasButton = new JButton("Seccion Areas");
+		JButton AreasButton = new JButton("Sección de Áreas");
 		AreasButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AreasTabla area= new AreasTabla(administrador);
@@ -65,7 +65,7 @@ public class HomeAdmin extends JFrame {
 		AreasButton.setBounds(52, 189, 201, 38);
 		contentPane.add(AreasButton);
 		
-		JButton btnSeccionProgreso = new JButton("Seccion Progreso");
+		JButton btnSeccionProgreso = new JButton("Sección de Progreso");
 		btnSeccionProgreso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TablaProgreso area= new TablaProgreso(administrador);
@@ -75,7 +75,7 @@ public class HomeAdmin extends JFrame {
 		btnSeccionProgreso.setBounds(52, 287, 201, 38);
 		contentPane.add(btnSeccionProgreso);
 		
-		JButton RutinasButton = new JButton("Seccion Rutinas");
+		JButton RutinasButton = new JButton("Sección de Rutinas");
 		RutinasButton.setBounds(52, 238, 201, 38);
 		contentPane.add(RutinasButton);
 	}

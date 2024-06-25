@@ -32,7 +32,7 @@ public class HomeCliente extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel Bienvenidolabel = new JLabel("Bienvenido " + cliente.getNombre() + " " + cliente.getApellido() +" Que deseas Hacer?");
+		JLabel Bienvenidolabel = new JLabel("Bienvenido " + cliente.getNombre() + " " + cliente.getApellido() +". ¿Qué desea hacer?");
 		Bienvenidolabel.setFont(new Font("Tahoma", Font.BOLD, 25));
 		Bienvenidolabel.setBounds(51, 11, 770, 64);
 		contentPane.add(Bienvenidolabel);

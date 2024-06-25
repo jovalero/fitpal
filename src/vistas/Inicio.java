@@ -78,7 +78,7 @@ public class Inicio extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel Iniciodesesionlabel = new JLabel("Inicio de sesion");
+		JLabel Iniciodesesionlabel = new JLabel("Inicio de sesión");
 		Iniciodesesionlabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		Iniciodesesionlabel.setBounds(137, 11, 172, 45);
 		contentPane.add(Iniciodesesionlabel);
@@ -92,7 +92,7 @@ public class Inicio extends JFrame {
 		emaillabel.setBounds(108, 70, 46, 14);
 		contentPane.add(emaillabel);
 		
-		JLabel contrasenalabel = new JLabel("contraseña: ");
+		JLabel contrasenalabel = new JLabel("Contraseña: ");
 		contrasenalabel.setBounds(80, 117, 88, 14);
 		contentPane.add(contrasenalabel);
 		
