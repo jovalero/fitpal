@@ -48,15 +48,6 @@ public class HomeCliente extends JFrame {
         CambiarRutinaButton.setBounds(52, 135, 201, 43);
         contentPane.add(CambiarRutinaButton);
 
-        JButton VerProgresoButton = new JButton("Ver progresos");
-        VerProgresoButton.setBounds(52, 189, 201, 43);
-        contentPane.add(VerProgresoButton);
-
-        JButton AnotarProgresoButton = new JButton("Anotar progreso");
-        AnotarProgresoButton.setBounds(300, 81, 201, 43);
-        contentPane.add(AnotarProgresoButton);
-
-
         JButton VerRutinabutton = new JButton("Ver rutina");
         VerRutinabutton.setBounds(300, 135, 201, 43);
         contentPane.add(VerRutinabutton);
@@ -72,6 +63,10 @@ public class HomeCliente extends JFrame {
         });
         botonCerrarSesion.setBounds(500, 300, 130, 23);
         contentPane.add(botonCerrarSesion);
+        
+        JButton btnGestionarProgresos = new JButton("Gestionar progresos");
+        btnGestionarProgresos.setBounds(300, 81, 201, 43);
+        contentPane.add(btnGestionarProgresos);
     }
 }
 
