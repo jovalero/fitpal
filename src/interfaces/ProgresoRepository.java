@@ -1,11 +1,12 @@
 package interfaces;
 
+import java.util.LinkedList;
 import java.util.List;
 import modelo.Progreso;
 
 public interface ProgresoRepository {
 	
-    List<Progreso> getAllProgresos();
+    LinkedList<Progreso> getAllProgresos();
     
     Progreso getProgresoById(int id);
     

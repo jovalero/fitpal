@@ -1,17 +1,23 @@
 package modelo;
 
+import java.util.LinkedList;
+
+import javax.swing.JOptionPane;
+
 public class Comida {
 	 
 	private String Nombre;
 	private String Descripcion;
 	private int ID_Comida;
 	
+	  // Lista estática para almacenar las comidas
+    private static LinkedList<Comida> listacomidas = new LinkedList<>();
+	
 	public Comida(String Nombre, String Descripcion, int ID_Comida) {
 		this.Nombre = Nombre;
 		this.Descripcion = Descripcion;
 		this.ID_Comida = ID_Comida;
 	}
-
 	public String getNombre() {
 		return Nombre;
 	}
@@ -41,6 +47,11 @@ public class Comida {
                 "nombre='" + Nombre + '\'' +
                 ", descripcion='" + Descripcion + '\'' +
                 ", id_comida=" + ID_Comida +
-                '}';		
+                '}';
+		
 	}
+	
+
 }
+
+

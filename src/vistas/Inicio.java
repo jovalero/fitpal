@@ -21,6 +21,10 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import vistas.HomeEntrenador; // Asegúrate de que esta ruta sea correcta
+import vistas.HomeAdmin; // Asegúrate de que esta ruta sea correcta
+import vistas.HomeClientePremium; // Asegúrate de que esta ruta sea correcta
+import vistas.HomeCliente; // Asegúrate de que esta ruta sea correcta
 
 public class Inicio extends JFrame {
 
@@ -35,15 +39,9 @@ public class Inicio extends JFrame {
         AdminControlador controladora = new AdminControlador();
         LinkedList<Persona> personas = new LinkedList<>();
 
-        for (Cliente cliente : controladorc.getAllClientes()) {
-            personas.add(cliente);
-        }
-        for (Entrenador entrenador : controladore.getAllEntrenadores()) {
-            personas.add(entrenador);
-        }
-        for (Admin admin : controladora.getAllAdmin()) {
-            personas.add(admin);
-        }
+        personas.addAll(controladorc.getAllClientes());
+        personas.addAll(controladore.getAllEntrenadores());
+        personas.addAll(controladora.getAllAdmin());
 
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -62,7 +60,6 @@ public class Inicio extends JFrame {
         setBounds(100, 100, 450, 300);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
@@ -71,12 +68,6 @@ public class Inicio extends JFrame {
         Iniciodesesionlabel.setBounds(137, 11, 172, 45);
         contentPane.add(Iniciodesesionlabel);
 
-
-	}
-
-	public Inicio(Admin administrador) {
-		// TODO Auto-generated constructor stub
-	
         emailinput = new JTextField();
         emailinput.setBounds(158, 67, 142, 20);
         contentPane.add(emailinput);
@@ -96,19 +87,19 @@ public class Inicio extends JFrame {
 
         JLabel Errormail = new JLabel("Error al ingresar email");
         Errormail.setForeground(Color.RED);
-        Errormail.setBounds(158, 89, 107, 14);
+        Errormail.setBounds(158, 89, 200, 14);
         contentPane.add(Errormail);
         Errormail.setVisible(false);
 
         JLabel Errorcontrasena = new JLabel("Error al ingresar contraseña");
         Errorcontrasena.setForeground(Color.RED);
-        Errorcontrasena.setBounds(158, 145, 142, 14);
+        Errorcontrasena.setBounds(158, 145, 200, 14);
         contentPane.add(Errorcontrasena);
         Errorcontrasena.setVisible(false);
 
         JLabel noencontradolabel = new JLabel("Usuario no encontrado");
         noencontradolabel.setForeground(Color.RED);
-        noencontradolabel.setBounds(166, 196, 114, 14);
+        noencontradolabel.setBounds(166, 196, 200, 14);
         contentPane.add(noencontradolabel);
         noencontradolabel.setVisible(false);
 
@@ -125,14 +116,14 @@ public class Inicio extends JFrame {
                     Errormail.setVisible(false);
                 }
 
-                if (contrasenainput.getText().isEmpty()) {
+                if (contrasenainput.getPassword().length == 0) {
                     Errorcontrasena.setVisible(true);
                     flag = false;
                 } else {
                     Errorcontrasena.setVisible(false);
                 }
                 if (flag) {
-                    int indice = Persona.Iniciarsesion(emailinput.getText(), contrasenainput.getText(), personas);
+                    int indice = Persona.Iniciarsesion(emailinput.getText(), new String(contrasenainput.getPassword()), personas);
                     if (indice != -1) {
                         if (arraypersona[indice] instanceof Entrenador) {
                             HomeEntrenador homeEntrenador = new HomeEntrenador((Entrenador) arraypersona[indice]);
@@ -169,8 +160,4 @@ public class Inicio extends JFrame {
         botonSalir.setBounds(176, 196, 89, 23);
         contentPane.add(botonSalir);
     }
-
 }
-
-
-

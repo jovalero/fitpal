@@ -18,9 +18,12 @@ public class IncentivoControlador implements IncentivoRepository{
 	        this.connection = DatabaseConnection.getInstance().getConnection();
 	    
 	  }
+		public Connection getConnection() {
+			return connection;
+		}
 
 	@Override
-	public LinkedList<Incentivo> getAllIncentivoes() {
+	public LinkedList<Incentivo> getAllIncentivo() {
 		LinkedList<Incentivo> incentivos= new LinkedList<Incentivo>();
 		try {
 			PreparedStatement statement= connection.prepareStatement("SELECT * FROM incentivos");
