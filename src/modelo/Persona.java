@@ -1,5 +1,11 @@
 package modelo;
 
+import java.util.LinkedList;
+
+import controlador.AdminControlador;
+import controlador.ClienteControlador;
+import controlador.EntrenadorControlador;
+
 public abstract class Persona {
 	
 	private String Nombre;
@@ -71,6 +77,15 @@ public abstract class Persona {
 	}
 	
 	public void Menu() {
+		
+	}
+	public static int Iniciarsesion(String email, String password, LinkedList<Persona> Usuarios) {
+		for (int i = 0; i < Usuarios.size(); i++) {
+			if (Usuarios.get(i).getUsuario().equalsIgnoreCase(email) && Usuarios.get(i).getContrasena().equalsIgnoreCase(password)) {
+				return i;
+			}
+		}
+		return -1;
 		
 	}
 }

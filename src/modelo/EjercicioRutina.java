@@ -1,62 +1,62 @@
 package modelo;
 
 public class EjercicioRutina {
-    private int idEjercicioRutina;
-    private int idEjercicio;
-    private int idRutina;
-    private int numSeries;
-    private int repeticiones;
+    private int ID_Ejercicio_Rutina;
+    private int ID_Ejercicio;
+    private int ID_Rutina;
+    private int Num_Series;
+    private int Repeticiones;
+    
 
-    public EjercicioRutina(int idEjercicioRutina, int idEjercicio, int idRutina, int numSeries, int repeticiones) {
-        this.idEjercicioRutina = idEjercicioRutina;
-        this.idEjercicio = idEjercicio;
-        this.idRutina = idRutina;
-        this.numSeries = numSeries;
-        this.repeticiones = repeticiones;
+    public EjercicioRutina(int ID_Ejercicio_Rutina, int ID_Ejercicio, int ID_Rutina, int Num_Series, int Repeticiones) {
+        this.ID_Ejercicio_Rutina = ID_Ejercicio_Rutina;
+        this.ID_Ejercicio = ID_Ejercicio;
+        this.ID_Rutina = ID_Rutina;
+        this.Num_Series = Num_Series;
+        this.Repeticiones = Repeticiones;
+    }
+ 
+    public int getID_Ejercicio_Rutina() {
+        return ID_Ejercicio_Rutina;
     }
 
-    public int getIdEjercicioRutina() {
-        return idEjercicioRutina;
+    public int getID_Ejercicio() {
+        return ID_Ejercicio;
     }
 
-    public void setIdEjercicioRutina(int idEjercicioRutina) {
-        this.idEjercicioRutina = idEjercicioRutina;
+    public int getID_Rutina() {
+        return ID_Rutina;
     }
 
-    public int getIdEjercicio() {
-        return idEjercicio;
-    }
-
-    public void setIdEjercicio(int idEjercicio) {
-        this.idEjercicio = idEjercicio;
-    }
-
-    public int getIdRutina() {
-        return idRutina;
-    }
-
-    public void setIdRutina(int idRutina) {
-        this.idRutina = idRutina;
-    }
-
-    public int getNumSeries() {
-        return numSeries;
-    }
-
-    public void setNumSeries(int numSeries) {
-        this.numSeries = numSeries;
+    public int getNum_Series() {
+        return Num_Series;
     }
 
     public int getRepeticiones() {
-        return repeticiones;
+        return Repeticiones;
     }
 
-    public void setRepeticiones(int repeticiones) {
-        this.repeticiones = repeticiones;
+   
+    public void setID_Ejercicio_Rutina(int ID_Ejercicio_Rutina) {
+        this.ID_Ejercicio_Rutina = ID_Ejercicio_Rutina;
     }
 
-    @Override
-    public String toString() {
-        return "EjercicioRutina [idEjercicioRutina=" + idEjercicioRutina + ", idEjercicio=" + idEjercicio + ", idRutina=" + idRutina + ", numSeries=" + numSeries + ", repeticiones=" + repeticiones + "]";
+    public void setID_Ejercicio(int ID_Ejercicio) {
+        this.ID_Ejercicio = ID_Ejercicio;
     }
+
+    public void setID_Rutina(int ID_Rutina) {
+        this.ID_Rutina = ID_Rutina;
+    }
+
+    public void setNum_Series(int Num_Series) {
+        this.Num_Series = Num_Series;
+    }
+
+    public void setRepeticiones(int Repeticiones) {
+        this.Repeticiones = Repeticiones;
+    }
+
+
+    
 }

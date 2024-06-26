@@ -44,6 +44,26 @@ public class AdminControlador implements AdminRepository {
 		}
 		return admins;
 	}
+	@Override
+	public LinkedList<Admin> getAllAdminBySucursal(int sucursal) {
+		LinkedList<Admin> admins= new LinkedList<Admin>();
+		
+		try {
+			PreparedStatement statement= connection.prepareStatement("SELECT * FROM administrador WHERE ID_Administrador= ?");
+			statement.setInt(1, sucursal);
+			ResultSet resultset= statement.executeQuery();
+			
+			while (resultset.next()) {
+				Admin admin=new Admin(resultset.getString("Nombre"),resultset.getString("Apellido"),resultset.getInt("Telefono"),resultset.getInt("ID_Sucursal"),resultset.getInt("DNI"),resultset.getInt("ID_Administrador"),resultset.getString("Contrasenia"));
+				admins.add(admin);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Ocurrio un error al mostrar");
+		}
+		return admins;
+	}
 
 	@Override
 	public Admin getAdminByid(int id) {
@@ -65,7 +85,7 @@ public class AdminControlador implements AdminRepository {
 	@Override
 	public void addAdmin(Admin Admin) {
 		try {
-			PreparedStatement statement= connection.prepareStatement("INSERT INTO administrador (ID_Admnistrador, ID_Sucursal, Telefono, Apellido, DNI, Contrasenia, Nombre) VALUES (?, ?, ?, ?, ?, ?, ?)");
+			PreparedStatement statement= connection.prepareStatement("INSERT INTO administrador (ID_Admnistrador, ID_Sucursal, Telefono, Apellido, DNI, Contrasenia, Nombre,Usuario) VALUES (?, ?, ?, ?, ?, ?, ?,?)");
 			statement.setInt(1, Admin.getId_admin());
 			statement.setInt(2, Admin.getId_sucursal());
 			statement.setInt(3, Admin.getTelefono());
@@ -73,6 +93,7 @@ public class AdminControlador implements AdminRepository {
 			statement.setInt(5,Admin.getDNI());
 			statement.setString(6, Admin.getContrasena());
 			statement.setString(7, Admin.getNombre());
+			statement.setString(8, Admin.getUsuario());
 			
 			int rowsinsert= statement.executeUpdate();
 			if (rowsinsert>0) {

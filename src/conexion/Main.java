@@ -1,35 +1,40 @@
 package conexion;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
+
+import controlador.AdminControlador;
+import controlador.ClienteControlador;
+import controlador.EntrenadorControlador;
+import interfaces.VerificacionesRepository;
 import modelo.*;
 
 public class Main {
 
     public static void main(String[] args) {
-    	LinkedList<Persona> personas= new LinkedList<>();
+		//ClienteControlador controladorc= new ClienteControlador();
+    	//EntrenadorControlador controladore=new EntrenadorControlador();
+    	//AdminControlador controladora= new AdminControlador();
+    	//LinkedList<Persona> personas= new LinkedList<>();
+    	//int indice= -1;
     	
-    	Admin administrador= new Admin("1234");
-    	Cliente cliente=new Cliente("juan", "123");
-    	Entrenador entrenador= new Entrenador("Paco", "123");
+    	//for (Cliente cliente : controladorc.getAllClientes()) {
+    	//	personas.add(cliente);
+    	//}
+    	//for (Entrenador Entrenador : controladore.getAllEntrenadores()) {
+    	//	personas.add(Entrenador);
+    	//}
+    	//for (Admin admin : controladora.getAllAdmin()) {
+    	//	personas.add(admin);
+    	//}
+    	//Persona[] arraypersona=personas.toArray(new Persona[0]);  
+    	// indice=Persona.Iniciarsesion(VerificacionesRepository.Sololetras("Ingresa mail"),JOptionPane.showInputDialog("Ingresa contraseña"), personas);
+    	//if (indice!=-1) {
+    	//	arraypersona[indice].Menu();
     	
-    	personas.add(entrenador);
-    	personas.add(cliente);
-    	personas.add(administrador);
-    	iniciarSesion(personas);
-        
-    }
-
-    public static void iniciarSesion(LinkedList<Persona> personas) {
+    //}
     	
-    	String usuario=JOptionPane.showInputDialog("Ingresa usuario: ");
-    	String contrasena=JOptionPane.showInputDialog("Ingresa contrasena");
-    	
-    	for (Persona persona : personas) {
-    		if (persona.getUsuario().equalsIgnoreCase(usuario) && persona.getContrasena().equalsIgnoreCase(contrasena)) {
-    			persona.Menu();
-				}
-			}
-		}   	
+    	}
 }
