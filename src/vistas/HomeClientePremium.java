@@ -52,9 +52,6 @@ public class HomeClientePremium extends JFrame {
         CanjearIncentivo.setBounds(300, 81, 201, 43);
         contentPane.add(CanjearIncentivo);
 
-        JButton btnVerDieta = new JButton("Ver dietas");
-        btnVerDieta.setBounds(300, 135, 201, 43);
-        contentPane.add(btnVerDieta);
 
         JButton btnVerEntrenador = new JButton("Ver entrenador");
         btnVerEntrenador.setBounds(300, 189, 201, 43);
@@ -72,6 +69,18 @@ public class HomeClientePremium extends JFrame {
         });
         botonCerrarSesion.setBounds(500, 300, 130, 23);
         contentPane.add(botonCerrarSesion);
+        
+        JButton btnVerDieta = new JButton("Ver dieta");
+        btnVerDieta.setBounds(300, 135, 201, 43);
+        contentPane.add(btnVerDieta);
+        btnVerDieta.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                DietaCliente dietaClienteP = new DietaCliente(cliente);
+                dietaClienteP.setVisible(true);
+            }
+        });
+        btnVerDieta.setBounds(300, 135, 201, 43);
+        contentPane.add(btnVerDieta);
     }
 }
 
