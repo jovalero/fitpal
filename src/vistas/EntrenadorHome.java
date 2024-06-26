@@ -9,6 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import modelo.Entrenador;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EntrenadorHome extends JFrame {
 
@@ -23,7 +26,7 @@ public class EntrenadorHome extends JFrame {
 	public EntrenadorHome(Entrenador entrenador) {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 683, 345);
+		setBounds(100, 100, 849, 368);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
@@ -35,6 +38,25 @@ public class EntrenadorHome extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JButton PerfilButton = new JButton("Ver Perfil");
+		PerfilButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		PerfilButton.setBounds(132, 79, 148, 52);
+		contentPane.add(PerfilButton);
+		
+		JButton RutinasButton = new JButton("Gestionar Rutinas");
+		RutinasButton.setBounds(446, 79, 148, 52);
+		contentPane.add(RutinasButton);
+		
+		JButton btnGestionarDietas = new JButton("Gestionar Dietas");
+		btnGestionarDietas.setBounds(446, 172, 148, 52);
+		contentPane.add(btnGestionarDietas);
+		
+		JButton btnGestionarClientes = new JButton("Gestionar Clientes");
+		btnGestionarClientes.setBounds(132, 172, 148, 52);
+		contentPane.add(btnGestionarClientes);
 	}
-
 }

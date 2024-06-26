@@ -168,11 +168,11 @@ public class EditarCliente extends JFrame {
 		PuntosInput.setBounds(198, 284, 100, 20);
 		contentPane.add(PuntosInput);
 
-		JLabel Estado_susLabel = new JLabel("Estado de suscripcion:");
+		JLabel Estado_susLabel = new JLabel("Estado de la suscripción:");
 		Estado_susLabel.setBounds(81, 259, 188, 14);
 		contentPane.add(Estado_susLabel);
 
-		JButton EditarButton = new JButton("Guardar Cambios");
+		JButton EditarButton = new JButton("Guardar cambios");
 		EditarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nombre = "";
@@ -270,7 +270,7 @@ public class EditarCliente extends JFrame {
 
 	    
 		
-		JButton Volverbutton = new JButton("Cancelar Cambios");
+		JButton Volverbutton = new JButton("Cancelar");
 		Volverbutton.setBounds(283, 413, 117, 23);
 		contentPane.add(Volverbutton);
 		Volverbutton.addActionListener(new ActionListener() {
