@@ -61,6 +61,7 @@ public class AreasTabla extends JFrame {
         contentPane.add(txtFiltro);
         txtFiltro.setColumns(10);
 
+<<<<<<< HEAD
         JButton btnFiltrar = new JButton("Filtrar");
         btnFiltrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -75,6 +76,9 @@ public class AreasTabla extends JFrame {
         contentPane.add(seleccionadolabel);
 
         JButton btnAdd = new JButton("Agregar Área");
+=======
+        JButton btnAdd = new JButton("Agregar");
+>>>>>>> origin/mar2
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new RegistrarAreas(administrador);
@@ -84,7 +88,11 @@ public class AreasTabla extends JFrame {
         btnAdd.setBounds(32, 345, 150, 30); // Adjusted position
         contentPane.add(btnAdd);
 
+<<<<<<< HEAD
         JButton btnEdit = new JButton("Editar Área");
+=======
+        JButton btnEdit = new JButton("Editar");
+>>>>>>> origin/mar2
         btnEdit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getIdArea() != 0) {
@@ -98,7 +106,11 @@ public class AreasTabla extends JFrame {
         btnEdit.setBounds(192, 345, 150, 30); // Adjusted position
         contentPane.add(btnEdit);
 
+<<<<<<< HEAD
         JButton btnDelete = new JButton("Borrar Área");
+=======
+        JButton btnDelete = new JButton("Eliminar");
+>>>>>>> origin/mar2
         btnDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getIdArea() != 0) {
@@ -148,6 +160,7 @@ public class AreasTabla extends JFrame {
         });
     }
 
+<<<<<<< HEAD
     public void actualizarTabla(int sucursal) {
         model.setRowCount(0);
         List<Areas> areas = controlador.getallAreasbySucursal(sucursal);
@@ -163,6 +176,36 @@ public class AreasTabla extends JFrame {
         for (Areas area : areas) {
             if (area.getNombre().contains(criterio) || area.getUbicacion().contains(criterio)) {
                 model.addRow(new Object[] {area.getIdArea(), area.getNombre(), area.getIdSucursal(), area.getUbicacion()});
+=======
+    private void agregarSucursal() {
+        String id = JOptionPane.showInputDialog("Ingresa ID");
+        String nombre = JOptionPane.showInputDialog("Ingresa el nombre");
+        String ID_Sucursal= JOptionPane.showInputDialog("Ingresa la sucursal"); 
+        String ubicacion = JOptionPane.showInputDialog("Ingresa la ubicación");
+        
+        if (id == null || id.trim().isEmpty() || nombre == null || nombre.trim().isEmpty() || ID_Sucursal == null || ID_Sucursal.trim().isEmpty() ||  ubicacion == null || ubicacion.trim().isEmpty() ) {
+            JOptionPane.showMessageDialog(this, "Error al agregar el área: Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            model.addRow(new Object[]{id, nombre,ID_Sucursal ,ubicacion});
+        }
+    }
+
+    private void editarSucursal() {
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow >= 0) {
+            String id = JOptionPane.showInputDialog("Editar ID", model.getValueAt(selectedRow, 0));
+            String nombre = JOptionPane.showInputDialog("Editar el nombre", model.getValueAt(selectedRow, 1));
+            String ID_Sucursal= JOptionPane.showInputDialog("Ingresa la sucursal", model.getValueAt(selectedRow,2 )); 
+            String ubicacion = JOptionPane.showInputDialog("Editar la ubicación", model.getValueAt(selectedRow, 3));
+            
+            if (id == null || id.trim().isEmpty() || nombre == null || nombre.trim().isEmpty() || ID_Sucursal == null || ID_Sucursal.trim().isEmpty() || ubicacion == null || ubicacion.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Error al editar la sucursal: Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                model.setValueAt(id, selectedRow, 0);
+                model.setValueAt(nombre, selectedRow, 1);
+                model.setValueAt(ID_Sucursal, selectedRow, 2);
+                model.setValueAt(ubicacion, selectedRow, 3);
+>>>>>>> origin/mar2
             }
         }
     }

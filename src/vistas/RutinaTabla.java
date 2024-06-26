@@ -30,6 +30,7 @@ public class RutinaTabla extends JFrame {
     private Rutina seleccionado;
     private JTextField txtFiltro;
 
+<<<<<<< HEAD
     public RutinaTabla(Admin administrador) {
         this.setVisible(true);
         controlador = new RutinaControlador();
@@ -45,6 +46,24 @@ public class RutinaTabla extends JFrame {
             new String[] {
                 "ID_Rutina", "Estado", "Descripcion", "Objetivo"
             }, 0
+=======
+	
+	public RutinaTabla(Admin Administrador) {
+		this.setVisible(true);
+		controlador = new RutinaControlador();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 668, 480);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		
+		contentPane.setLayout(null);
+		
+		model = new DefaultTableModel(
+        		new String[] {
+                        "ID_Rutina", "Estado", "Descripción", "Objetivo"
+                    },0     
+>>>>>>> origin/mar2
         );
 
         table = new JTable(model);
@@ -58,6 +77,7 @@ public class RutinaTabla extends JFrame {
         contentPane.add(txtFiltro);
         txtFiltro.setColumns(10);
 
+<<<<<<< HEAD
         JButton btnFiltrar = new JButton("Filtrar");
         btnFiltrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -72,6 +92,9 @@ public class RutinaTabla extends JFrame {
         contentPane.add(seleccionadolabel);
 
         JButton btnAdd = new JButton("Registrar Rutina");
+=======
+        JButton btnAdd = new JButton("Agregar Área");
+>>>>>>> origin/mar2
         btnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "Botón Registrar Rutina presionado");
@@ -82,7 +105,11 @@ public class RutinaTabla extends JFrame {
         btnAdd.setBounds(32, 345, 150, 30); // Adjusted position
         contentPane.add(btnAdd);
 
+<<<<<<< HEAD
         JButton btnEdit = new JButton("Editar Rutina");
+=======
+        JButton btnEdit = new JButton("Editar Área");
+>>>>>>> origin/mar2
         btnEdit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getIdRutina() != 0) {
@@ -96,7 +123,11 @@ public class RutinaTabla extends JFrame {
         btnEdit.setBounds(192, 345, 150, 30); // Adjusted position
         contentPane.add(btnEdit);
 
+<<<<<<< HEAD
         JButton btnDelete = new JButton("Borrar Rutina");
+=======
+        JButton btnDelete = new JButton("Borrar Área");
+>>>>>>> origin/mar2
         btnDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getIdRutina() != 0) {

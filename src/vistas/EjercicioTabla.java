@@ -1,6 +1,5 @@
 package vistas;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
@@ -33,7 +32,6 @@ public class EjercicioTabla extends JFrame {
     private Admin administrador;
     private JLabel seleccionadoLabel;
 
-    // Constructor de la clase EjercicioTabla
     public EjercicioTabla(Admin administrador) {
         this.administrador = administrador;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,30 +52,29 @@ public class EjercicioTabla extends JFrame {
             return;
         }
 
-        // Definición de las columnas de la tabla
-        String[] columnNames = {"ID", "Nombre", "Maquina", "Musculo", "Descripcion", "Video", "ID_Area"};
+        String[] columnNames = {"ID", "Nombre", "Máquina", "Músculo", "Descripción", "Video", "ID_Area"};
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
-        actualizarTabla(); // Cargar los datos iniciales en la tabla
+        actualizarTabla(); 
         table.setBounds(10, 37, 532, 204);
 
         JScrollPane ejercicioTabla = new JScrollPane(table);
         ejercicioTabla.setBounds(0, 37, 911, 190);
         contentPane.add(ejercicioTabla);
 
-        // Etiqueta para mostrar el ejercicio seleccionado
+        
         seleccionadoLabel = new JLabel("Seleccionado: ");
         seleccionadoLabel.setBounds(5, 5, 911, 14);
         contentPane.add(seleccionadoLabel);
 
-        // Botón para eliminar un ejercicio
+     
         JButton btnEliminar = new JButton("Eliminar");
         btnEliminar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (ejercicioSeleccionado != null) {
                     controlador.deleteEjercicio(ejercicioSeleccionado.getID_Ejercicio());
                     JOptionPane.showMessageDialog(null, "Ejercicio eliminado");
-                    actualizarTabla(); // Actualizar la tabla después de eliminar
+                    actualizarTabla();
                     ejercicioSeleccionado = null;
                     seleccionadoLabel.setText("Seleccionado: ");
                 } else {
@@ -88,7 +85,7 @@ public class EjercicioTabla extends JFrame {
         btnEliminar.setBounds(55, 257, 187, 58);
         contentPane.add(btnEliminar);
 
-        // Botón para editar un ejercicio
+       
         JButton btnEditar = new JButton("Editar");
         btnEditar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -101,10 +98,10 @@ public class EjercicioTabla extends JFrame {
                 }
             }
         });
-        btnEditar.setBounds(308, 257, 166, 58);
+        btnEditar.setBounds(292, 257, 166, 58);
         contentPane.add(btnEditar);
 
-        // Botón para registrar un nuevo ejercicio
+        
         JButton secEjercicios = new JButton("Registrar nuevo");
         secEjercicios.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -113,10 +110,21 @@ public class EjercicioTabla extends JFrame {
                 dispose();
             }
         });
-        secEjercicios.setBounds(575, 257, 166, 58);
+        secEjercicios.setBounds(501, 257, 166, 58);
         contentPane.add(secEjercicios);
+        
+        JButton Volverbutton = new JButton("Volver a menú");
+        Volverbutton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new HomeAdmin(administrador);
+                dispose();
+            }
+        });
+        Volverbutton.setBounds(700, 257, 166, 58);
+        contentPane.add(Volverbutton);
+      
 
-        // Manejador de selección de filas en la tabla
+       
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -142,10 +150,10 @@ public class EjercicioTabla extends JFrame {
         setVisible(true);
     }
 
-    // Método para actualizar la tabla con los datos de la base de datos
+    
     public void actualizarTabla() {
-        model.setRowCount(0); // Limpiar la tabla existente
-        LinkedList<Ejercicio> ejercicios = controlador.getAllEjercicio(); // Obtener todos los ejercicios
+        model.setRowCount(0); 
+        LinkedList<Ejercicio> ejercicios = controlador.getAllEjercicio(); 
         for (Ejercicio ejercicio : ejercicios) {
             model.addRow(new Object[]{ejercicio.getID_Ejercicio(), ejercicio.getNombre(), ejercicio.getMaquina(), ejercicio.getMusculo(), ejercicio.getDescripcion(), ejercicio.getVideo(), ejercicio.getID_Area()});
         }
