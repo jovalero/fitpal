@@ -22,8 +22,10 @@ public class DietaEntrenador extends JFrame {
     private DietaControlador dietaControlador;
     private Dieta dietaSeleccionada;
     private JTextField textField;
+    private Entrenador entrenador;
 
     public DietaEntrenador(Entrenador entrenador) {
+        this.entrenador = entrenador;  // Guardamos el entrenador para utilizarlo al volver al menú
         this.setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 945, 365);
@@ -88,17 +90,18 @@ public class DietaEntrenador extends JFrame {
                 }
             }
         });
-        asignarDietaButton.setBounds(700, 257, 166, 58);
+        asignarDietaButton.setBounds(516, 257, 166, 58);
         contentPane.add(asignarDietaButton);
 
         JButton volverButton = new JButton("Volver a menú");
         volverButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new HomeEntrenador(entrenador);
-                dispose();
+                // Volver al menú de HomeEntrenador
+                dispose();  // Cierra la ventana actual
+                new HomeEntrenador(entrenador).setVisible(true);  // Abre el menú de HomeEntrenador
             }
         });
-        volverButton.setBounds(700, 257, 166, 58);
+        volverButton.setBounds(226, 257, 166, 58);  // Ajusta la posición del botón
         contentPane.add(volverButton);
 
         ListSelectionModel selectionModel = table.getSelectionModel();
