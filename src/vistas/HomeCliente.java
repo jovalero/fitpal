@@ -56,18 +56,22 @@ public class HomeCliente extends JFrame {
         AnotarProgresoButton.setBounds(300, 81, 201, 43);
         contentPane.add(AnotarProgresoButton);
 
-        JButton CerrarButton = new JButton("Cerrar sesión");
-        CerrarButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Acción para CerrarButton
-            }
-        });
-        CerrarButton.setBounds(300, 135, 201, 43);
-        contentPane.add(CerrarButton);
 
         JButton VerRutinabutton = new JButton("Ver rutina");
-        VerRutinabutton.setBounds(300, 189, 201, 43);
+        VerRutinabutton.setBounds(300, 135, 201, 43);
         contentPane.add(VerRutinabutton);
+        
+        JButton botonCerrarSesion = new JButton("Cerrar sesión");
+        botonCerrarSesion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Cerrar sesión y volver a la ventana de inicio de sesión
+                Inicio inicio = new Inicio(null);  // personas es la lista de usuarios
+                inicio.setVisible(true);
+                dispose();  // Cierra la ventana actual
+            }
+        });
+        botonCerrarSesion.setBounds(500, 300, 130, 23);
+        contentPane.add(botonCerrarSesion);
     }
 }
 

@@ -99,5 +99,18 @@ public class HomeAdmin extends JFrame {
         SeccionEjercicioButton.setBounds(300, 135, 201, 43);
         contentPane.add(SeccionEjercicioButton);
 		
+        
+        JButton botonCerrarSesion = new JButton("Cerrar sesión");
+        botonCerrarSesion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Cerrar sesión y volver a la ventana de inicio de sesión
+                Inicio inicio = new Inicio(null);  // personas es la lista de usuarios
+                inicio.setVisible(true);
+                dispose();  // Cierra la ventana actual
+            }
+        });
+        botonCerrarSesion.setBounds(500, 300, 130, 23);
+        contentPane.add(botonCerrarSesion);
+
 	}
 }

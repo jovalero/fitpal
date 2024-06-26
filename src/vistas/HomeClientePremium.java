@@ -23,6 +23,9 @@ public class HomeClientePremium extends JFrame {
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         contentPane.setLayout(null);
+        
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 
         JLabel Bienvenidolabel = new JLabel("Bienvenido " + cliente.getNombre() + " " + cliente.getApellido() + ". ¿Qué desea hacer?");
         Bienvenidolabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -57,16 +60,18 @@ public class HomeClientePremium extends JFrame {
         btnVerEntrenador.setBounds(300, 189, 201, 43);
         contentPane.add(btnVerEntrenador);
 
-        JButton CerrarButton = new JButton("Cerrar sesión");
-        CerrarButton.addActionListener(new ActionListener() {
+        
+        JButton botonCerrarSesion = new JButton("Cerrar sesión");
+        botonCerrarSesion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Acción para CerrarButton
+                // Cerrar sesión y volver a la ventana de inicio de sesión
+                Inicio inicio = new Inicio(null);  // personas es la lista de usuarios
+                inicio.setVisible(true);
+                dispose();  // Cierra la ventana actual
             }
         });
-        CerrarButton.setBounds(300, 243, 201, 43);
-        contentPane.add(CerrarButton);
-
-        setContentPane(contentPane);
+        botonCerrarSesion.setBounds(500, 300, 130, 23);
+        contentPane.add(botonCerrarSesion);
     }
 }
 
