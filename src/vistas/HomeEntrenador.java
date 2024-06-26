@@ -37,16 +37,16 @@ public class HomeEntrenador extends JFrame {
 				JOptionPane.showMessageDialog(null, "panchito, 1.54m, 60kg");
 			}
 		});
-		visualizarDatosButton.setBounds(52, 81, 201, 43);
+		visualizarDatosButton.setBounds(52, 81, 241, 43);
 		contentPane.add(visualizarDatosButton);
 
-		JButton asignarRutinasButton = new JButton("Asignar rutinas de entrenamiento y dietas");
+		JButton asignarRutinasButton = new JButton("Asignar rutinas de entrenamiento");
 		asignarRutinasButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, "No hay rutinas en la base de datos");
 			}
 		});
-		asignarRutinasButton.setBounds(52, 135, 201, 43);
+		asignarRutinasButton.setBounds(52, 135, 242, 43);
 		contentPane.add(asignarRutinasButton);
 
 		JButton visualizarIncentivosButton = new JButton("Visualizar incentivos");
@@ -55,7 +55,7 @@ public class HomeEntrenador extends JFrame {
 				JOptionPane.showMessageDialog(null, "No hay incentivos");
 			}
 		});
-		visualizarIncentivosButton.setBounds(52, 189, 201, 43);
+		visualizarIncentivosButton.setBounds(52, 189, 240, 43);
 		contentPane.add(visualizarIncentivosButton);
 
 		JButton canjearIncentivosButton = new JButton("Canjear incentivos");
@@ -64,7 +64,7 @@ public class HomeEntrenador extends JFrame {
 				JOptionPane.showMessageDialog(null, "No existen incentivos que canjear");
 			}
 		});
-		canjearIncentivosButton.setBounds(52, 243, 201, 43);
+		canjearIncentivosButton.setBounds(52, 243, 239, 43);
 		contentPane.add(canjearIncentivosButton);
 		
 		JButton salirButton = new JButton("Salir");
@@ -74,7 +74,7 @@ public class HomeEntrenador extends JFrame {
 				System.exit(0);
 			}
 		});
-		salirButton.setBounds(52, 297, 201, 43);
+		salirButton.setBounds(53, 296, 240, 43);
 		contentPane.add(salirButton);
 		
         JButton botonCerrarSesion = new JButton("Cerrar sesión");
@@ -88,6 +88,17 @@ public class HomeEntrenador extends JFrame {
         });
         botonCerrarSesion.setBounds(500, 300, 130, 23);
         contentPane.add(botonCerrarSesion);
+        
+        JButton btnAsignarDieta = new JButton("Asignar Dieta");
+        btnAsignarDieta.setBounds(330, 82, 242, 43);
+        contentPane.add(btnAsignarDieta);
+        btnAsignarDieta.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                DietaEntrenador dietaEntrenador = new DietaEntrenador(entrenador);
+                dietaEntrenador.setVisible(true);
+                dispose();  // Cierra la ventana actual si es necesario
+            }
+        });
 	}
 }
 
