@@ -17,31 +17,35 @@ public class ProgresoControlador implements ProgresoRepository {
     public ProgresoControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
     }
+	public Connection getConnection() {
+		return connection;
+	}
 
-    @Override
-    public List<Progreso> getAllProgresos() {
-        List<Progreso> progresos = new LinkedList<>();
-        
-        try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM progreso");
-            ResultSet resultSet = statement.executeQuery();
-            
-            while (resultSet.next()) {
-                Progreso progreso = new Progreso(
-                    resultSet.getInt("ID_Progreso"),
-                    resultSet.getInt("ID_Cliente"),
-                    resultSet.getDate("Fecha").toLocalDate(),
-                    resultSet.getString("Imagen"),
-                    resultSet.getDouble("Peso")
-                );
-                progresos.add(progreso);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Ocurrió un error al mostrar los progresos");
-        }
-        return progresos;
-    }
+	@Override
+	public LinkedList<Progreso> getAllProgresos() {
+	    LinkedList<Progreso> progresos = new LinkedList<Progreso>();
+	    
+	    try {
+	        PreparedStatement statement = connection.prepareStatement("SELECT * FROM progreso");
+	        ResultSet resultSet = statement.executeQuery();
+	        
+	        while (resultSet.next()) {
+	            Progreso progreso = new Progreso(
+	                resultSet.getInt("ID_Progreso"),
+	                resultSet.getInt("ID_Cliente"),
+	                resultSet.getDate("Fecha").toLocalDate(),
+	                resultSet.getString("Imagen"),
+	                resultSet.getDouble("Peso")
+	            );
+	            progresos.add(progreso);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(null, "Ocurrió un error al mostrar los progresos");
+	    }
+	    return progresos;
+	}
+
 
     @Override
     public Progreso getProgresoById(int id) {
@@ -69,22 +73,22 @@ public class ProgresoControlador implements ProgresoRepository {
     @Override
     public void addProgreso(Progreso progreso) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO progreso (ID_Progreso, ID_Cliente, Fecha, Imagen, Peso) VALUES (?, ?, ?, ?, ?)");
-            statement.setInt(1, progreso.getIdProgreso());
-            statement.setInt(2, progreso.getIdCliente());
-            statement.setDate(3, Date.valueOf(progreso.getFecha()));
-            statement.setString(4, progreso.getImagen());
-            statement.setDouble(5, progreso.getPeso());
-            
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                JOptionPane.showMessageDialog(null, "Progreso creado");
-            }
+            Connection conn = getConnection();
+            String query = "INSERT INTO progreso (id_cliente, fecha, imagen, peso) VALUES (?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, progreso.getIdCliente());
+            stmt.setDate(2, java.sql.Date.valueOf(progreso.getFecha()));
+            stmt.setString(3, progreso.getImagen());
+            stmt.setDouble(4, progreso.getPeso());
+            int rowsAffected = stmt.executeUpdate();
+            System.out.println("Rows affected (addProgreso): " + rowsAffected);
+            stmt.close();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "No se pudo añadir el progreso");
         }
     }
+
 
     @Override
     public void updateProgreso(Progreso progreso) {
@@ -107,17 +111,15 @@ public class ProgresoControlador implements ProgresoRepository {
     }
 
     @Override
-    public void deleteProgreso(int id) {
-        try {
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM progreso WHERE ID_Progreso = ?");
-            statement.setInt(1, id);
-            int rowsDeleted = statement.executeUpdate();
-            if (rowsDeleted > 0) {
-                JOptionPane.showMessageDialog(null, "Progreso eliminado");
-            }
+    public void deleteProgreso(int idProgreso) {
+        String query = "DELETE FROM progreso WHERE ID_Progreso = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, idProgreso);
+            int rowsAffected = stmt.executeUpdate();
+            System.out.println("Rows affected (deleteProgreso): " + rowsAffected);
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "No se pudo eliminar el progreso");
+            JOptionPane.showMessageDialog(null, "Error al eliminar el progreso");
         }
     }
 }

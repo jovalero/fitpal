@@ -8,7 +8,9 @@ public interface EntrenadorRepository {
 	
 LinkedList<Entrenador> getAllEntrenadores(); // llama a todos los Entrenadores de la bdd
     
-    Entrenador getEntrenadorByid(int id); //llama solo a uno, por su id
+LinkedList<Entrenador> getAllEntrenadoresBySucursal(int sucursal);
+
+	Entrenador getEntrenadorByid(int id); //llama solo a uno, por su id
     
     void addEntrenador(Entrenador cliente); //añade usuarios a la bdd
     
