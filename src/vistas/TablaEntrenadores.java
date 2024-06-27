@@ -114,7 +114,7 @@ public class TablaEntrenadores extends JFrame {
         btnClientes.setBounds(529, 257, 150, 58);
         contentPane.add(btnClientes);
 
-        JButton btnAtras = new JButton("Atras");
+        JButton btnAtras = new JButton("Volver al menú");
         btnAtras.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new HomeAdmin(administrador).setVisible(true);

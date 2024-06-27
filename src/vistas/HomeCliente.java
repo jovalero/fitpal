@@ -89,5 +89,9 @@ public class HomeCliente extends JFrame {
         });
         botonCerrarSesion.setBounds(500, 300, 130, 23);
         contentPane.add(botonCerrarSesion);
+        
+        JButton btnGestionarProgresos = new JButton("Gestionar progresos");
+        btnGestionarProgresos.setBounds(300, 81, 201, 43);
+        contentPane.add(btnGestionarProgresos);
     }
 }

@@ -49,15 +49,16 @@ public class HomeEntrenador extends JFrame {
 		asignarRutinasButton.setBounds(322, 150, 201, 43);
 		contentPane.add(asignarRutinasButton);
 		
-		JButton salirButton = new JButton("Salir");
-		salirButton.addActionListener(new ActionListener() {
+		JButton visualizarProgresosButton = new JButton("Visualizar progresos de clientes");
+		visualizarProgresosButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "CHAU");
-				System.exit(0);
+				// Abrir la ventana de TablaProgresoEntrenador
+				new TablaProgresoEntrenador(entrenador).setVisible(true);
+				dispose(); // Cerrar la ventana actual si es necesario
 			}
 		});
-		salirButton.setBounds(53, 296, 240, 43);
-		contentPane.add(salirButton);
+		visualizarProgresosButton.setBounds(52, 297, 201, 43);
+		contentPane.add(visualizarProgresosButton);
 		
         JButton botonCerrarSesion = new JButton("Cerrar sesión");
         botonCerrarSesion.addActionListener(new ActionListener() {
@@ -83,4 +84,3 @@ public class HomeEntrenador extends JFrame {
         });
 	}
 }
-
