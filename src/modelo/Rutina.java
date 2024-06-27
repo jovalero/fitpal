@@ -2,24 +2,24 @@ package modelo;
 
 public class Rutina {
 
-    private int idRutina;
+    private int ID_Rutina;
     private String estado;
     private String descripcion;
     private String objetivo;
 
     public Rutina(int idRutina, String estado, String descripcion, String objetivo) {
-        this.idRutina = idRutina;
+        this.ID_Rutina = idRutina;
         this.estado = estado;
         this.descripcion = descripcion;
         this.objetivo = objetivo;
     }
 
     public int getIdRutina() {
-        return idRutina;
+        return ID_Rutina;
     }
 
     public void setIdRutina(int idRutina) {
-        this.idRutina = idRutina;
+        this.ID_Rutina = idRutina;
     }
 
     public String getEstado() {
@@ -48,7 +48,11 @@ public class Rutina {
 
     @Override
     public String toString() {
-        return "Rutina [idRutina=" + idRutina + ", estado=" + estado + ", descripcion=" + descripcion + ", objetivo=" + objetivo + "]";
+        return "Rutina [idRutina=" + ID_Rutina + ", estado=" + estado + ", descripcion=" + descripcion + ", objetivo=" + objetivo + "]";
     }
- 
+
+	public Object getID_Rutina() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

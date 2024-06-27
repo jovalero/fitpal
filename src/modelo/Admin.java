@@ -579,4 +579,11 @@ do {
 } while (otraaccion.equalsIgnoreCase("Si"));
        /*/
 	}
+
+	public int getIdRutina() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
 }
