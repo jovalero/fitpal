@@ -113,7 +113,7 @@ public class EjercicioTabla extends JFrame {
         secEjercicios.setBounds(501, 257, 166, 58);
         contentPane.add(secEjercicios);
         
-        JButton Volverbutton = new JButton("Volver a menú");
+        JButton Volverbutton = new JButton("Volver al menú");
         Volverbutton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new HomeAdmin(administrador);

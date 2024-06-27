@@ -36,16 +36,8 @@ public class HomeClientePremium extends JFrame {
         PerfilButton.setBounds(52, 81, 201, 43);
         contentPane.add(PerfilButton);
 
-        JButton VerProgresoButton = new JButton("Ver progresos");
-        VerProgresoButton.setBounds(52, 135, 201, 43);
-        contentPane.add(VerProgresoButton);
-
-        JButton AnotarProgresoButton = new JButton("Anotar progreso");
-        AnotarProgresoButton.setBounds(52, 189, 201, 43);
-        contentPane.add(AnotarProgresoButton);
-
         JButton VerRutinabutton = new JButton("Ver rutina");
-        VerRutinabutton.setBounds(52, 243, 201, 43);
+        VerRutinabutton.setBounds(52, 135, 201, 43);
         contentPane.add(VerRutinabutton);
 
         JButton CanjearIncentivo = new JButton("Canjear incentivos");
@@ -70,6 +62,7 @@ public class HomeClientePremium extends JFrame {
         botonCerrarSesion.setBounds(500, 300, 130, 23);
         contentPane.add(botonCerrarSesion);
         
+
         JButton btnVerDieta = new JButton("Ver dieta");
         btnVerDieta.setBounds(300, 135, 201, 43);
         contentPane.add(btnVerDieta);
@@ -81,6 +74,11 @@ public class HomeClientePremium extends JFrame {
         });
         btnVerDieta.setBounds(300, 135, 201, 43);
         contentPane.add(btnVerDieta);
+
+        JButton btnGestionarProgresos = new JButton("Gestionar progresos");
+        btnGestionarProgresos.setBounds(52, 189, 201, 43);
+        contentPane.add(btnGestionarProgresos);
+
     }
 }
 

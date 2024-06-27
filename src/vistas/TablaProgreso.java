@@ -28,6 +28,7 @@ public class TablaProgreso extends JFrame {
     private DefaultTableModel model;
     private ProgresoControlador controlador;
     private JTextField textFieldFiltro;
+    private Progreso seleccionado;
 
     public TablaProgreso(Admin administrador) {
         this.setVisible(true);
@@ -37,6 +38,7 @@ public class TablaProgreso extends JFrame {
         contentPane.setBorder(null);
 
         setContentPane(contentPane);
+        contentPane.setLayout(null);
 
         try {
             controlador = new ProgresoControlador();
@@ -50,7 +52,7 @@ public class TablaProgreso extends JFrame {
             return;
         }
 
-        Progreso seleccionado = new Progreso(0, 0, null, "", 0.0);
+        seleccionado = new Progreso(0, 0, null, "", 0.0);
 
         String[] columnNames = { "ID Progreso", "ID Cliente", "Fecha", "Imagen", "Peso" };
         model = new DefaultTableModel(columnNames, 0);
@@ -58,21 +60,20 @@ public class TablaProgreso extends JFrame {
         actualizarTabla();
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(5, 56, 911, 190);
-        contentPane.setLayout(null);
+        scrollPane.setBounds(0, 73, 921, 173);
         contentPane.add(scrollPane);
         
         JLabel lblFiltro = new JLabel("Buscador:");
-        lblFiltro.setBounds(20, 36, 67, 14);
+        lblFiltro.setBounds(20, 31, 67, 20);
         contentPane.add(lblFiltro);
 
         textFieldFiltro = new JTextField();
-        textFieldFiltro.setBounds(97, 33, 100, 20);
+        textFieldFiltro.setBounds(85, 31, 126, 20);
         contentPane.add(textFieldFiltro);
         textFieldFiltro.setColumns(10);
 
         JButton btnFiltrar = new JButton("Filtrar");
-        btnFiltrar.setBounds(207, 32, 89, 23);
+        btnFiltrar.setBounds(227, 29, 81, 25);
         btnFiltrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 filtrar(textFieldFiltro.getText());
@@ -80,29 +81,27 @@ public class TablaProgreso extends JFrame {
         });
         contentPane.add(btnFiltrar);
 
-        JLabel seleccionadoLabel = new JLabel("Seleccionado:");
-        seleccionadoLabel.setBounds(5, 5, 911, 14);
+        JLabel seleccionadoLabel = new JLabel("SECCIÓN DE PROGRESO");
+        seleccionadoLabel.setBounds(10, 11, 911, 14);
         contentPane.add(seleccionadoLabel);
 
-        JButton btnEliminar = new JButton("Eliminar");
-        btnEliminar.addActionListener(new ActionListener() {
+        // Añadir los botones de manera simétrica
+        int buttonWidth = 166;
+        int buttonHeight = 58;
+        int spacing = (945 - (buttonWidth * 4)) / 5; // Calcula el espacio entre botones y bordes
+
+        JButton btnAgregar = new JButton("Agregar");
+        btnAgregar.setBounds(spacing, 257, buttonWidth, buttonHeight);
+        btnAgregar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (seleccionado != null && seleccionado.getIdProgreso() != 0) {
-                    int idProgreso = seleccionado.getIdProgreso();
-                    System.out.println("ID Progreso a eliminar: " + idProgreso);
-                    controlador.deleteProgreso(idProgreso);
-                    actualizarTabla();
-                    JOptionPane.showMessageDialog(null, "Progreso eliminado");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Seleccione un progreso");
-                }
+                AgregarProgreso agregarProgreso = new AgregarProgreso(controlador, TablaProgreso.this);
+                agregarProgreso.setVisible(true);
             }
         });
-
-        btnEliminar.setBounds(475, 257, 187, 58);
-        contentPane.add(btnEliminar);
+        contentPane.add(btnAgregar);
 
         JButton btnEditar = new JButton("Editar");
+        btnEditar.setBounds(spacing * 2 + buttonWidth, 257, buttonWidth, buttonHeight);
         btnEditar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getIdProgreso() != 0) {
@@ -112,29 +111,36 @@ public class TablaProgreso extends JFrame {
                 }
             }
         });
-        btnEditar.setBounds(268, 257, 166, 58);
         contentPane.add(btnEditar);
 
-        JButton btnAgregar = new JButton("Agregar");
-        btnAgregar.addActionListener(new ActionListener() {
+        JButton btnEliminar = new JButton("Eliminar");
+        btnEliminar.setBounds(spacing * 3 + buttonWidth * 2, 257, buttonWidth, buttonHeight);
+        btnEliminar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                AgregarProgreso agregarProgreso = new AgregarProgreso(controlador, TablaProgreso.this);
-                agregarProgreso.setVisible(true); // Mostrar ventana emergente de agregar progreso
+                if (seleccionado != null && seleccionado.getIdProgreso() != 0) {
+                    int idProgreso = seleccionado.getIdProgreso();
+                    controlador.deleteProgreso(idProgreso);
+                    actualizarTabla();
+                    JOptionPane.showMessageDialog(null, "Progreso eliminado");
+                    seleccionado = new Progreso(0, 0, null, "", 0.0);
+                    seleccionadoLabel.setText("Seleccionado:");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Seleccione un progreso");
+                }
             }
         });
-        btnAgregar.setBounds(60, 257, 166, 58);
-        contentPane.add(btnAgregar);
-        
-        JButton Volverbutton = new JButton("Volver a menú");
+        contentPane.add(btnEliminar);
+
+        JButton Volverbutton = new JButton("Volver al menú");
+        Volverbutton.setBounds(spacing * 4 + buttonWidth * 3, 257, buttonWidth, buttonHeight);
         Volverbutton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		new HomeAdmin(administrador);
-        		dispose();
-        	}
+            public void actionPerformed(ActionEvent e) {
+                new HomeAdmin(administrador);
+                dispose();
+            }
         });
-        Volverbutton.setBounds(700, 257, 166, 58);
         contentPane.add(Volverbutton);
-        
+
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -162,7 +168,7 @@ public class TablaProgreso extends JFrame {
     }
 
     public void actualizarTabla() {
-        model.setRowCount(0); //
+        model.setRowCount(0); 
         LinkedList<Progreso> progresos = controlador.getAllProgresos();
         for (Progreso progreso : progresos) {
             model.addRow(new Object[] { 
@@ -174,6 +180,7 @@ public class TablaProgreso extends JFrame {
             });
         }
     }
+    
     private void filtrar(String criterio) {
         model.setRowCount(0);
         LinkedList<Progreso> progresos = controlador.getAllProgresos();

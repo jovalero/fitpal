@@ -88,17 +88,6 @@ public class HomeEntrenador extends JFrame {
         });
         botonCerrarSesion.setBounds(500, 300, 130, 23);
         contentPane.add(botonCerrarSesion);
-        
-        JButton btnAsignarDieta = new JButton("Asignar Dieta");
-        btnAsignarDieta.setBounds(330, 82, 242, 43);
-        contentPane.add(btnAsignarDieta);
-        btnAsignarDieta.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                DietaEntrenador dietaEntrenador = new DietaEntrenador(entrenador);
-                dietaEntrenador.setVisible(true);
-                dispose();  // Cierra la ventana actual si es necesario
-            }
-        });
 	}
 }
 
