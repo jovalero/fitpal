@@ -64,12 +64,10 @@ public class HomeClientePremium extends JFrame {
         
 
         JButton btnVerDieta = new JButton("Ver dieta");
-        btnVerDieta.setBounds(300, 135, 201, 43);
-        contentPane.add(btnVerDieta);
         btnVerDieta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                DietaCliente dietaClienteP = new DietaCliente(cliente);
-                dietaClienteP.setVisible(true);
+                DietaCliente dietaCliente = new DietaCliente(cliente);
+                dietaCliente.setVisible(true);
             }
         });
         btnVerDieta.setBounds(300, 135, 201, 43);
@@ -78,7 +76,7 @@ public class HomeClientePremium extends JFrame {
         JButton btnGestionarProgresos = new JButton("Gestionar progresos");
         btnGestionarProgresos.setBounds(52, 189, 201, 43);
         contentPane.add(btnGestionarProgresos);
-
+        
     }
 }
 

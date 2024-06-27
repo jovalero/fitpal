@@ -90,8 +90,34 @@ public class DietaEntrenador extends JFrame {
                 }
             }
         });
-        asignarDietaButton.setBounds(516, 257, 166, 58);
+        asignarDietaButton.setBounds(495, 257, 166, 58);
         contentPane.add(asignarDietaButton);
+
+        JButton editarDietaButton = new JButton("Editar Dieta");
+        editarDietaButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (dietaSeleccionada != null) {
+                    EditarDieta editarDieta = new EditarDieta(dietaSeleccionada);
+                    editarDieta.setVisible(true);
+                    dispose();  // Cierra la ventana actual si es necesario
+                } else {
+                    JOptionPane.showMessageDialog(null, "Seleccione una dieta para editar");
+                }
+            }
+        });
+        editarDietaButton.setBounds(701, 257, 166, 58);
+        contentPane.add(editarDietaButton);
+
+        JButton agregarDietaButton = new JButton("Agregar Dieta");
+        agregarDietaButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                AgregarDieta agregarDieta = new AgregarDieta();
+                agregarDieta.setVisible(true);
+                dispose();  // Cierra la ventana actual si es necesario
+            }
+        });
+        agregarDietaButton.setBounds(299, 257, 166, 58);
+        contentPane.add(agregarDietaButton);
 
         JButton volverButton = new JButton("Volver a menú");
         volverButton.addActionListener(new ActionListener() {
@@ -101,7 +127,7 @@ public class DietaEntrenador extends JFrame {
                 new HomeEntrenador(entrenador).setVisible(true);  // Abre el menú de HomeEntrenador
             }
         });
-        volverButton.setBounds(226, 257, 166, 58);  // Ajusta la posición del botón
+        volverButton.setBounds(81, 257, 166, 58);  // Ajusta la posición del botón
         contentPane.add(volverButton);
 
         ListSelectionModel selectionModel = table.getSelectionModel();

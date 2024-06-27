@@ -88,6 +88,17 @@ public class HomeEntrenador extends JFrame {
         });
         botonCerrarSesion.setBounds(500, 300, 130, 23);
         contentPane.add(botonCerrarSesion);
+        
+        JButton btnVisualizarDietas = new JButton("Visualizar dietas");
+        btnVisualizarDietas.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();  // Cierra la ventana actual
+                new DietaEntrenador(entrenador).setVisible(true);  // Abre la ventana DietaEntrenador
+            }
+        });
+        btnVisualizarDietas.setBounds(324, 81, 241, 43);
+        contentPane.add(btnVisualizarDietas);
+        
 	}
 }
 

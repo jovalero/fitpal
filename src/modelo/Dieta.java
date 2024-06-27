@@ -10,8 +10,11 @@ public class Dieta {
         this.nombreDieta = nombreDieta;
         this.descripcionDieta = descripcionDieta;
     }
-
-    public int getIdDieta() {
+    public Dieta(String nombreDieta, String descripcionDieta) {
+        this.nombreDieta = nombreDieta;
+        this.descripcionDieta = descripcionDieta;
+    }
+	public int getIdDieta() {
         return idDieta;
     }
 
