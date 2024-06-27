@@ -22,7 +22,7 @@ public class ComidaTabla extends JFrame {
     private DefaultTableModel model;
     private ComidaControlador controlador;
     private Comida comidaSeleccionada;
-    private JTextField textField;
+    private JTextField textFieldFiltro;
 
     public ComidaTabla(Admin administrador) {
         this.setVisible(true);
@@ -55,7 +55,7 @@ public class ComidaTabla extends JFrame {
         comidatabla.setBounds(0, 73, 921, 173);
         contentPane.add(comidatabla);
 
-        JLabel seleccionadoLabel = new JLabel("Seleccionado: ");
+        JLabel seleccionadoLabel = new JLabel("SECCIÓN DE COMIDA");
         seleccionadoLabel.setBounds(10, 11, 911, 14);
         contentPane.add(seleccionadoLabel);
 
@@ -73,22 +73,18 @@ public class ComidaTabla extends JFrame {
                 }
             }
         });
-        btnEliminar.setBounds(36, 257, 187, 58);
-        contentPane.add(btnEliminar);
 
         JButton btnEditar = new JButton("Editar");
         btnEditar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (comidaSeleccionada != null) {
-                    EditarComida editar = new EditarComida(comidaSeleccionada,administrador);
+                    EditarComida editar = new EditarComida(comidaSeleccionada, administrador);
                     editar.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione una comida");
                 }
             }
         });
-        btnEditar.setBounds(282, 257, 166, 58);
-        contentPane.add(btnEditar);
 
         JButton seccomidas = new JButton("Registrar nuevo");
         seccomidas.addActionListener(new ActionListener() {
@@ -97,37 +93,48 @@ public class ComidaTabla extends JFrame {
                 registrar.setVisible(true);
             }
         });
-        seccomidas.setBounds(490, 257, 166, 58);
-        contentPane.add(seccomidas);
 
-        textField = new JTextField();
-        textField.setBounds(97, 36, 86, 20);
-        contentPane.add(textField);
-        textField.setColumns(10);
-
-        JLabel filtro = new JLabel("Buscador:");
-        filtro.setBounds(20, 36, 67, 14);
-        contentPane.add(filtro);
-
-        JButton filtrar = new JButton("Filtrar");
-        filtrar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Filtrar(textField.getText());
-            }
-        });
-        filtrar.setBounds(206, 36, 89, 23);
-        contentPane.add(filtrar);
-        
-        JButton Volverbutton = new JButton("Volver a menú");
+        JButton Volverbutton = new JButton("Volver al menú");
         Volverbutton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new HomeAdmin(administrador);
                 dispose();
             }
         });
-        Volverbutton.setBounds(700, 257, 166, 58);
+
+        // Añadir los botones de manera simétrica
+        int buttonWidth = 166;
+        int buttonHeight = 58;
+        int spacing = (945 - (buttonWidth * 4)) / 5; // Calcula el espacio entre botones y bordes
+
+        btnEliminar.setBounds(spacing, 257, buttonWidth, buttonHeight);
+        btnEditar.setBounds(spacing * 2 + buttonWidth, 257, buttonWidth, buttonHeight);
+        seccomidas.setBounds(spacing * 3 + buttonWidth * 2, 257, buttonWidth, buttonHeight);
+        Volverbutton.setBounds(spacing * 4 + buttonWidth * 3, 257, buttonWidth, buttonHeight);
+
+        contentPane.add(btnEliminar);
+        contentPane.add(btnEditar);
+        contentPane.add(seccomidas);
         contentPane.add(Volverbutton);
-        
+
+        JLabel lblFiltro = new JLabel("Buscador:");
+        lblFiltro.setBounds(20, 31, 67, 20);
+        contentPane.add(lblFiltro);
+
+        textFieldFiltro = new JTextField();
+        textFieldFiltro.setBounds(85, 31, 126, 20);
+        contentPane.add(textFieldFiltro);
+        textFieldFiltro.setColumns(10);
+
+        JButton btnFiltrar = new JButton("Filtrar");
+        btnFiltrar.setBounds(227, 29, 81, 25);
+        btnFiltrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Filtrar(textFieldFiltro.getText());
+            }
+        });
+        contentPane.add(btnFiltrar);
+
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -168,3 +175,4 @@ public class ComidaTabla extends JFrame {
         }
     }
 }
+
