@@ -75,7 +75,7 @@ public class IncentivoControlador implements IncentivoRepository {
                 "INSERT INTO incentivo (recompensa, costo, dirigido) VALUES (?, ?, ?)"
             );
 
-            // Corregido el orden de los parámetros
+    
             statement.setString(1, incentivo.getRecompensa());
             statement.setDouble(2, incentivo.getCosto());
             statement.setString(3, incentivo.getDirigido());

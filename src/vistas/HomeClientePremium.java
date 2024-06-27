@@ -54,6 +54,10 @@ public class HomeClientePremium extends JFrame {
         contentPane.add(VerRutinabutton);
 
         JButton CanjearIncentivo = new JButton("Canjear incentivos");
+        CanjearIncentivo.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
         CanjearIncentivo.setBounds(300, 81, 201, 43);
         contentPane.add(CanjearIncentivo);
 

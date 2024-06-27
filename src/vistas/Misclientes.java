@@ -89,7 +89,7 @@ public class Misclientes extends JFrame {
         JButton Volverbutton = new JButton("Volver a menú");
         Volverbutton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new HomeAdmin();
+                new HomeEntrenador(entrenador);
                 dispose();
             }
         });

@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+
 import controlador.IncentivoControlador;
 import modelo.Admin;
 import modelo.Incentivo;
@@ -18,8 +19,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import java.awt.Color;
 
-public class TablaIncentivo extends JFrame {
+public class MostrarTabladeCanje extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -27,7 +29,7 @@ public class TablaIncentivo extends JFrame {
     private DefaultTableModel model;
     private IncentivoControlador controlador;
 
-    public TablaIncentivo(Admin administrador) {
+    public MostrarTabladeCanje(Admin administrador) {
         this.setVisible(true);
         controlador = new IncentivoControlador();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,9 +50,7 @@ public class TablaIncentivo extends JFrame {
             return;
         }
 
-        Incentivo seleccionado = new Incentivo();
-
-        // Ajuste de nombres de columnas para que coincidan con la estructura de la tabla incentivo
+        
         String[] columnNames = {"ID Incentivo", "Recompensa", "Costo", "Dirigido"};
         model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
@@ -66,21 +66,6 @@ public class TablaIncentivo extends JFrame {
         seleccionadolabel.setBounds(5, 5, 911, 14);
         contentPane.add(seleccionadolabel);
 
-        JButton btnEliminar = new JButton("Eliminar");
-        btnEliminar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (seleccionado.getIdIncentivo() != 0) {
-                    controlador.deleteIncentivo(seleccionado.getIdIncentivo());
-                    JOptionPane.showMessageDialog(null, "Eliminado");
-                    actualizarTabla();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Seleccione un incentivo");
-                }
-            }
-        });
-        btnEliminar.setBounds(49, 257, 150, 58);
-        contentPane.add(btnEliminar);
-
         JButton btnAtras = new JButton("Atras");
         btnAtras.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -88,18 +73,13 @@ public class TablaIncentivo extends JFrame {
                 dispose();
             }
         });
-        btnAtras.setBounds(689, 257, 150, 58);
+        btnAtras.setBounds(258, 275, 389, 40);
         contentPane.add(btnAtras);
         
-        JButton btnAgregar = new JButton("Agregar");
-        btnAgregar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	 new RegistrarIncentivo(administrador);
-            	dispose();
-            }
-        });
-        btnAgregar.setBounds(365, 257, 150, 58);
-        contentPane.add(btnAgregar);
+        JLabel lblholaRecuerdaQue = new JLabel("¡Hola! Recuerda que los puntos de gym se pueden comprar en recepción. \r\n¡Aprovecha al máximo los beneficios del gimnasio y alcanza tus metas de salud y bienestar!\r\n\r\n");
+        lblholaRecuerdaQue.setForeground(new Color(255, 0, 0));
+        lblholaRecuerdaQue.setBounds(60, 238, 796, 37);
+        contentPane.add(lblholaRecuerdaQue);
 
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -116,11 +96,6 @@ public class TablaIncentivo extends JFrame {
                         String dirigido = (String) table.getValueAt(selectedRow, 3);
 
                         seleccionadolabel.setText("Seleccionado: ID Incentivo=" + idIncentivo + ", Recompensa=" + recompensa + ", Costo=" + costo + ", Dirigido=" + dirigido);
-
-                        seleccionado.setIdIncentivo(idIncentivo);
-                        seleccionado.setRecompensa(recompensa);
-                        seleccionado.setCosto(costo);
-                        seleccionado.setDirigido(dirigido);
                     }
                 }
             }
