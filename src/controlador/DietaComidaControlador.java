@@ -97,7 +97,7 @@ public class DietaComidaControlador implements DietaComidaRepository {
             
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
-                JOptionPane.showMessageDialog(null, "DietaComida actualizada");
+                JOptionPane.showMessageDialog(null, "Dieta Comida actualizada");
             }
         } catch (SQLException e) {
             e.printStackTrace();

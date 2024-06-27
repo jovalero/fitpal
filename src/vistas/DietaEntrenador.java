@@ -1,14 +1,15 @@
 package vistas;
 
-import controlador.DietaControlador;
-import modelo.Entrenador;
-import modelo.Dieta;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+
+import controlador.DietaControlador;
+import modelo.Dieta;
+import modelo.Entrenador;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -25,7 +26,7 @@ public class DietaEntrenador extends JFrame {
     private Entrenador entrenador;
 
     public DietaEntrenador(Entrenador entrenador) {
-        this.entrenador = entrenador;  // Guardamos el entrenador para utilizarlo al volver al menú
+        this.entrenador = entrenador;
         this.setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 945, 365);
@@ -81,7 +82,6 @@ public class DietaEntrenador extends JFrame {
         JButton asignarDietaButton = new JButton("Asignar Dieta");
         asignarDietaButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Lógica para asignar dieta al entrenador seleccionado
                 if (dietaSeleccionada != null) {
                     // Aquí puedes implementar la lógica para asignar la dieta al entrenador
                     JOptionPane.showMessageDialog(null, "Dieta asignada correctamente");
@@ -97,9 +97,9 @@ public class DietaEntrenador extends JFrame {
         editarDietaButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (dietaSeleccionada != null) {
-                    EditarDieta editarDieta = new EditarDieta(dietaSeleccionada);
+                    EditarDieta editarDieta = new EditarDieta(dietaSeleccionada, DietaEntrenador.this);
                     editarDieta.setVisible(true);
-                    dispose();  // Cierra la ventana actual si es necesario
+                    // No cerramos la ventana actual aquí, ya que EditarDieta maneja su propia disposición
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione una dieta para editar");
                 }
@@ -113,7 +113,7 @@ public class DietaEntrenador extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 AgregarDieta agregarDieta = new AgregarDieta();
                 agregarDieta.setVisible(true);
-                dispose();  // Cierra la ventana actual si es necesario
+                // No cerramos la ventana actual aquí, ya que AgregarDieta maneja su propia disposición
             }
         });
         agregarDietaButton.setBounds(299, 257, 166, 58);
@@ -127,7 +127,7 @@ public class DietaEntrenador extends JFrame {
                 new HomeEntrenador(entrenador).setVisible(true);  // Abre el menú de HomeEntrenador
             }
         });
-        volverButton.setBounds(81, 257, 166, 58);  // Ajusta la posición del botón
+        volverButton.setBounds(81, 257, 166, 58);
         contentPane.add(volverButton);
 
         ListSelectionModel selectionModel = table.getSelectionModel();
@@ -170,3 +170,4 @@ public class DietaEntrenador extends JFrame {
         }
     }
 }
+

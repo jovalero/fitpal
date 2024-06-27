@@ -80,5 +80,11 @@ public class AgregarDieta extends JFrame {
 
         // Cerrar la ventana después de agregar la dieta
         dispose();
+
+        DietaEntrenador dietaEntrenador = new DietaEntrenador(null);
+		// Si tienes una referencia a la instancia de DietaEntrenador, puedes hacerla visible nuevamente
+        // Suponiendo que dietaEntrenador es la instancia existente de DietaEntrenador que ya está abierta
+        dietaEntrenador.setVisible(true); // Asegúrate de tener un método setVisible en DietaEntrenador para hacerlo visible
     }
 }
+

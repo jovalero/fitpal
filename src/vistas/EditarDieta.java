@@ -22,10 +22,13 @@ public class EditarDieta extends JFrame {
 
     private Dieta dieta;
     private DietaControlador dietaControlador;
+    private DietaEntrenador dietaEntrenador; // Referencia a DietaEntrenador
 
-    public EditarDieta(Dieta dieta) {
+    // Constructor que recibe Dieta y DietaEntrenador
+    public EditarDieta(Dieta dieta, DietaEntrenador dietaEntrenador) {
         this.dieta = dieta;
         this.dietaControlador = new DietaControlador();
+        this.dietaEntrenador = dietaEntrenador; // Guardar referencia a DietaEntrenador recibida
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 450, 300);
@@ -86,6 +89,10 @@ public class EditarDieta extends JFrame {
 
         // Cerrar la ventana después de guardar cambios
         dispose();
+
+        // Volver a hacer visible la ventana DietaEntrenador
+        dietaEntrenador.setVisible(true);
     }
 }
+
 
