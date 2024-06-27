@@ -185,7 +185,7 @@ INSERT INTO entrenador (Telefono, Nombre, Apellido, Contrasenia, ID_Sucursal, Nu
 -- Tabla cliente
 INSERT INTO cliente (ID_Entrenador, ID_Dieta, ID_Rutina, ID_sucursal, Peso, Altura, Objetivo, Nombre, Apellido, Correo_electronico, Telefono, Fecha_venc_sus, Contrasenia, Estado_sus, Puntos, DNI) VALUES 
 (1, 1, 1, 1, 75.0, 1.80, 'Perder peso', 'Pedro', 'Fernandez', 'pedro.fernandez@example.com', '555-1234', '2024-12-31', 'clientpass1', 'Activa', 100, 12345678),
-(2, 2, 2, 2, 65.0, 1.65, 'Ganar músculo', 'Laura', 'Garcia', 'laura.garcia@example.com', '555-5678', '2024-12-31', 'clientpass2', 'Activa', 200, 87654321);
+(2, 2, 2, 2, 65.0, 1.65, 'Ganar músculo', 'Laura', 'Garcia', 'laura.garcia@example.com', '555-5678', '2024-12-31', 'clientpass2', 'No activa', 200, 87654321);
 
 -- Tabla progreso
 INSERT INTO progreso (ID_Cliente, Fecha, Imagen, Peso) VALUES 

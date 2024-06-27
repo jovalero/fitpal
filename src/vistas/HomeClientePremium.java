@@ -67,7 +67,12 @@ public class HomeClientePremium extends JFrame {
         
         JButton btnGestionarProgresos = new JButton("Gestionar progresos");
         btnGestionarProgresos.setBounds(52, 189, 201, 43);
+        btnGestionarProgresos.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TablaProgreso progreso = new TablaProgreso(null);
+                dispose();
+            }
+        });
         contentPane.add(btnGestionarProgresos);
     }
 }
-

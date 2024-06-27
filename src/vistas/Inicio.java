@@ -136,7 +136,7 @@ public class Inicio extends JFrame {
                             homeAdmin.setVisible(true);
                         } else if (arraypersona[indice] instanceof Cliente) {
                             Cliente cliente = (Cliente) arraypersona[indice];
-                            if (cliente.getEstado_sus().equalsIgnoreCase("Premium")) {
+                            if (cliente.getEstado_sus().equalsIgnoreCase("Activa")) {
                                 HomeClientePremium homeClientePremium = new HomeClientePremium(cliente);
                                 homeClientePremium.setVisible(true);
                             } else {
@@ -164,6 +164,3 @@ public class Inicio extends JFrame {
         contentPane.add(botonSalir);
     }
 }
-
-
-
