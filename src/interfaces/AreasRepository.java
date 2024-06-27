@@ -12,7 +12,7 @@ public interface AreasRepository {
 	    
 	    void addArea(Areas area); // Añade un área a la BDD
 	    
-	    void updateArea(Areas area); // Actualiza un área de la BDD
+	    boolean updateArea(Areas area); // Actualiza un área de la BDD
 	    
 	    void deleteArea(int id); // Elimina un área de la BDD
 	}

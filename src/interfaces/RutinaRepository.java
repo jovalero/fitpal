@@ -10,9 +10,9 @@ public interface RutinaRepository {
     
     Rutina getRutinaByid(int id);
     
-    void addRutina(Rutina rutina);
+    boolean addRutina(Rutina rutina);
     
-    void updateRutina(Rutina rutina);
+    boolean updateRutina(Rutina rutina);
     
     void deleteRutina(int Rutina);
 

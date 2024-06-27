@@ -73,6 +73,13 @@ public class Inicio extends JFrame {
         Iniciodesesionlabel.setBounds(137, 11, 172, 45);
         contentPane.add(Iniciodesesionlabel);
 
+<<<<<<< HEAD
+	}
+
+	public Inicio(Admin administrador) {
+		// TODO Auto-generated constructor stub
+	}
+=======
         emailinput = new JTextField();
         emailinput.setBounds(158, 67, 142, 20);
         contentPane.add(emailinput);
@@ -150,6 +157,7 @@ public class Inicio extends JFrame {
         botonSalir.setBounds(176, 221, 89, 23);
         contentPane.add(botonSalir);
     }
+>>>>>>> origin/mar2
 }
 
 

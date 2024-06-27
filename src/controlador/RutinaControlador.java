@@ -61,7 +61,7 @@ public class RutinaControlador implements RutinaRepository {
 	}
 
 	@Override
-	public void addRutina(Rutina Rutina) {
+	public boolean addRutina(Rutina Rutina) {
 		try {
 			PreparedStatement statement= connection.prepareStatement("INSERT INTO rutina (ID_Rutina, Estado, Descripcion, Objetivo) VALUES (?, ?, ?, ?)");
 			statement.setInt(1, Rutina.getIdRutina());
@@ -78,11 +78,12 @@ public class RutinaControlador implements RutinaRepository {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "No se pudo añadir la rutina");
 		}
+		return false;
 		
 	}
 
 	@Override
-	public void updateRutina(Rutina rutina) {
+	public boolean updateRutina(Rutina rutina) {
         try {
             PreparedStatement statement = connection.prepareStatement("UPDATE rutina SET ID_Rutina = ?, Estado = ?, Descripcion = ?, Objetivo WHERE id = ?");
 			statement.setInt(1, rutina.getIdRutina());
@@ -97,6 +98,7 @@ public class RutinaControlador implements RutinaRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+		return false;
 		
 	}
 
@@ -142,5 +144,11 @@ public class RutinaControlador implements RutinaRepository {
 	    
 		
 	}
+	public boolean RegistrarRutina(String estado, String descripcion, String objetivo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+    
+    
 }
 
