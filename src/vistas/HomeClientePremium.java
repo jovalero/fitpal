@@ -61,10 +61,6 @@ public class HomeClientePremium extends JFrame {
         btnVerDieta.setBounds(300, 135, 201, 43);
         contentPane.add(btnVerDieta);
 
-        JButton btnVerEntrenador = new JButton("Ver entrenador");
-        btnVerEntrenador.setBounds(300, 189, 201, 43);
-        contentPane.add(btnVerEntrenador);
-
         
         JButton botonCerrarSesion = new JButton("Cerrar sesión");
         botonCerrarSesion.addActionListener(new ActionListener() {
