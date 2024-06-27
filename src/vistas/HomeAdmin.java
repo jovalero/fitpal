@@ -103,12 +103,11 @@ public class HomeAdmin extends JFrame {
         JButton botonCerrarSesion = new JButton("Cerrar sesión");
         botonCerrarSesion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
+
                 Inicio inicio = new Inicio(null);  // personas es la lista de usuarios
-=======
+
                 // Cerrar sesión y volver a la ventana de inicio de sesión
                 Inicio inicio = new Inicio();  // personas es la lista de usuarios
->>>>>>> Ehizer
                 inicio.setVisible(true);
                 dispose();  // Cierra la ventana actual
             }
