@@ -96,13 +96,13 @@ public class Inicio extends JFrame {
 
         JLabel Errorcontrasena = new JLabel("Error al ingresar contraseña");
         Errorcontrasena.setForeground(Color.RED);
-        Errorcontrasena.setBounds(158, 145, 142, 14);
+        Errorcontrasena.setBounds(158, 142, 142, 14);
         contentPane.add(Errorcontrasena);
         Errorcontrasena.setVisible(false);
 
         JLabel noencontradolabel = new JLabel("Usuario no encontrado");
         noencontradolabel.setForeground(Color.RED);
-        noencontradolabel.setBounds(166, 196, 114, 14);
+        noencontradolabel.setBounds(168, 230, 114, 14);
         contentPane.add(noencontradolabel);
         noencontradolabel.setVisible(false);
 

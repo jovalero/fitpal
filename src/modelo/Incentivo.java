@@ -1,45 +1,63 @@
 package modelo;
 
 public class Incentivo {
-	private int Costo;
-	private String Descripcion;
-	private int ID_Incentivo;
-	
-	public Incentivo(int Costo, String Descripcion, int ID_Incentivo) {
-		this.Costo = Costo;
-		this.Descripcion = Descripcion;
-		this.ID_Incentivo = ID_Incentivo;
-	}
+    private int idIncentivo;
+    private String recompensa;
+    private double costo;
+    private String dirigido;
+    
+    // Constructor con parámetros
+    public Incentivo(int idIncentivo, String recompensa, double costo, String dirigido) {
+        this.idIncentivo = idIncentivo;
+        this.recompensa = recompensa;
+        this.costo = costo;
+        this.dirigido = dirigido;
+    }
 
-	public int getCosto() {
-		return Costo;
-	}
+    // Constructor vacío
+    public Incentivo() {
+    }
 
-	public void setCosto(int costo) {
-		Costo = costo;
-	}
+    // Getters y Setters
+    public int getIdIncentivo() {
+        return idIncentivo;
+    }
 
-	public String getDescripcion() {
-		return Descripcion;
-	}
+    public void setIdIncentivo(int idIncentivo) {
+        this.idIncentivo = idIncentivo;
+    }
 
-	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
-	}
+    public String getRecompensa() {
+        return recompensa;
+    }
 
-	public int getID_Incentivo() {
-		return ID_Incentivo;
-	}
+    public void setRecompensa(String recompensa) {
+        this.recompensa = recompensa;
+    }
 
-	public void setID_Incentivo(int iD_Incentivo) {
-		ID_Incentivo = iD_Incentivo;
-	}
-	@Override
-	public String toString() {
-		return "Incentivo{" +
-                "nombre='" + Costo + '\'' +
-                ", descripcion='" + Descripcion + '\'' +
-                ", id_comida=" + ID_Incentivo +
-                '}';		
-		}	
-	}
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
+    }
+
+    public String getDirigido() {
+        return dirigido;
+    }
+
+    public void setDirigido(String dirigido) {
+        this.dirigido = dirigido;
+    }
+
+    @Override
+    public String toString() {
+        return "Incentivo{" +
+                "idIncentivo=" + idIncentivo +
+                ", recompensa='" + recompensa + '\'' +
+                ", costo=" + costo +
+                ", dirigido='" + dirigido + '\'' +
+                '}';
+    }
+}

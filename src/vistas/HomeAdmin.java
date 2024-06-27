@@ -111,6 +111,16 @@ public class HomeAdmin extends JFrame {
         });
         botonCerrarSesion.setBounds(500, 300, 130, 23);
         contentPane.add(botonCerrarSesion);
+        
+        JButton SeccionIncentivo = new JButton("Sección de Incentivo");
+        SeccionIncentivo.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		TablaIncentivo tablaIncentivo = new TablaIncentivo(administrador);
+                dispose();
+        	}
+        });
+        SeccionIncentivo.setBounds(300, 189, 201, 43);
+        contentPane.add(SeccionIncentivo);
 
 	}
 }

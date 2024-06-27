@@ -11,101 +11,121 @@ import javax.swing.JOptionPane;
 import interfaces.IncentivoRepository;
 import modelo.Incentivo;
 
-public class IncentivoControlador implements IncentivoRepository{
-	private final Connection connection;
+public class IncentivoControlador implements IncentivoRepository {
+    private final Connection connection;
 
-	  public IncentivoControlador() {
-	        this.connection = DatabaseConnection.getInstance().getConnection();
-	    
-	  }
-		public Connection getConnection() {
-			return connection;
-		}
+    public IncentivoControlador() {
+        this.connection = DatabaseConnection.getInstance().getConnection();
+    }
 
-	@Override
-	public LinkedList<Incentivo> getAllIncentivo() {
-		LinkedList<Incentivo> incentivos= new LinkedList<Incentivo>();
-		try {
-			PreparedStatement statement= connection.prepareStatement("SELECT * FROM incentivos");
-			ResultSet resultSet= statement.executeQuery();
-			
-		while (resultSet.next()) {
-			Incentivo incentivo=new Incentivo (resultSet.getInt ("Costo"),resultSet.getString("Descripcion"),resultSet.getInt("ID_Incentivo"));
-			incentivos.add(incentivo);
-		}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Ocurrio un error al mostrar");
-		}
-		return incentivos;
-	}
+    public Connection getConnection() {
+        return connection;
+    }
 
-	@Override
-	public Incentivo getIncentivoByid(int id) {
-		Incentivo incentivo = null;
+    @Override
+    public LinkedList<Incentivo> getAllIncentivo() {
+        LinkedList<Incentivo> incentivos = new LinkedList<Incentivo>();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Incentivo WHERE id = ?");
-            statement.setInt(1, id);
-            
+            // Corregido el nombre de la tabla en la consulta
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Incentivo");
             ResultSet resultSet = statement.executeQuery();
-            
+
+            while (resultSet.next()) {
+                Incentivo incentivo = new Incentivo(
+                    resultSet.getDouble("Costo"),
+                    resultSet.getString("Descripcion"),
+                    resultSet.getInt("ID_Incentivo")
+                );
+                incentivos.add(incentivo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al mostrar los incentivos.");
+        }
+        return incentivos;
+    }
+
+    @Override
+    public Incentivo getIncentivoByid(int id) {
+        Incentivo incentivo = null;
+        try {
+            // Corregido el nombre de la columna en la consulta
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Incentivo WHERE ID_Incentivo = ?");
+            statement.setInt(1, id);
+
+            ResultSet resultSet = statement.executeQuery();
+
             if (resultSet.next()) {
-            	incentivo= new Incentivo (resultSet.getInt ("Costo"),resultSet.getString("Descripcion"),resultSet.getInt("ID_Incentivo"));
+                incentivo = new Incentivo(
+                    resultSet.getDouble("Costo"),
+                    resultSet.getString("Descripcion"),
+                    resultSet.getInt("ID_Incentivo")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-	return incentivo;
-}
+        return incentivo;
+    }
 
-	@Override
-	public void addIncentivo(Incentivo Incentivo) {
-		try {
-            PreparedStatement statement = connection.prepareStatement
-            		("INSERT INTO Incentivo (Costo, Descripcion, ID_Incentivo) "
-            				+ "VALUES (?, ?, ?)");
-          
-            statement.setInt(1, Incentivo.getID_Incentivo());
-            statement.setInt(2, Incentivo.getCosto());
-            statement.setString(3, Incentivo.getDescripcion());
-            
+    @Override
+    public void addIncentivo(Incentivo incentivo) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                // Corregido el orden de los parámetros en la consulta
+                "INSERT INTO Incentivo (Costo, Descripcion, ID_Incentivo) VALUES (?, ?, ?)"
+            );
+
+            // Corregido el orden de los parámetros
+            statement.setDouble(1, incentivo.getCosto());
+            statement.setString(2, incentivo.getDescripcion());
+            statement.setInt(3, incentivo.getID_Incentivo());
+
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("Usuario insertado exitosamente");
+                System.out.println("Incentivo insertado exitosamente");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-	}
+    }
 
-	@Override
-	public void updateIncentivo(Incentivo Incentivo) {
-		try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE Incentivo SET Costo= ?, Descripcion= ?, ID_Incentivo= ?  WHERE id = ?");
-            
-            statement.setInt(1, Incentivo.getID_Incentivo());
-            statement.setInt(2, Incentivo.getCosto());
-            statement.setString(3, Incentivo.getDescripcion());
-            
+    @Override
+    public void updateIncentivo(Incentivo incentivo) {
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                // Corregido el orden de los parámetros en la consulta
+                "UPDATE Incentivo SET Costo = ?, Descripcion = ? WHERE ID_Incentivo = ?"
+            );
+
+            // Corregido el orden de los parámetros
+            statement.setDouble(1, incentivo.getCosto());
+            statement.setString(2, incentivo.getDescripcion());
+            statement.setInt(3, incentivo.getID_Incentivo());
+
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("Usuario actualizado exitosamente");
+                System.out.println("Incentivo actualizado exitosamente");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-		
-	}
+    }
 
-	@Override
-	public void deleteIncentivo(int Incentivo) {
-		try {
-			PreparedStatement statement = connection.prepareStatement("DELETE from Entrenador where ID_Incentivo= ? ");
-			statement.setInt(1, Incentivo);
-			int rowsDeleted= statement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "No  se pudo eliminar el Incentivo");
-		}
-	}
+    @Override
+    public void deleteIncentivo(int id) {
+        try {
+            // Corregido el nombre de la tabla en la consulta
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM Incentivo WHERE ID_Incentivo = ?");
+            statement.setInt(1, id);
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Incentivo eliminado exitosamente");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar el incentivo.");
+        }
+    }
 }
+
