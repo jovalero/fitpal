@@ -58,10 +58,6 @@ public class HomeClientePremium extends JFrame {
         contentPane.add(CanjearIncentivo);
 
 
-        JButton btnVerEntrenador = new JButton("Ver entrenador");
-        btnVerEntrenador.setBounds(300, 189, 201, 43);
-        contentPane.add(btnVerEntrenador);
-
         
         JButton botonCerrarSesion = new JButton("Cerrar sesión");
         botonCerrarSesion.addActionListener(new ActionListener() {

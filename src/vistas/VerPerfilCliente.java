@@ -123,7 +123,7 @@ public class VerPerfilCliente extends JFrame {
 			EntrenadorControlador entrenador= new EntrenadorControlador();
 			JLabel lblEntrenador = new JLabel("Entrenador: Ninguno");
 			if (entrenador.getEntrenadorByid(cliente.getId_entrenador())!=null) {
-				lblEntrenador.setText("Entrenador: " + entrenador.getEntrenadorByid(cliente.getId_entrenador()));
+				lblEntrenador.setText("Entrenador: " + entrenador.getEntrenadorByid(cliente.getId_entrenador()).getNombre());
 			}
 			lblEntrenador.setFont(new Font("Tahoma", Font.BOLD, 20));
 			lblEntrenador.setBounds(44, 431, 412, 55);
