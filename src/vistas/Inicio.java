@@ -13,6 +13,8 @@ import modelo.Cliente;
 import modelo.Entrenador;
 import modelo.Persona;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -30,7 +32,21 @@ public class Inicio extends JFrame {
     private JPasswordField contrasenainput;
 
     public static void main(String[] args) {
-        ClienteControlador controladorc = new ClienteControlador();
+
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    Inicio frame = new Inicio();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public Inicio() {
+    	ClienteControlador controladorc = new ClienteControlador();
         EntrenadorControlador controladore = new EntrenadorControlador();
         AdminControlador controladora = new AdminControlador();
         LinkedList<Persona> personas = new LinkedList<>();
@@ -44,20 +60,6 @@ public class Inicio extends JFrame {
         for (Admin admin : controladora.getAllAdmin()) {
             personas.add(admin);
         }
-
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Inicio frame = new Inicio(personas);
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    public Inicio(LinkedList<Persona> personas) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
         contentPane = new JPanel();
@@ -109,7 +111,7 @@ public class Inicio extends JFrame {
         JButton botoningresar = new JButton("Ingresar");
         botoningresar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                boolean flag = true;
+            	boolean flag = true;
                 Persona[] arraypersona = personas.toArray(new Persona[0]);
 
                 if (!VerificacionesRepository.MailInicio(emailinput.getText())) {
@@ -128,22 +130,7 @@ public class Inicio extends JFrame {
                 if (flag) {
                     int indice = Persona.Iniciarsesion(emailinput.getText(), contrasenainput.getText(), personas);
                     if (indice != -1) {
-                        if (arraypersona[indice] instanceof Entrenador) {
-                            HomeEntrenador homeEntrenador = new HomeEntrenador((Entrenador) arraypersona[indice]);
-                            homeEntrenador.setVisible(true);
-                        } else if (arraypersona[indice] instanceof Admin) {
-                            HomeAdmin homeAdmin = new HomeAdmin((Admin) arraypersona[indice]);
-                            homeAdmin.setVisible(true);
-                        } else if (arraypersona[indice] instanceof Cliente) {
-                            Cliente cliente = (Cliente) arraypersona[indice];
-                            if (cliente.getEstado_sus().equalsIgnoreCase("Premium")) {
-                                HomeClientePremium homeClientePremium = new HomeClientePremium(cliente);
-                                homeClientePremium.setVisible(true);
-                            } else {
-                                HomeCliente homeCliente = new HomeCliente(cliente);
-                                homeCliente.setVisible(true);
-                            }
-                        }
+                     arraypersona[indice].Menu();
                         dispose();
                     } else {
                         noencontradolabel.setVisible(true);
@@ -160,7 +147,7 @@ public class Inicio extends JFrame {
                 System.exit(0);
             }
         });
-        botonSalir.setBounds(176, 196, 89, 23);
+        botonSalir.setBounds(176, 221, 89, 23);
         contentPane.add(botonSalir);
     }
 }
