@@ -2,6 +2,7 @@ package vistas;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,7 +12,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -26,163 +26,151 @@ public class RutinaTabla extends JFrame {
     private JTable table;
     private DefaultTableModel model;
     private RutinaControlador controlador;
-    private JTextField filtroField;
-    private Rutina rutinaSeleccionada;
+    private JTextField textFieldFiltro;
+    private Rutina rutinaSeleccionada; // Asumiendo que Rutina tiene los métodos getIdRutina(), getEstado(), getDescripcion(), getObjetivo()
 
     public RutinaTabla(Admin administrador) {
         this.setVisible(true);
-        controlador = new RutinaControlador();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 945, 480);
+        setBounds(100, 100, 945, 365);
         contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane.setBorder(null);
         setContentPane(contentPane);
-        contentPane.setLayout(null);
 
-        model = new DefaultTableModel(
-            new Object[][] {}, // No initial data
-            new String[] { "ID_Rutina", "Estado", "Descripción", "Objetivo" }
-        );
+        try {
+            controlador = new RutinaControlador();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+            return;
+        }
+
+        if (controlador.getConnection() == null) {
+            JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos");
+            return;
+        }
+
+        rutinaSeleccionada = new Rutina(0, "", "", "",""); // Revisar que los argumentos aquí coincidan con el constructor de Rutina
+
+        String[] columnNames = { "ID Rutina", "Estado", "Descripción", "Objetivo" };
+        model = new DefaultTableModel(columnNames, 0);
         table = new JTable(model);
+        actualizarTabla();
+
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBounds(10, 83, 911, 190);
+        scrollPane.setBounds(5, 56, 911, 190);
+        contentPane.setLayout(null);
         contentPane.add(scrollPane);
 
-        JLabel Seleccionadolabel = new JLabel("Seleccionado: ");
-        Seleccionadolabel.setBounds(10, 11, 911, 14);
-        contentPane.add(Seleccionadolabel);
+        JLabel lblFiltro = new JLabel("Buscador:");
+        lblFiltro.setBounds(20, 36, 67, 14);
+        contentPane.add(lblFiltro);
 
-        filtroField = new JTextField();
-        filtroField.setBounds(10, 52, 150, 20);
-        contentPane.add(filtroField);
-        filtroField.setColumns(10);
+        textFieldFiltro = new JTextField();
+        textFieldFiltro.setBounds(97, 33, 100, 20);
+        contentPane.add(textFieldFiltro);
+        textFieldFiltro.setColumns(10);
 
         JButton btnFiltrar = new JButton("Filtrar");
-        btnFiltrar.setBounds(170, 49, 89, 23);
-        contentPane.add(btnFiltrar);
+        btnFiltrar.setBounds(207, 32, 89, 23);
         btnFiltrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String filtro = filtroField.getText();
-                filtrarTabla(filtro, administrador.getIdRutina());
+                filtrar(textFieldFiltro.getText());
+            }
+        });
+        contentPane.add(btnFiltrar);
+
+        JLabel seleccionadoLabel = new JLabel("Seleccionado:");
+        seleccionadoLabel.setBounds(5, 257, 911, 14);
+        contentPane.add(seleccionadoLabel);
+
+        JButton btnEliminar = new JButton("Eliminar");
+        btnEliminar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (rutinaSeleccionada != null && rutinaSeleccionada.getIdRutina() != 0) {
+                    int idRutina = rutinaSeleccionada.getIdRutina();
+                    controlador.deleteRutina(idRutina);
+                    actualizarTabla();
+                    JOptionPane.showMessageDialog(null, "Rutina eliminada");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Seleccione una rutina");
+                }
             }
         });
 
-        JButton btnAdd = new JButton("Agregar Rutina");
-        btnAdd.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                agregarRutina();
-            }
-        });
-        btnAdd.setBounds(10, 301, 150, 30);
-        contentPane.add(btnAdd);
+        btnEliminar.setBounds(475, 257, 187, 58);
+        contentPane.add(btnEliminar);
 
-        JButton btnEdit = new JButton("Editar Rutina");
-        btnEdit.addActionListener(new ActionListener() {
+        JButton btnEditar = new JButton("Editar");
+        btnEditar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                editarRutina();
+                if (rutinaSeleccionada.getIdRutina() != 0) {
+                    // Crear una instancia de EditarRutina pasando el controlador, la rutina seleccionada y RutinaTabla actual
+                    new EditarRutina(controlador, rutinaSeleccionada, RutinaTabla.this).setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Seleccione una rutina");
+                }
             }
         });
-        btnEdit.setBounds(183, 301, 150, 30);
-        contentPane.add(btnEdit);
+        btnEditar.setBounds(268, 257, 166, 58);
+        contentPane.add(btnEditar);
 
-        JButton btnDelete = new JButton("Borrar Rutina");
-        btnDelete.addActionListener(new ActionListener() {
+        JButton Volverbutton = new JButton("Volver a menú");
+        Volverbutton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                borrarRutina();
+                new HomeAdmin(administrador).setVisible(true);
+                dispose();
             }
         });
-        btnDelete.setBounds(353, 301, 150, 30);
-        contentPane.add(btnDelete);
-
-        JButton btnHome = new JButton("Volver a Inicio");
-        btnHome.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                volverAInicio(administrador);
-            }
-        });
-        btnHome.setBounds(522, 301, 150, 30);
-        contentPane.add(btnHome);
+        Volverbutton.setBounds(700, 257, 166, 58);
+        contentPane.add(Volverbutton);
 
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         selectionModel.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
                     int selectedRow = table.getSelectedRow();
                     if (selectedRow != -1) {
-                        int id = (int) table.getValueAt(selectedRow, 0);
+                        int idRutina = (int) table.getValueAt(selectedRow, 0);
                         String estado = (String) table.getValueAt(selectedRow, 1);
                         String descripcion = (String) table.getValueAt(selectedRow, 2);
                         String objetivo = (String) table.getValueAt(selectedRow, 3);
-                        Seleccionadolabel.setText("Seleccionado: ID=" + id + ", Estado=" + estado + ", Descripción=" + descripcion + ", Objetivo=" + objetivo);
-                        rutinaSeleccionada = new Rutina(id, estado, descripcion, objetivo);
+                        seleccionadoLabel.setText("Seleccionado: ID Rutina=" + idRutina + ", Estado=" + estado
+                                + ", Descripción=" + descripcion + ", Objetivo=" + objetivo);
+                        rutinaSeleccionada.setIdRutina(idRutina);
+                        rutinaSeleccionada.setEstado(estado);
+                        rutinaSeleccionada.setDescripcion(descripcion);
+                        rutinaSeleccionada.setObjetivo(objetivo);
                     }
                 }
             }
         });
-
-        actualizarTabla(administrador.getIdRutina());
     }
 
-    public void actualizarTabla(int rutinaId) {
+    // Cambios en el método actualizarTabla() y filtrar() para usar List en lugar de LinkedList
+
+    public void actualizarTabla() {
         model.setRowCount(0);
-        Rutina rutina = controlador.getRutinaById(rutinaId);
-        if (rutina != null) {
-            model.addRow(new Object[] {
-                rutina.getID_Rutina(),
-                rutina.getEstado(),
-                rutina.getDescripcion(),
-                rutina.getObjetivo()
-            });
-        } else {
-            JOptionPane.showMessageDialog(this, "No se encontró la rutina con el ID especificado.");
+        List<Rutina> rutinas = controlador.getAllRutinas(); // Cambiar aquí a List<Rutina>
+        for (Rutina rutina : rutinas) {
+            model.addRow(new Object[] { rutina.getIdRutina(), rutina.getEstado(), rutina.getDescripcion(),
+                    rutina.getObjetivo() });
         }
     }
 
-
-    private void filtrarTabla(String filtro, int rutinaId) {
+    private void filtrar(String criterio) {
         model.setRowCount(0);
-        Rutina rutina = controlador.getRutinaById(rutinaId);
-        if (rutina != null) {
-            if (rutina.getDescripcion().toLowerCase().contains(filtro.toLowerCase()) || rutina.getEstado().toLowerCase().contains(filtro.toLowerCase())) {
-                model.addRow(new Object[] {
-                    rutina.getID_Rutina(),
-                    rutina.getEstado(),
-                    rutina.getDescripcion(),
-                    rutina.getObjetivo()
-                });
+        List<Rutina> rutinas = controlador.getAllRutinas(); // Cambiar aquí a List<Rutina>
+        String criterioLower = criterio.toLowerCase();
+
+        for (Rutina rutina : rutinas) {
+            if (rutina.getDescripcion().toLowerCase().contains(criterioLower)
+                    || rutina.getEstado().toLowerCase().contains(criterioLower)) {
+                model.addRow(new Object[] { rutina.getIdRutina(), rutina.getEstado(), rutina.getDescripcion(),
+                        rutina.getObjetivo() });
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "No se encontró la rutina con el ID especificado.");
         }
-    }
-
-    private void agregarRutina() {
-        // Implementar lógica para agregar una rutina
-    }
-
-    private void editarRutina() {
-        if (rutinaSeleccionada != null) {
-            // Implementar lógica para editar una rutina
-        } else {
-            JOptionPane.showMessageDialog(this, "Seleccione una rutina para editar.");
-        }
-    }
-
-    private void borrarRutina() {
-        int selectedRow = table.getSelectedRow();
-        if (selectedRow >= 0) {
-            int idRutina = (int) table.getValueAt(selectedRow, 0);
-            controlador.deleteRutina(idRutina);
-            actualizarTabla(idRutina); // Actualizar tabla después de borrar
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione una rutina para borrar.");
-        }
-    }
-
-    private void volverAInicio(Admin administrador) {
-        new HomeAdmin(administrador).setVisible(true);
-        this.dispose();
     }
 }

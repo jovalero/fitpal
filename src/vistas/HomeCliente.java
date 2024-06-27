@@ -10,6 +10,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JOptionPane;
 
 public class HomeCliente extends JFrame {
 
@@ -56,8 +57,18 @@ public class HomeCliente extends JFrame {
         AnotarProgresoButton.setBounds(300, 81, 201, 43);
         contentPane.add(AnotarProgresoButton);
 
-
         JButton VerRutinabutton = new JButton("Ver rutina");
+        VerRutinabutton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // Abrir la ventana RutinaCliente
+                    new RutinaCliente(cliente).setVisible(true);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error al abrir la ventana RutinaCliente");
+                }
+            }
+        });
         VerRutinabutton.setBounds(300, 135, 201, 43);
         contentPane.add(VerRutinabutton);
         
@@ -74,4 +85,3 @@ public class HomeCliente extends JFrame {
         contentPane.add(botonCerrarSesion);
     }
 }
-

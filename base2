@@ -1,13 +1,17 @@
+-- Crear la base de datos
 CREATE DATABASE fitpal;
 
+-- Usar la base de datos
 USE fitpal;
 
+-- Crear la tabla sucursal
 CREATE TABLE sucursal (
   ID_Sucursal INT PRIMARY KEY AUTO_INCREMENT,
   Direccion VARCHAR(255) NOT NULL,
   Telefono VARCHAR(255) NOT NULL
 );
 
+-- Crear la tabla areas
 CREATE TABLE areas (
   ID_Area INT PRIMARY KEY AUTO_INCREMENT,
   Nombre VARCHAR(255) NOT NULL,
@@ -16,6 +20,7 @@ CREATE TABLE areas (
   FOREIGN KEY (ID_Sucursal) REFERENCES sucursal(ID_Sucursal)
 );
 
+-- Crear la tabla ejercicio
 CREATE TABLE ejercicio (
   ID_Ejercicio INT PRIMARY KEY AUTO_INCREMENT,
   Nombre VARCHAR(255) NOT NULL,
@@ -27,13 +32,16 @@ CREATE TABLE ejercicio (
   FOREIGN KEY (ID_Area) REFERENCES areas(ID_Area)
 );
 
+-- Crear la tabla rutina con la nueva columna Creada
 CREATE TABLE rutina (
   ID_Rutina INT PRIMARY KEY AUTO_INCREMENT, 
   Estado VARCHAR(255) NOT NULL,
   Descripcion TEXT NOT NULL,
-  Objetivo VARCHAR(255) NOT NULL
+  Objetivo VARCHAR(255) NOT NULL,
+  Creada VARCHAR(255) NOT NULL
 );
 
+-- Crear la tabla ejercicio_rutina
 CREATE TABLE ejercicio_rutina (
   ID_Ejercicio_Rutina INT PRIMARY KEY AUTO_INCREMENT,
   ID_Ejercicio INT NOT NULL,
@@ -44,18 +52,21 @@ CREATE TABLE ejercicio_rutina (
   FOREIGN KEY (ID_Rutina) REFERENCES rutina(ID_Rutina)
 );
 
+-- Crear la tabla dieta
 CREATE TABLE dieta (
   ID_Dieta INT PRIMARY KEY AUTO_INCREMENT,
   Nombre_Dieta VARCHAR(255) NOT NULL,
   Descripcion_Dieta TEXT NOT NULL
 );
 
+-- Crear la tabla comida
 CREATE TABLE comida (
-  ID_Comida INT PRIMARY KEY AUTO_INCREMENT ,
+  ID_Comida INT PRIMARY KEY AUTO_INCREMENT,
   Nombre VARCHAR(255) NOT NULL,
   Descripcion TEXT NOT NULL
 );
 
+-- Crear la tabla dieta_comida
 CREATE TABLE dieta_comida (
   ID_Dieta_Comida INT PRIMARY KEY AUTO_INCREMENT,
   ID_Dieta INT NOT NULL,
@@ -65,6 +76,7 @@ CREATE TABLE dieta_comida (
   FOREIGN KEY (ID_Comida) REFERENCES comida(ID_Comida)
 );
 
+-- Crear la tabla administrador
 CREATE TABLE administrador (
   ID_Administrador INT PRIMARY KEY AUTO_INCREMENT,
   ID_Sucursal INT NOT NULL,
@@ -77,6 +89,7 @@ CREATE TABLE administrador (
   FOREIGN KEY (ID_Sucursal) REFERENCES sucursal(ID_Sucursal)
 );
 
+-- Crear la tabla entrenador
 CREATE TABLE entrenador (
   ID_Entrenador INT PRIMARY KEY AUTO_INCREMENT,
   Telefono VARCHAR(255) NOT NULL,
@@ -90,6 +103,7 @@ CREATE TABLE entrenador (
   FOREIGN KEY (ID_Sucursal) REFERENCES sucursal(ID_Sucursal)
 );
 
+-- Crear la tabla cliente
 CREATE TABLE cliente (
   ID_cliente INT PRIMARY KEY AUTO_INCREMENT,
   ID_Entrenador INT,
@@ -114,6 +128,7 @@ CREATE TABLE cliente (
   FOREIGN KEY (ID_sucursal) REFERENCES sucursal(ID_Sucursal)
 );
 
+-- Crear la tabla progreso
 CREATE TABLE progreso (
   ID_Progreso INT PRIMARY KEY AUTO_INCREMENT,
   ID_Cliente INT NOT NULL,
@@ -123,6 +138,7 @@ CREATE TABLE progreso (
   FOREIGN KEY (ID_Cliente) REFERENCES cliente(ID_cliente)
 );
 
+-- Crear la tabla incentivo
 CREATE TABLE incentivo (
   id_incentivo INT PRIMARY KEY AUTO_INCREMENT,
   recompensa VARCHAR(100),
@@ -130,7 +146,7 @@ CREATE TABLE incentivo (
   dirigido VARCHAR(50)
 );
 
--- Insert data
+-- Insertar datos en las tablas
 
 -- Tabla sucursal
 INSERT INTO sucursal (Direccion, Telefono) VALUES 
@@ -147,10 +163,13 @@ INSERT INTO ejercicio (Nombre, Maquina, Musculo, Descripcion, Video, ID_Area) VA
 ('Correr', 'Trotadora', 'Piernas', 'Ejercicio cardiovascular en trotadora', 'video1.mp4', 1),
 ('Press de banca', 'Máquina de press', 'Pectorales', 'Ejercicio de fuerza para el pecho', 'video2.mp4', 2);
 
--- Tabla rutina
-INSERT INTO rutina (Estado, Descripcion, Objetivo) VALUES 
-('Activa', 'Rutina para principiantes', 'Perder peso'),
-('Inactiva', 'Rutina avanzada', 'Ganar músculo');
+-- Tabla rutina con columna Creada
+INSERT INTO rutina (Estado, Descripcion, Objetivo, Creada) VALUES 
+('Activa', 'Rutina para principiantes', 'Perder peso', '2024-06-26'),
+('Inactiva', 'Rutina avanzada', 'Ganar músculo', '2024-06-27'),
+('Activa', 'Rutina intermedia', 'Mejorar resistencia', '2024-06-28'),
+('Inactiva', 'Rutina avanzada de fuerza', 'Incrementar fuerza', '2024-06-29'),
+('Activa', 'Rutina para flexibilidad', 'Mejorar flexibilidad', '2024-06-30');
 
 -- Tabla ejercicio_rutina
 INSERT INTO ejercicio_rutina (ID_Ejercicio, ID_Rutina, Num_Series, Repeticiones) VALUES 

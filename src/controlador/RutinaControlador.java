@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JOptionPane;
+
 import interfaces.RutinaRepository;
 import modelo.Rutina;
 
@@ -16,6 +18,9 @@ public class RutinaControlador implements RutinaRepository {
 
     public RutinaControlador() {
         this.connection = DatabaseConnection.getInstance().getConnection();
+        if (this.connection == null) {
+            throw new IllegalStateException("No se pudo establecer la conexión a la base de datos");
+        }
     }
 
     public Connection getConnection() {
@@ -24,7 +29,7 @@ public class RutinaControlador implements RutinaRepository {
 
     @Override
     public List<Rutina> getAllRutinas() {
-        List<Rutina> rutinas = new LinkedList<>();
+        List<Rutina> rutinas = new ArrayList<>();
 
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM rutina");
@@ -35,12 +40,13 @@ public class RutinaControlador implements RutinaRepository {
                     resultSet.getInt("ID_Rutina"),
                     resultSet.getString("Estado"),
                     resultSet.getString("Descripcion"),
-                    resultSet.getString("Objetivo")
+                    resultSet.getString("Objetivo"),
+                    resultSet.getString("Creada")
                 );
                 rutinas.add(rutina);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al obtener todas las rutinas: " + e.getMessage());
             JOptionPane.showMessageDialog(null, "Ocurrió un error al mostrar las rutinas");
         }
         return rutinas;
@@ -59,11 +65,15 @@ public class RutinaControlador implements RutinaRepository {
                     resultSet.getInt("ID_Rutina"),
                     resultSet.getString("Estado"),
                     resultSet.getString("Descripcion"),
-                    resultSet.getString("Objetivo")
+                    resultSet.getString("Objetivo"),
+                    resultSet.getString("Creada")
                 );
+            } else {
+                System.err.println("No se encontró la rutina con ID: " + id);
+                JOptionPane.showMessageDialog(null, "No se encontró la rutina con el ID especificado");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al obtener la rutina por ID: " + e.getMessage());
         }
         return rutina;
     }
@@ -71,10 +81,11 @@ public class RutinaControlador implements RutinaRepository {
     @Override
     public void addRutina(Rutina rutina) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO rutina (Estado, Descripcion, Objetivo) VALUES (?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO rutina (Estado, Descripcion, Objetivo, Creada) VALUES (?, ?, ?, ?)");
             statement.setString(1, rutina.getEstado());
             statement.setString(2, rutina.getDescripcion());
             statement.setString(3, rutina.getObjetivo());
+            statement.setString(4, rutina.getCreada());
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
@@ -89,18 +100,21 @@ public class RutinaControlador implements RutinaRepository {
     @Override
     public void updateRutina(Rutina rutina) {
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE rutina SET Estado = ?, Descripcion = ?, Objetivo = ? WHERE ID_Rutina = ?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE rutina SET Estado = ?, Descripcion = ?, Objetivo = ?, Creada = ? WHERE ID_Rutina = ?");
             statement.setString(1, rutina.getEstado());
             statement.setString(2, rutina.getDescripcion());
             statement.setString(3, rutina.getObjetivo());
-            statement.setInt(4, rutina.getIdRutina());
+            statement.setString(4, rutina.getCreada());
+            statement.setInt(5, rutina.getIdRutina());
 
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
                 JOptionPane.showMessageDialog(null, "Rutina actualizada exitosamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró la rutina con el ID especificado");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al actualizar la rutina: " + e.getMessage());
             JOptionPane.showMessageDialog(null, "No se pudo actualizar la rutina");
         }
     }
@@ -114,16 +128,40 @@ public class RutinaControlador implements RutinaRepository {
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
                 JOptionPane.showMessageDialog(null, "Rutina eliminada exitosamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró la rutina con el ID especificado");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error al eliminar la rutina: " + e.getMessage());
             JOptionPane.showMessageDialog(null, "No se pudo eliminar la rutina");
         }
     }
 
-	
+    public List<Rutina> getAllRutinasPredeterminadas() {
+        List<Rutina> rutinas = new ArrayList<>();
 
-	
-	
+        try {
+            String query = "SELECT * FROM rutina WHERE Creada = 'predeterminada'";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Rutina rutina = new Rutina(
+                    resultSet.getInt("ID_Rutina"),
+                    resultSet.getString("Estado"),
+                    resultSet.getString("Descripcion"),
+                    resultSet.getString("Objetivo"),
+                    resultSet.getString("Creada")
+                );
+                rutinas.add(rutina);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener todas las rutinas predeterminadas: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al mostrar las rutinas predeterminadas");
+        }
+
+        return rutinas;
+    }
+
+
 }
-
