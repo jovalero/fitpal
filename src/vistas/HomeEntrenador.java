@@ -19,7 +19,7 @@ public class HomeEntrenador extends JFrame {
 	public HomeEntrenador(Entrenador entrenador) {
 		this.setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 683, 393);
+		setBounds(100, 100, 749, 393);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -49,23 +49,15 @@ public class HomeEntrenador extends JFrame {
 		asignarRutinasButton.setBounds(52, 135, 201, 43);
 		contentPane.add(asignarRutinasButton);
 
-		JButton visualizarIncentivosButton = new JButton("Visualizar incentivos");
-		visualizarIncentivosButton.addActionListener(new ActionListener() {
+		JButton clientes = new JButton("Mis Clientes");
+		clientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "No hay incentivos");
+				Misclientes misclientes=new Misclientes(entrenador);
+        		dispose();
 			}
 		});
-		visualizarIncentivosButton.setBounds(52, 189, 201, 43);
-		contentPane.add(visualizarIncentivosButton);
-
-		JButton canjearIncentivosButton = new JButton("Canjear incentivos");
-		canjearIncentivosButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "No existen incentivos que canjear");
-			}
-		});
-		canjearIncentivosButton.setBounds(52, 243, 201, 43);
-		contentPane.add(canjearIncentivosButton);
+		clientes.setBounds(52, 243, 201, 43);
+		contentPane.add(clientes);
 		
 		JButton salirButton = new JButton("Salir");
 		salirButton.addActionListener(new ActionListener() {
