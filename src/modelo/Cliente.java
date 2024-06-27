@@ -43,7 +43,7 @@ public class Cliente extends Persona{
 		this.objetivo= Objetivo;
 		this.id_entrenador=0;
 		this.id_dieta=0;
-		this.estado_sus="Desactivada";
+		this.estado_sus="Nuevo";
 		this.puntos=0;
 		this.Fechavenc=null;
 		this.altura=altura;
@@ -152,8 +152,9 @@ public class Cliente extends Persona{
 
 	@Override
 	public void Menu() {
+		JOptionPane.showMessageDialog(null, "Hola");
 		ClienteControlador controlador= new ClienteControlador();
-		JOptionPane.showMessageDialog(null, this.getEstado_sus());
+		
 		if (this.getEstado_sus().equalsIgnoreCase("Activa") && this.getFechavenc().isBefore(LocalDate.now())) {
 			JOptionPane.showMessageDialog(null, "Su suscripcion esta vencida");
 			this.setEstado_sus("Desactivada");
