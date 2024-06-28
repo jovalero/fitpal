@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 import controlador.IncentivoControlador;
 import modelo.Admin;
+import modelo.Cliente;
 import modelo.Incentivo;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -29,7 +30,7 @@ public class MostrarTabladeCanje extends JFrame {
     private DefaultTableModel model;
     private IncentivoControlador controlador;
 
-    public MostrarTabladeCanje(Admin administrador) {
+    public MostrarTabladeCanje(Cliente cliente) {
         this.setVisible(true);
         controlador = new IncentivoControlador();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,7 +70,7 @@ public class MostrarTabladeCanje extends JFrame {
         JButton btnAtras = new JButton("Atras");
         btnAtras.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new HomeAdmin(administrador).setVisible(true);
+                new HomeClientePremium(cliente).setVisible(true);
                 dispose();
             }
         });

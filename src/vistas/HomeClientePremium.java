@@ -53,9 +53,11 @@ public class HomeClientePremium extends JFrame {
         VerRutinabutton.setBounds(52, 243, 201, 43);
         contentPane.add(VerRutinabutton);
 
-        JButton CanjearIncentivo = new JButton("Canjear incentivos");
+        JButton CanjearIncentivo = new JButton("Incentivos");
         CanjearIncentivo.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		Misincentivos Misincentivos= new Misincentivos(cliente);
+        		dispose();
         	}
         });
         CanjearIncentivo.setBounds(300, 81, 201, 43);
@@ -73,10 +75,10 @@ public class HomeClientePremium extends JFrame {
         JButton botonCerrarSesion = new JButton("Cerrar sesión");
         botonCerrarSesion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Cerrar sesión y volver a la ventana de inicio de sesión
-                Inicio inicio = new Inicio();  // personas es la lista de usuarios
+               
+                Inicio inicio = new Inicio(); 
                 inicio.setVisible(true);
-                dispose();  // Cierra la ventana actual
+                dispose(); 
             }
         });
         botonCerrarSesion.setBounds(500, 300, 130, 23);

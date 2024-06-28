@@ -17,6 +17,7 @@ public class Misincentivos extends JFrame {
     private JLabel Puntos;
 
     public Misincentivos(Cliente cliente) {
+    	this.setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
         contentPane = new JPanel();
@@ -28,7 +29,7 @@ public class Misincentivos extends JFrame {
         JButton btncanjear = new JButton("Comprar Puntos");
         btncanjear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	MostrarTabladeCanje MostrarTabladeCanje=new MostrarTabladeCanje();
+            	MostrarTabladeCanje mostrarTabladeCanje = new MostrarTabladeCanje(cliente);
             	dispose();
             }
         });
@@ -55,7 +56,7 @@ public class Misincentivos extends JFrame {
         Puntos.setBounds(128, 69, 170, 69);
         contentPane.add(Puntos);
 
-        // Establece el texto del JLabel Puntos con los puntos del cliente
+      
         Puntos.setText(String.valueOf(cliente.getPuntos()));
     }
 }
