@@ -2,6 +2,8 @@ package modelo;
 
 import javax.swing.JOptionPane;
 
+import vistas.HomeEntrenador;
+
 public class Entrenador extends Persona {
 	
 	private int id_entrenador;
@@ -62,6 +64,10 @@ public class Entrenador extends Persona {
 				+ getNombre() + ", getApellido()=" + getApellido() + ", getTelefono()=" + getTelefono()
 				+ ", getId_sucursal()=" + getId_sucursal() + ", getDNI()=" + getDNI() + ", getContrasena()="
 				+ getContrasena() + ", getEmail()=" + getEmail() + "]";
+	}
+	@Override
+	public void Menu() {
+		new HomeEntrenador(this);
 	}
 }
 

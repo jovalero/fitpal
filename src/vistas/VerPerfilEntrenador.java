@@ -23,10 +23,6 @@ public class VerPerfilEntrenador extends JFrame {
 	private SucursalControlador sucursal;
 
 
-
-	/**
-	 * Create the frame.
-	 */
 	public VerPerfilEntrenador(Entrenador entrenador) {
 		sucursal= new SucursalControlador();
 	
