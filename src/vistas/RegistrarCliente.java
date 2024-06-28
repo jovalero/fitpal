@@ -1,5 +1,6 @@
 package vistas;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -127,6 +128,54 @@ public class RegistrarCliente extends JFrame {
 		AlturaInput.setText("0");
 		contentPane.add(AlturaInput);
 		
+		JLabel nombreerror = new JLabel("Ingresa  un nombre porfavor\r\n");
+		nombreerror.setForeground(Color.RED);
+		nombreerror.setBounds(292, 76, 202, 14);
+		nombreerror.setVisible(false);
+		contentPane.add(nombreerror);
+		
+		JLabel ApellidoError = new JLabel("Ingresa Un Apellido");
+		ApellidoError.setForeground(Color.RED);
+		ApellidoError.setBounds(294, 113, 182, 14);
+		ApellidoError.setVisible(false);
+		contentPane.add(ApellidoError);
+		
+		JLabel MailError = new JLabel("Ingresa un mail valido");
+		MailError.setForeground(Color.RED);
+		MailError.setBounds(294, 144, 166, 14);
+		MailError.setVisible(false);
+		contentPane.add(MailError);
+		
+		JLabel TelefonoError = new JLabel("Ingresa un  telefono  valido");
+		TelefonoError.setForeground(Color.RED);
+		TelefonoError.setBounds(294, 172, 200, 14);
+		TelefonoError.setVisible(false);
+		contentPane.add(TelefonoError);
+		
+		JLabel lblNewLabel = new JLabel("Ingresa DNI");
+		lblNewLabel.setForeground(Color.RED);
+		lblNewLabel.setBounds(294, 200, 136, 14);
+		lblNewLabel.setVisible(false);
+		contentPane.add(lblNewLabel);
+		
+		JLabel Errorcontra = new JLabel("Ingresa contraseña valida");
+		Errorcontra.setForeground(Color.RED);
+		Errorcontra.setBounds(294, 227, 166, 14);
+		Errorcontra.setVisible(false);
+		contentPane.add(Errorcontra);
+		
+		JLabel ErrorAltura = new JLabel("Ingresa Altura");
+		ErrorAltura.setForeground(Color.RED);
+		ErrorAltura.setBounds(294, 286, 158, 14);
+		ErrorAltura.setVisible(false);
+		contentPane.add(ErrorAltura);
+		
+		JLabel PesoError = new JLabel("Ingresar Peso");
+		PesoError.setForeground(Color.RED);
+		PesoError.setBounds(294, 258, 158, 14);
+		PesoError.setVisible(false);
+		contentPane.add(PesoError);
+		
 		JButton RegistrarButton = new JButton("Registrar Cliente");
 		RegistrarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -141,66 +190,76 @@ public class RegistrarCliente extends JFrame {
 				boolean flag=true;
 				int sucursal=administrador.getId_sucursal();
 				if (!VerificacionesRepository.Sololetras(NombreInput.getText())) {
-					flag=false;
-			
-				}
-				else {
-					Nombre=NombreInput.getText();
-				}
-				if (!VerificacionesRepository.Sololetras(ApellidoInput.getText())) {
-					flag=false;
-				}
-				else {
-					Apellido=ApellidoInput.getText();
-				}
+                    flag = false;
+                    nombreerror.setVisible(true);
+                } else {
+                    Nombre = NombreInput.getText();
+                    nombreerror.setVisible(false);
+                }
+                if (!VerificacionesRepository.Sololetras(ApellidoInput.getText())) {
+                    flag = false;
+                    ApellidoError.setVisible(true);
+                } else {
+                    Apellido = ApellidoInput.getText();
+                    ApellidoError.setVisible(false);
+                }
 				if (!VerificacionesRepository.Mail(MailInput.getText())) {
 					flag=false;
+					MailError.setVisible(true);
 				
 				}
 				else {
+					MailError.setVisible(false);
 					Mail=MailInput.getText();
 				}
-				if (!VerificacionesRepository.SoloEnteros(TelefonoInput.getText())) {
-					flag=false;
-					
-				
-				}
-				else {
-					Telefono=Integer.parseInt(TelefonoInput.getText());
-				}
-				if (!VerificacionesRepository.SoloEnteros(DNIInput.getText())) {
-					flag=false;
-					
-				}
+				 if (!VerificacionesRepository.SoloEnteros(TelefonoInput.getText())) {
+	                    flag = false;
+	                    TelefonoError.setVisible(true);
+	                } else {
+	                    Telefono = Integer.parseInt(TelefonoInput.getText());
+	                    TelefonoError.setVisible(false);
+	                }
+	                if (!VerificacionesRepository.SoloEnteros(DNIInput.getText())) {
+	                    flag = false;
+	                    lblNewLabel.setVisible(true);
+	                    }
 				else {
 					if (VerificacionesRepository.DNIExistente(Integer.parseInt(DNIInput.getText()))) {
 						flag=false;
+						lblNewLabel.setVisible(true);
 				
 					}
 					else {
 						 DNI=Integer.parseInt(DNIInput.getText());
+						 lblNewLabel.setVisible(false);
 					}
 				}
 				if (ContrasenaInput.getText().isEmpty()) {
 					flag=false;
+					Errorcontra.setVisible(true);
 					
 				}
 				else {
 					Contrasena=ContrasenaInput.getText();
+					Errorcontra.setVisible(false);
 				}
 				if (!VerificacionesRepository.SoloDoubles(PesoInput.getText())) {
 					flag=false;
+					PesoError.setVisible(true);
 					
 				}
 				else {
 					 Peso=Double.parseDouble(PesoInput.getText());
+					 PesoError.setVisible(false);
 				}
 				if (!VerificacionesRepository.SoloDoubles(AlturaInput.getText())) {
 					flag=false;
+					ErrorAltura.setVisible(true);
 					
 				}
 				else {
 					Altura=Double.parseDouble(AlturaInput.getText());
+					ErrorAltura.setVisible(false);
 				}
 				
 				if (flag) {
@@ -230,5 +289,7 @@ public class RegistrarCliente extends JFrame {
 		});
 		Volverbutton.setBounds(274, 339, 113, 23);
 		contentPane.add(Volverbutton);
+		
+	
 	}
 }
