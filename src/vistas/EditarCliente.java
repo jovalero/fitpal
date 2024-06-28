@@ -27,6 +27,7 @@ import javax.swing.JComboBox;
 import java.awt.FlowLayout;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
+import java.awt.Color;
 
 public class EditarCliente extends JFrame {
 
@@ -171,7 +172,50 @@ public class EditarCliente extends JFrame {
 		JLabel Estado_susLabel = new JLabel("Estado de la suscripción:");
 		Estado_susLabel.setBounds(81, 259, 188, 14);
 		contentPane.add(Estado_susLabel);
-
+		
+		JLabel nombreerror = new JLabel("Ingresa  un nombre porfavor\r\n");
+		nombreerror.setForeground(Color.RED);
+		nombreerror.setBounds(292, 76, 202, 14);
+		nombreerror.setVisible(false);
+		contentPane.add(nombreerror);
+		
+		JLabel ApellidoError = new JLabel("Ingresa Un Apellido");
+		ApellidoError.setForeground(Color.RED);
+		ApellidoError.setBounds(294, 113, 182, 14);
+		ApellidoError.setVisible(false);
+		contentPane.add(ApellidoError);
+		
+		JLabel MailError = new JLabel("Ingresa un mail valido");
+		MailError.setForeground(Color.RED);
+		MailError.setBounds(294, 144, 166, 14);
+		MailError.setVisible(false);
+		contentPane.add(MailError);
+		
+		JLabel TelefonoError = new JLabel("Ingresa un  telefono  valido");
+		TelefonoError.setForeground(Color.RED);
+		TelefonoError.setBounds(294, 172, 200, 14);
+		TelefonoError.setVisible(false);
+		contentPane.add(TelefonoError);
+		
+		JLabel lblNewLabel = new JLabel("Ingresa DNI");
+		lblNewLabel.setForeground(Color.RED);
+		lblNewLabel.setBounds(294, 200, 136, 14);
+		lblNewLabel.setVisible(false);
+		contentPane.add(lblNewLabel);
+		
+		JLabel Errorcontra = new JLabel("Ingresa contraseña valida");
+		Errorcontra.setForeground(Color.RED);
+		Errorcontra.setBounds(294, 227, 166, 14);
+		Errorcontra.setVisible(false);
+		contentPane.add(Errorcontra);
+		
+		JLabel ErrorPuntos = new JLabel("Ingresa puntos");
+		ErrorPuntos.setForeground(Color.RED);
+		ErrorPuntos.setBounds(302, 284, 158, 14);
+		ErrorPuntos.setVisible(false);
+		contentPane.add(ErrorPuntos);
+		
+		
 		JButton EditarButton = new JButton("Guardar cambios");
 		EditarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -188,55 +232,69 @@ public class EditarCliente extends JFrame {
 
 				if (!VerificacionesRepository.Sololetras(NombreInput.getText())) {
 					flag=false;
+					nombreerror.setVisible(true);
 			
 				}
 				else {
 					nombre=NombreInput.getText();
+					nombreerror.setVisible(false);
 				}
 				if (!VerificacionesRepository.Sololetras(ApellidoInput.getText())) {
 					flag=false;
+					ApellidoError.setVisible(true);
 				}
 				else {
 					apellido=ApellidoInput.getText();
+					ApellidoError.setVisible(false);
 				}
 				if (!Seleccinado.getUsuario().equalsIgnoreCase(MailInput.getText()) && !VerificacionesRepository.Mail(MailInput.getText())) {
 					flag=false;
-				
+					MailError.setVisible(true);
+
 				}
 				else {
 					mail=MailInput.getText();
+					MailError.setVisible(false);
 				}
 				if (!VerificacionesRepository.SoloEnteros(TelefonoInput.getText())) {
 					flag=false;
+					TelefonoError.setVisible(true);
 				}
 				else {
 					telefono=Integer.parseInt(TelefonoInput.getText());
+					TelefonoError.setVisible(false);
 				}
 				if (!VerificacionesRepository.SoloEnteros(DniInput.getText())) {
 					flag=false;
+					lblNewLabel.setVisible(true);
 					
 				}
 				else {
 					if (Seleccinado.getDNI()!=Integer.parseInt(DniInput.getText()) && VerificacionesRepository.DNIExistente(Integer.parseInt(DniInput.getText()))) {
 						flag=false;
+						lblNewLabel.setVisible(true);
 				
 					}
 					else {
 						 dni=Integer.parseInt(DniInput.getText());
+						 lblNewLabel.setVisible(false);
 					}
 				}
 				if (ContrasenaInput.getText().isEmpty()) {
 					flag=false;
-					
+					Errorcontra.setVisible(true);
 				}
 				else {
 					contrasena=ContrasenaInput.getText();
+					Errorcontra.setVisible(false);
 				}
 				if (!VerificacionesRepository.SoloEnteros(PuntosInput.getText())) {
 					flag=false;
+					ErrorPuntos.setVisible(true);
 				}
 				else {
 					puntos=Integer.parseInt(PuntosInput.getText());
+					ErrorPuntos.setVisible(false);
 				}
 				
 				
@@ -266,13 +324,21 @@ public class EditarCliente extends JFrame {
 		EditarButton.setBounds(81, 413, 150, 23);
 		contentPane.add(EditarButton);
 		
-	
 
-	    
 		
 		JButton Volverbutton = new JButton("Cancelar");
 		Volverbutton.setBounds(283, 413, 117, 23);
 		contentPane.add(Volverbutton);
+		
+
+		
+
+		
+
+		
+		
+		
+		
 		Volverbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new TablaClientes(administrador);

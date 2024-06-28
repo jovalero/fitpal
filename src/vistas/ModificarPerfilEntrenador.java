@@ -1,5 +1,6 @@
 package vistas;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -104,6 +105,42 @@ public class ModificarPerfilEntrenador extends JFrame {
         JLabel ContrasenaLabel = new JLabel("Contraseña: ");
         ContrasenaLabel.setBounds(130, 227, 66, 14);
         contentPane.add(ContrasenaLabel);
+        
+        JLabel nombreerror = new JLabel("Ingresa  un nombre porfavor\r\n");
+		nombreerror.setForeground(Color.RED);
+		nombreerror.setBounds(292, 76, 202, 14);
+		nombreerror.setVisible(false);
+		contentPane.add(nombreerror);
+		
+		JLabel ApellidoError = new JLabel("Ingresa Un Apellido");
+		ApellidoError.setForeground(Color.RED);
+		ApellidoError.setBounds(294, 113, 182, 14);
+		ApellidoError.setVisible(false);
+		contentPane.add(ApellidoError);
+		
+		JLabel MailError = new JLabel("Ingresa un mail valido");
+		MailError.setForeground(Color.RED);
+		MailError.setBounds(294, 144, 166, 14);
+		MailError.setVisible(false);
+		contentPane.add(MailError);
+		
+		JLabel TelefonoError = new JLabel("Ingresa un  telefono  valido");
+		TelefonoError.setForeground(Color.RED);
+		TelefonoError.setBounds(294, 172, 200, 14);
+		TelefonoError.setVisible(false);
+		contentPane.add(TelefonoError);
+		
+		JLabel lblNewLabel = new JLabel("Ingresa DNI");
+		lblNewLabel.setForeground(Color.RED);
+		lblNewLabel.setBounds(294, 200, 136, 14);
+		lblNewLabel.setVisible(false);
+		contentPane.add(lblNewLabel);
+		
+		JLabel Errorcontra = new JLabel("Ingresa contraseña valida");
+		Errorcontra.setForeground(Color.RED);
+		Errorcontra.setBounds(294, 227, 166, 14);
+		Errorcontra.setVisible(false);
+		contentPane.add(Errorcontra);
 
         Calendar today = Calendar.getInstance();
         JButton EditarButton = new JButton("Guardar cambios");
@@ -113,47 +150,59 @@ public class ModificarPerfilEntrenador extends JFrame {
                 String apellido = "";
                 String mail = "";
                 String contrasena = "";
-                String estado_sus = "";
+               
                 int telefono = 0;
                 int dni = 0;
-                int puntos = 0;
+           
                 boolean flag = true;
 
                 if (!VerificacionesRepository.Sololetras(NombreInput.getText())) {
                     flag = false;
+                    nombreerror.setVisible(true);
                 } else {
                     nombre = NombreInput.getText();
+                    nombreerror.setVisible(false);
                 }
                 if (!VerificacionesRepository.Sololetras(ApellidoInput.getText())) {
                     flag = false;
+                    ApellidoError.setVisible(true);
                 } else {
                     apellido = ApellidoInput.getText();
+                    ApellidoError.setVisible(false);
                 }
                 if (!Seleccinado.getUsuario().equalsIgnoreCase(MailInput.getText()) && !VerificacionesRepository.Mail(MailInput.getText())) {
                     flag = false;
+                	MailError.setVisible(true);
                 } else {
                     mail = MailInput.getText();
+                	MailError.setVisible(false);
                 }
                 if (!VerificacionesRepository.SoloEnteros(TelefonoInput.getText())) {
                     flag = false;
+                    TelefonoError.setVisible(true);
                 } else {
                     telefono = Integer.parseInt(TelefonoInput.getText());
+                    TelefonoError.setVisible(false);
                 }
                 if (!VerificacionesRepository.SoloEnteros(DniInput.getText())) {
                     flag = false;
+                    lblNewLabel.setVisible(true);
                 } else {
                     if (Seleccinado.getDNI() != Integer.parseInt(DniInput.getText()) && VerificacionesRepository.DNIExistente(Integer.parseInt(DniInput.getText()))) {
                         flag = false;
+                        lblNewLabel.setVisible(true);
                     } else {
                         dni = Integer.parseInt(DniInput.getText());
+                        lblNewLabel.setVisible(false);
                     }
                 }
                 if (ContrasenaInput.getText().isEmpty()) {
                     flag = false;
+                    lblNewLabel.setVisible(true);
                 } else {
                     contrasena = ContrasenaInput.getText();
+                    lblNewLabel.setVisible(false);
                 }
-        
                 if (flag) {
                     Seleccinado.setNombre(nombre);
                     Seleccinado.setApellido(apellido);

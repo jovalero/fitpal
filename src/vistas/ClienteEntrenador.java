@@ -96,10 +96,10 @@ public class ClienteEntrenador extends JFrame {
         btnEliminar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (seleccionado.getId_cliente() != 0) {
-                    seleccionado.setId_entrenador(0); // Desasignar el cliente del entrenador
+                    seleccionado.setId_entrenador(0); 
                     controlador.updateCliente(seleccionado);
 
-                    // Reducir el número de clientes entrenados del entrenador
+                    
                     entrenador.setNumentrenados(entrenador.getNumentrenados() - 1);
                     EntrenadorControlador entrenadorControlador = new EntrenadorControlador();
                     entrenadorControlador.updateEntrenador(entrenador);
