@@ -139,10 +139,9 @@ public class EditarCliente extends JFrame {
 		Estado_sus.addItem("Suspendida");
 		Estado_sus.setBounds(198, 255, 100, 22);
 		contentPane.add(Estado_sus);
-		if (Estado_sus.getSelectedItem().toString().equalsIgnoreCase("Activa")) {
-			panel.setVisible(true);
-			dateChooser1.setDate(Date.from(Seleccinado.getFechavenc().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-			
+		if (Estado_sus.getSelectedItem() != null && Estado_sus.getSelectedItem().toString().equalsIgnoreCase("Activa")) {
+		    panel.setVisible(true);
+		    dateChooser1.setDate(Date.from(Seleccinado.getFechavenc().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 		}
 		Estado_sus.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {

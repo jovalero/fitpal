@@ -46,7 +46,7 @@ public class HomeEntrenador extends JFrame {
 				JOptionPane.showMessageDialog(null, "No hay rutinas en la base de datos");
 			}
 		});
-		asignarRutinasButton.setBounds(322, 150, 201, 43);
+		asignarRutinasButton.setBounds(65, 224, 201, 43);
 		contentPane.add(asignarRutinasButton);
 		
 		JButton visualizarProgresosButton = new JButton("Visualizar progresos de clientes");
@@ -54,7 +54,7 @@ public class HomeEntrenador extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// Abrir la ventana de TablaProgresoEntrenador
 				new TablaProgresoEntrenador(entrenador).setVisible(true);
-				dispose(); // Cerrar la ventana actual si es necesario
+				dispose(); 
 			}
 		});
 		visualizarProgresosButton.setBounds(52, 297, 201, 43);
@@ -69,11 +69,11 @@ public class HomeEntrenador extends JFrame {
                 dispose();  // Cierra la ventana actual
             }
         });
-        botonCerrarSesion.setBounds(322, 307, 130, 23);
+        botonCerrarSesion.setBounds(400, 307, 130, 23);
         contentPane.add(botonCerrarSesion);
         
         JButton btnAsignarDieta = new JButton("Asignar Dieta");
-        btnAsignarDieta.setBounds(330, 82, 242, 43);
+        btnAsignarDieta.setBounds(65, 83, 242, 43);
         contentPane.add(btnAsignarDieta);
         btnAsignarDieta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
